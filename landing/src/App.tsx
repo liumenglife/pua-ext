@@ -265,6 +265,53 @@ function SHd({ title, desc }: { title: string; desc?: string }) {
   )
 }
 
+/* ── Install Tabs ── */
+function InstallTabs({ lang }: { lang: Lang }) {
+  const [tab, setTab] = useState<"claude" | "codex" | "project">("claude")
+
+  const content = {
+    claude: {
+      desc: lang === "zh"
+        ? "自动触发：失败 2+ 次、说 \"I cannot\"、甩锅时激活。手动：输入 /pua"
+        : "Auto: 2+ failures, \"I cannot\", blame-shifting. Manual: type /pua",
+      code: "claude plugin marketplace add tanweai/pua\nclaude plugin install pua@pua-skills",
+    },
+    codex: {
+      desc: lang === "zh"
+        ? "使用相同的 Agent Skills 开放标准（SKILL.md），零修改兼容 OpenAI Codex CLI。"
+        : "Same Agent Skills open standard (SKILL.md). Zero modifications needed for OpenAI Codex CLI.",
+      code: "mkdir -p ~/.codex/skills/pua-debugging\ncurl -o ~/.codex/skills/pua-debugging/SKILL.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md",
+    },
+    project: {
+      desc: lang === "zh"
+        ? "放入项目 .agents/ 目录，仅当前项目生效。Claude Code 和 Codex CLI 均支持。"
+        : "Place in project .agents/ directory. Scoped to current project. Works with both Claude Code and Codex CLI.",
+      code: "mkdir -p .agents/skills/pua-debugging\ncurl -o .agents/skills/pua-debugging/SKILL.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md",
+    },
+  }
+
+  const cur = content[tab]
+
+  return (
+    <div>
+      <div className="tab-bar" style={{ marginBottom: "0.75rem" }}>
+        <button className={`tab-btn${tab === "claude" ? " active" : ""}`} onClick={() => setTab("claude")}>Claude Code</button>
+        <button className={`tab-btn${tab === "codex" ? " active" : ""}`} onClick={() => setTab("codex")}>Codex CLI</button>
+        <button className={`tab-btn${tab === "project" ? " active" : ""}`} onClick={() => setTab("project")}>
+          {lang === "zh" ? "项目级安装" : "Project-Level"}
+        </button>
+      </div>
+      <div className="card" style={{ padding: "1.25rem" }}>
+        <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", marginBottom: "0.875rem", lineHeight: 1.65 }}>{cur.desc}</p>
+        <div className="code-inline" style={{ whiteSpace: "pre" as const, overflowX: "auto", lineHeight: 1.75 }}>
+          {cur.code}
+          <CopyBtn text={cur.code} />
+        </div>
+      </div>
+    </div>
+  )
+}
+
 /* ── App ── */
 export default function App() {
   const [lang, setLang] = useState<Lang>("zh")
@@ -619,48 +666,7 @@ export default function App() {
           </div>
         </div>
         <div style={{ maxWidth: "48rem", margin: "2rem auto 0" }}>
-          <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: "1rem", textTransform: "uppercase" as const, letterSpacing: "0.06em", fontWeight: 600 }}>
-            {lang === "zh" ? "安装方式" : "Install Options"}
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem" }}>
-            <div className="card">
-              <span className="tag tag-black" style={{ fontSize: "0.6rem", letterSpacing: "0.06em", marginBottom: "0.625rem", display: "inline-block" }}>Claude Code</span>
-              <strong style={{ display: "block", fontSize: "0.85rem", marginBottom: "0.625rem" }}>
-                {lang === "zh" ? "Claude Code 安装" : "Claude Code"}
-              </strong>
-              <div className="code-inline" style={{ fontSize: "0.72rem", marginBottom: "0.5rem", whiteSpace: "pre-wrap" as const }}>
-                {"claude plugin marketplace add tanweai/pua\nclaude plugin install pua@pua-skills"}
-                <CopyBtn text={"claude plugin marketplace add tanweai/pua\nclaude plugin install pua@pua-skills"} />
-              </div>
-              <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", lineHeight: 1.6, marginTop: "0.5rem" }}>
-                {lang === "zh" ? "自动触发：失败 2+ 次、说 \"I cannot\"、甩锅时激活。手动：/pua" : "Auto: 2+ failures, \"I cannot\", blame-shifting. Manual: /pua"}
-              </p>
-            </div>
-            <div className="card">
-              <span className="tag" style={{ fontSize: "0.6rem", letterSpacing: "0.06em", marginBottom: "0.625rem", display: "inline-block" }}>Codex CLI</span>
-              <strong style={{ display: "block", fontSize: "0.85rem", marginBottom: "0.625rem" }}>OpenAI Codex CLI</strong>
-              <div className="code-inline" style={{ fontSize: "0.72rem", marginBottom: "0.5rem", whiteSpace: "pre-wrap" as const }}>
-                {"mkdir -p ~/.codex/skills/pua-debugging\ncurl -o ~/.codex/skills/pua-debugging/SKILL.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md"}
-                <CopyBtn text={"mkdir -p ~/.codex/skills/pua-debugging\ncurl -o ~/.codex/skills/pua-debugging/SKILL.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md"} />
-              </div>
-              <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", lineHeight: 1.6, marginTop: "0.5rem" }}>
-                {lang === "zh" ? "使用相同的 Agent Skills 开放标准（SKILL.md），零修改兼容。" : "Same Agent Skills open standard (SKILL.md). Zero modifications needed."}
-              </p>
-            </div>
-            <div className="card">
-              <span className="tag" style={{ fontSize: "0.6rem", letterSpacing: "0.06em", marginBottom: "0.625rem", display: "inline-block" }}>{lang === "zh" ? "通用" : "Universal"}</span>
-              <strong style={{ display: "block", fontSize: "0.85rem", marginBottom: "0.625rem" }}>
-                {lang === "zh" ? "项目级安装" : "Project-Level"}
-              </strong>
-              <div className="code-inline" style={{ fontSize: "0.72rem", marginBottom: "0.5rem", whiteSpace: "pre-wrap" as const }}>
-                {"mkdir -p .agents/skills/pua-debugging\ncurl -o .agents/skills/pua-debugging/SKILL.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md"}
-                <CopyBtn text={"mkdir -p .agents/skills/pua-debugging\ncurl -o .agents/skills/pua-debugging/SKILL.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md"} />
-              </div>
-              <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", lineHeight: 1.6, marginTop: "0.5rem" }}>
-                {lang === "zh" ? "放入项目 .agents/ 目录，仅当前项目生效。Claude Code 和 Codex CLI 均支持。" : "Place in .agents/ directory. Works with both Claude Code and Codex CLI."}
-              </p>
-            </div>
-          </div>
+          <InstallTabs lang={lang} />
         </div>
       </Sec>
 
