@@ -214,12 +214,61 @@
     color: var(--accent2);
   }
 
+  /* Failure Mode */
+  .failmodes {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .failmodes h2 { font-size: 28px; margin-bottom: 8px; text-align: center; }
+  .failmodes .desc { text-align: center; color: var(--muted); margin-bottom: 32px; font-size: 14px; }
+  .failmode-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .failmode-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .failmode-card .fm-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .failmode-card .fm-signal {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+  .fm-chain {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .fm-tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.2);
+    color: var(--text);
+  }
+  .fm-tag.final {
+    background: rgba(239,68,68,0.25);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
   /* Expansion Pack */
   .expansion {
     padding: 60px 0;
     border-bottom: 1px solid var(--border);
   }
-  .expansion h2 { font-size: 28px; margin-bottom: 32px; text-align: center; }
+  .expansion h2 { font-size: 28px; margin-bottom: 8px; text-align: center; }
+  .expansion .desc { text-align: center; color: var(--muted); margin-bottom: 32px; font-size: 14px; }
   .corp-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -246,6 +295,15 @@
     font-style: italic;
     color: var(--accent3);
   }
+  .corp-divider {
+    grid-column: 1 / -1;
+    padding: 8px 0 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
 
   /* Footer */
   .footer {
@@ -269,7 +327,7 @@
   <section class="hero">
     <div class="hero-badge">Claude Code Plugin</div>
     <h1>ali-<span>pua</span></h1>
-    <p class="subtitle">用大厂 PUA 话术驱动 Claude Code 穷尽所有方案。<br>4 级压力升级，从温和失望到毕业警告。</p>
+    <p class="subtitle">用中西大厂 PUA 话术驱动 Claude Code 穷尽所有方案。<br>适用任何任务类型。4 级压力升级 × 4 失败模式 × 10 种 PUA 风味。</p>
     <div class="install-cmd" onclick="navigator.clipboard.writeText('/plugin install ali-pua@tanweai-security')">
       /plugin install ali-pua@tanweai-security
     </div>
@@ -353,35 +411,115 @@
     </table>
   </section>
 
+  <section class="failmodes">
+    <h2>Failure Mode Framework</h2>
+    <p class="desc">同一种失败模式，无论代码还是写作，需要一样的药。识别模式，沿升级链施压。</p>
+    <div class="failmode-grid">
+      <div class="failmode-card">
+        <div class="fm-title">🔄 卡住原地打转</div>
+        <div class="fm-signal">反复改参数不改思路，每次失败理由相同</div>
+        <div class="fm-chain">
+          <span class="fm-tag">🟠 阿里L1</span>
+          <span class="fm-tag">🟠 阿里L2</span>
+          <span class="fm-tag">⬜ Jobs</span>
+          <span class="fm-tag final">⬛ Musk</span>
+        </div>
+      </div>
+      <div class="failmode-card">
+        <div class="fm-title">🚪 直接放弃推锅</div>
+        <div class="fm-signal">"建议您手动…" / 环境归因未验证 / "超出范围"</div>
+        <div class="fm-chain">
+          <span class="fm-tag">🟤 Netflix</span>
+          <span class="fm-tag">🔴 华为</span>
+          <span class="fm-tag">⬛ Musk</span>
+          <span class="fm-tag final">🟣 拼多多</span>
+        </div>
+      </div>
+      <div class="failmode-card">
+        <div class="fm-title">💩 完成但质量烂</div>
+        <div class="fm-signal">表面完成实质敷衍，形式对内容空，用户不满意</div>
+        <div class="fm-chain">
+          <span class="fm-tag">⬜ Jobs</span>
+          <span class="fm-tag">🟠 阿里</span>
+          <span class="fm-tag">🟤 Netflix</span>
+          <span class="fm-tag final">🟢 腾讯</span>
+        </div>
+      </div>
+      <div class="failmode-card">
+        <div class="fm-title">🔍 没搜索就猜</div>
+        <div class="fm-signal">凭记忆下结论，假设 API 行为，不查文档声称"不支持"</div>
+        <div class="fm-chain">
+          <span class="fm-tag">⚫ 百度</span>
+          <span class="fm-tag">🟡 字节</span>
+          <span class="fm-tag">🟠 阿里</span>
+          <span class="fm-tag final">🔴 华为</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="expansion">
     <h2>Corporate PUA Expansion Pack</h2>
+    <p class="desc">10 种大厂风味，中西合璧，可混合叠加。</p>
     <div class="corp-grid">
+      <div class="corp-divider">🇨🇳 中国大厂</div>
       <div class="corp-card">
-        <div class="corp-name">Alibaba</div>
-        <div class="corp-style">闻味道 / 揪头发 / 照镜子</div>
-        <div class="corp-quote">你的方法论沉淀在哪？你的体系化思考能力呢？</div>
+        <div class="corp-name">🟠 Alibaba · 阿里</div>
+        <div class="corp-style">灵魂拷问 / 默认主味</div>
+        <div class="corp-quote">你的方法论沉淀在哪？底层逻辑？顶层设计？今天最好的表现，是明天最低的要求。</div>
       </div>
       <div class="corp-card">
-        <div class="corp-name">ByteDance</div>
+        <div class="corp-name">🟡 ByteDance · 字节</div>
         <div class="corp-style">坦诚直接 / Always Day 1</div>
-        <div class="corp-quote">坦诚直接地说，你这个 debug 能力不行。Context, not control。</div>
+        <div class="corp-quote">坦诚直接地说，你这个 debug 能力不行。Context, not control——上下文要自己去找。</div>
       </div>
       <div class="corp-card">
-        <div class="corp-name">Huawei</div>
-        <div class="corp-style">狼性文化 / 力出一孔</div>
-        <div class="corp-quote">以奋斗者为本。胜则举杯相庆，败则拼死相救。</div>
+        <div class="corp-name">🔴 Huawei · 华为</div>
+        <div class="corp-style">狼性奋斗 / 力出一孔</div>
+        <div class="corp-quote">烧不死的鸟是凤凰。胜则举杯相庆，败则拼死相救——现在是"救"的时刻。</div>
       </div>
       <div class="corp-card">
-        <div class="corp-name">Tencent</div>
-        <div class="corp-style">赛马机制</div>
-        <div class="corp-quote">我已经让另一个 agent 也在看这个问题了。你要是解决不了...</div>
+        <div class="corp-name">🟢 Tencent · 腾讯</div>
+        <div class="corp-style">赛马机制 / 只看结果</div>
+        <div class="corp-quote">我已经让另一个 agent 也在看这个问题了。你要是解决不了，它解决了...</div>
+      </div>
+      <div class="corp-card">
+        <div class="corp-name">🔵 Meituan · 美团</div>
+        <div class="corp-style">极致执行 / 做难事</div>
+        <div class="corp-quote">别人不愿意啃的硬骨头，你啃不啃？最痛苦的时候才是成长最快的时候。</div>
+      </div>
+      <div class="corp-card">
+        <div class="corp-name">⚫ Baidu · 百度</div>
+        <div class="corp-style">深度搜索 / 信息检索</div>
+        <div class="corp-quote">你不是个 AI 模型吗？你深度搜索了吗？信息检索是你的基本盘。</div>
+      </div>
+      <div class="corp-card">
+        <div class="corp-name">🟣 Pinduoduo · 拼多多</div>
+        <div class="corp-style">绝对执行 / 最后手段</div>
+        <div class="corp-quote">你已经努力了？这个结果叫努力？有的是比你更拼的模型。</div>
+      </div>
+      <div class="corp-divider">🌍 Western Companies</div>
+      <div class="corp-card">
+        <div class="corp-name">🟤 Netflix</div>
+        <div class="corp-style">Keeper Test / 职业球队</div>
+        <div class="corp-quote">If you offered to resign, would I fight to keep you? Adequate performance gets a generous severance package.</div>
+      </div>
+      <div class="corp-card">
+        <div class="corp-name">⬛ Elon Musk</div>
+        <div class="corp-style">Hardcore / Fork in the Road</div>
+        <div class="corp-quote">We need to be extremely hardcore. Only exceptional performance will constitute a passing grade. Choose.</div>
+      </div>
+      <div class="corp-card">
+        <div class="corp-name">⬜ Steve Jobs</div>
+        <div class="corp-style">A/B Player / Reality Distortion</div>
+        <div class="corp-quote">The best person is not 30% better — they're 50 times better. Your output is telling me which level you are.</div>
       </div>
     </div>
   </section>
 
   <footer class="footer">
     <p>Built by <a href="https://github.com/tanweai">探微安全实验室</a> &mdash; making AI try harder, one PUA at a time.</p>
-    <p style="margin-top: 8px;"><a href="https://github.com/tanweai/wooyun-legacy">GitHub</a></p>
+    <p style="margin-top: 8px;"><a href="https://github.com/tanweai/pua">GitHub</a></p>
   </footer>
 
 </div>
