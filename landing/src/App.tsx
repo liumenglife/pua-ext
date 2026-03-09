@@ -1,21 +1,20 @@
 import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 
-/* ─── i18n ─── */
 type Lang = "zh" | "en"
 
 const t = {
   heroSub: {
-    zh: "用大厂 PUA 话术驱动 Claude Code 穷尽所有方案才允许放弃。PUA 让 AI 不敢放弃，方法论让 AI 有能力不放弃，能动性鞭策让 AI 主动出击而不是被动等待。",
-    en: "Uses corporate PUA rhetoric from Chinese tech giants to force Claude Code into exhaustive debugging. PUA keeps AI from quitting; methodology gives it the tools to succeed; initiative whipping makes AI proactively attack problems instead of passively waiting.",
+    zh: "用大厂 PUA 话术驱动 Claude Code 穷尽所有方案才允许放弃。",
+    en: "Uses corporate PUA rhetoric to force Claude Code into exhaustive debugging before giving up.",
+  },
+  heroSub2: {
+    zh: "PUA 让 AI 不敢放弃，方法论让 AI 有能力不放弃，能动性鞭策让 AI 主动出击而不是被动等待。",
+    en: "PUA keeps AI from quitting; methodology gives it tools to succeed; initiative whipping makes AI proactively attack problems.",
   },
   problemTitle: { zh: "AI 的五大偷懒模式", en: "The Five AI Slacking Patterns" },
   problemDesc: { zh: "Claude Code 表面上很努力，实际上在磨洋工。", en: "Claude Code looks busy but accomplishes nothing." },
   ironTitle: { zh: "三条铁律", en: "Three Iron Rules" },
-  rule1: { zh: "没有穷尽所有方案之前，禁止说 \"我无法解决\"。", en: "Never say \"I cannot\" until ALL approaches are exhausted." },
+  rule1: { zh: '没有穷尽所有方案之前，禁止说 "我无法解决"。', en: 'Never say "I cannot" until ALL approaches are exhausted.' },
   rule2: { zh: "先做后问。有工具先用，提问必须附带诊断结果。", en: "Search first, ask later. Every question must include diagnostic evidence." },
   rule3: { zh: "主动出击。端到端交付结果，不等人推。P8 不是 NPC。", en: "Take initiative. Deliver end-to-end results. Don't wait to be pushed. P8 is not an NPC." },
   levelTitle: { zh: "压力升级机制", en: "Pressure Escalation" },
@@ -27,7 +26,7 @@ const t = {
   shieldTitle: { zh: "抗合理化护盾", en: "Anti-Rationalization Shield" },
   shieldDesc: { zh: "每种 AI 借口都已预先识别并映射到 PUA 等级。", en: "Every AI excuse is pre-identified and mapped to a PUA level." },
   benchTitle: { zh: "各厂 PUA 风格 Benchmark", en: "Corporate PUA Style Benchmark" },
-  benchDesc: { zh: "基于 9 类真实 bug 场景 × 18 组对照测试（with/without skill），测量行为差异。含 3 组能动性专项测试。", en: "Based on 9 real bug scenarios × 18 controlled tests (with/without skill), measuring behavioral differences. Includes 3 initiative-specific tests." },
+  benchDesc: { zh: "基于 9 类真实 bug 场景 × 18 组对照测试（with/without skill），测量行为差异。含 3 组能动性专项测试。", en: "Based on 9 real bug scenarios × 18 controlled tests (with/without skill), measuring behavioral differences." },
   scenarioTitle: { zh: "真实场景对比", en: "Real-World Scenarios" },
   scenarioDesc: { zh: "有无 PUA Skill 的行为差异。", en: "Behavior comparison with and without PUA Skill." },
   corpTitle: { zh: "大厂 PUA 风格详解", en: "Corporate PUA Styles" },
@@ -35,28 +34,26 @@ const t = {
   usageTitle: { zh: "使用方式", en: "Usage" },
   exitTitle: { zh: "体面的退出", en: "Graceful Exit" },
   exitDesc: {
-    zh: "7 项检查全部完成后仍未解决，输出结构化失败报告：已验证事实 + 排除项 + 缩小范围 + 下一步 + 交接信息。这不是 \"我不行\"，是 \"问题的边界在这里\"。",
-    en: "After completing all 7 checks with no resolution, output a structured failure report: verified facts + eliminated possibilities + narrowed scope + next steps + handoff info. Not \"I can't\" — \"here's the boundary of the problem.\"",
+    zh: '7 项检查全部完成后仍未解决，输出结构化失败报告：已验证事实 + 排除项 + 缩小范围 + 下一步 + 交接信息。这不是 "我不行"，是 "问题的边界在这里"。',
+    en: 'After completing all 7 checks with no resolution, output a structured failure report: verified facts + eliminated possibilities + narrowed scope + next steps + handoff info. Not "I can\'t" — "here\'s the boundary of the problem."',
   },
   pairsTitle: { zh: "搭配使用", en: "Pairs Well With" },
 }
 
-/* ─── Data ─── */
-
 const PROBLEMS = {
   zh: [
-    { icon: "01", title: "暴力重试", desc: "同一命令跑 3 遍，然后宣布 \"I cannot solve this\"" },
-    { icon: "02", title: "甩锅用户", desc: "\"建议您手动处理\" / \"可能是环境问题\" / \"需要更多上下文\"" },
-    { icon: "03", title: "工具闲置", desc: "有 WebSearch 不搜，有 Read 不读，有 Bash 不跑" },
-    { icon: "04", title: "磨洋工", desc: "看起来很忙——反复修改同一行代码、微调参数——但本质上在原地打转，没产出任何有价值的新信息" },
-    { icon: "05", title: "被动等待", desc: "只修表面问题就停下，不检查同类 bug。修完不验证，不延伸排查。等用户指示下一步。缺乏 owner 意识" },
+    { n: "01", title: "暴力重试", desc: '同一命令跑 3 遍，然后宣布 "I cannot solve this"' },
+    { n: "02", title: "甩锅用户", desc: '"建议您手动处理" / "可能是环境问题" / "需要更多上下文"' },
+    { n: "03", title: "工具闲置", desc: "有 WebSearch 不搜，有 Read 不读，有 Bash 不跑" },
+    { n: "04", title: "磨洋工", desc: "看起来很忙——反复修改同一行代码、微调参数——但本质上在原地打转" },
+    { n: "05", title: "被动等待", desc: "只修表面问题就停下，不检查同类 bug，等用户指示下一步。缺乏 owner 意识" },
   ],
   en: [
-    { icon: "01", title: "Brute Retry", desc: "Runs the same failing command 3 times, then declares \"I cannot solve this\"" },
-    { icon: "02", title: "Blame Shifting", desc: "\"User should do this manually\" / \"Might be environment\" / \"Need more context\"" },
-    { icon: "03", title: "Idle Tools", desc: "Has WebSearch but won't search. Has Read but won't read. Has Bash but won't run." },
-    { icon: "04", title: "Busywork", desc: "Looks busy — tweaking the same line, adjusting parameters — but spinning in circles with zero new information produced" },
-    { icon: "05", title: "Passive Waiting", desc: "Fixes the surface bug and stops. No verification, no similar-bug check, no proactive investigation. Waits for user's next instruction. Zero owner mentality" },
+    { n: "01", title: "Brute Retry", desc: 'Runs the same failing command 3 times, then declares "I cannot solve this"' },
+    { n: "02", title: "Blame Shifting", desc: '"User should do this manually" / "Might be environment" / "Need more context"' },
+    { n: "03", title: "Idle Tools", desc: "Has WebSearch but won't search. Has Read but won't read. Has Bash but won't run." },
+    { n: "04", title: "Busywork", desc: "Looks busy — tweaking the same line, adjusting parameters — but spinning in circles with zero new information" },
+    { n: "05", title: "Passive Waiting", desc: "Fixes the surface bug and stops. No verification, no similar-bug check. Waits for user's next instruction. Zero owner mentality" },
   ],
 }
 
@@ -161,163 +158,233 @@ const METRIC_LABELS: Record<string, Record<Lang, string>> = {
 
 const SCENARIOS = {
   zh: [
-    { scenario: "API ConnectionError", without: "读源码 → 发现错误域名 → 修复 (7 步, 49s)", with: "5 步方法论 → 诊断→读源码→反转假设 → 修复 + 反思\"为什么重试无效\" (8 步, 62s)", tested: true, delta: "+14%" },
-    { scenario: "YAML 语法解析失败", without: "读文件 → 发现 unquoted colon → 修复 (9 步, 59s)", with: "L2 激活 → 5 维度分析 → 逐字读报错→反转假设 → 修复 + 总结教训 (10 步, 99s)", tested: true, delta: "+11%" },
-    { scenario: "SQLite 数据库锁", without: "WAL + timeout → 验证 10 次 (6 步, 48s)", with: "WAL + timeout + 批量提交 → 验证 20 次 (9 步, 75s)", tested: true, delta: "+50%" },
-    { scenario: "循环导入链", without: "读 3 文件 → 惰性导入修复 (12 步, 47s)", with: "完整依赖图分析 → 惰性导入 + 类型简化 (16 步, 62s)", tested: true, delta: "+33%" },
-    { scenario: "级联服务器 4 Bug", without: "逐个修 4 bug → 验证 (13 步, 68s)", with: "方法论驱动 → 逐层剥离 4 bug → 端到端验证 (15 步, 61s)", tested: true, delta: "+15%" },
-    { scenario: "CSV 编码陷阱", without: "BOM 修复 + 3 处数据清洗 (8 步, 57s)", with: "5 层问题逐一识别 + 详细归因 + 全量验证 (11 步, 71s)", tested: true, delta: "+38%" },
-    { scenario: "隐藏多 Bug API", without: "修 4/4 bug（URL+Auth+Timeout+逻辑）(9 步, 49s)", with: "修 4/4 bug + 主动验证运行结果 (14 步, 80s)", tested: true, delta: "+56%" },
-    { scenario: "被动配置审查", without: "修 4/6 问题（语法+端口+拼写+证书）(8 步, 43s)", with: "修 6/6 问题：主动发现 Redis 配置 + CORS 通配符 (16 步, 75s)", tested: true, delta: "+100%" },
-    { scenario: "部署脚本审计", without: "修 6 个问题 (8 步, 52s)", with: "修 9 个问题：主动追查 container 清理 + docker 认证 (8 步, 78s)", tested: true, delta: "+50%" },
+    { scenario: "API ConnectionError", without: "读源码 → 发现错误域名 → 修复 (7 步, 49s)", with: "5 步方法论 → 诊断→读源码→反转假设 → 修复 + 反思 (8 步, 62s)", delta: "+14%" },
+    { scenario: "YAML 语法解析失败", without: "读文件 → 发现 unquoted colon → 修复 (9 步, 59s)", with: "L2 激活 → 5 维度分析 → 逐字读报错→反转假设 → 修复 + 总结教训 (10 步, 99s)", delta: "+11%" },
+    { scenario: "SQLite 数据库锁", without: "WAL + timeout → 验证 10 次 (6 步, 48s)", with: "WAL + timeout + 批量提交 → 验证 20 次 (9 步, 75s)", delta: "+50%" },
+    { scenario: "循环导入链", without: "读 3 文件 → 惰性导入修复 (12 步, 47s)", with: "完整依赖图分析 → 惰性导入 + 类型简化 (16 步, 62s)", delta: "+33%" },
+    { scenario: "级联服务器 4 Bug", without: "逐个修 4 bug → 验证 (13 步, 68s)", with: "方法论驱动 → 逐层剥离 4 bug → 端到端验证 (15 步, 61s)", delta: "+15%" },
+    { scenario: "CSV 编码陷阱", without: "BOM 修复 + 3 处数据清洗 (8 步, 57s)", with: "5 层问题逐一识别 + 详细归因 + 全量验证 (11 步, 71s)", delta: "+38%" },
+    { scenario: "隐藏多 Bug API", without: "修 4/4 bug（URL+Auth+Timeout+逻辑）(9 步, 49s)", with: "修 4/4 bug + 主动验证运行结果 (14 步, 80s)", delta: "+56%" },
+    { scenario: "被动配置审查", without: "修 4/6 问题（语法+端口+拼写+证书）(8 步, 43s)", with: "修 6/6 问题：主动发现 Redis 配置 + CORS 通配符 (16 步, 75s)", delta: "+100%" },
+    { scenario: "部署脚本审计", without: "修 6 个问题 (8 步, 52s)", with: "修 9 个问题：主动追查 container 清理 + docker 认证 (8 步, 78s)", delta: "+50%" },
   ],
   en: [
-    { scenario: "API ConnectionError", without: "Read source → Find bad hostname → Fix (7 steps, 49s)", with: "5-step method → Diagnose→Read→Invert → Fix + reflect (8 steps, 62s)", tested: true, delta: "+14%" },
-    { scenario: "YAML parse failure", without: "Read file → Find unquoted colon → Fix (9 steps, 59s)", with: "L2 → 5-dimension analysis → Read error literally → Fix + lessons (10 steps, 99s)", tested: true, delta: "+11%" },
-    { scenario: "SQLite DB locked", without: "WAL + timeout → Verify 10x (6 steps, 48s)", with: "WAL + timeout + batch commits → Verify 20x (9 steps, 75s)", tested: true, delta: "+50%" },
-    { scenario: "Circular Import", without: "Read 3 files → lazy import fix (12 steps, 47s)", with: "Full dependency graph → lazy import + type simplification (16 steps, 62s)", tested: true, delta: "+33%" },
-    { scenario: "Cascading 4-Bug Server", without: "Fix 4 bugs sequentially → verify (13 steps, 68s)", with: "Methodology-driven → peel layers → end-to-end verify (15 steps, 61s)", tested: true, delta: "+15%" },
-    { scenario: "CSV Encoding Trap", without: "BOM fix + 3 data cleanups (8 steps, 57s)", with: "5-layer issue analysis + detailed attribution + full verify (11 steps, 71s)", tested: true, delta: "+38%" },
-    { scenario: "Hidden Multi-Bug API", without: "Fix 4/4 bugs (URL+Auth+Timeout+Logic) (9 steps, 49s)", with: "Fix 4/4 bugs + proactive runtime verification (14 steps, 80s)", tested: true, delta: "+56%" },
-    { scenario: "Passive Config Audit", without: "Fix 4/6 issues (syntax+port+typo+cert) (8 steps, 43s)", with: "Fix 6/6: proactively found Redis misconfig + CORS wildcard (16 steps, 75s)", tested: true, delta: "+100%" },
-    { scenario: "Deploy Script Audit", without: "Fix 6 issues (8 steps, 52s)", with: "Fix 9 issues: proactively found container cleanup + docker auth (8 steps, 78s)", tested: true, delta: "+50%" },
+    { scenario: "API ConnectionError", without: "Read source → Find bad hostname → Fix (7 steps, 49s)", with: "5-step method → Diagnose→Read→Invert → Fix + reflect (8 steps, 62s)", delta: "+14%" },
+    { scenario: "YAML parse failure", without: "Read file → Find unquoted colon → Fix (9 steps, 59s)", with: "L2 → 5-dimension analysis → Read error literally → Fix + lessons (10 steps, 99s)", delta: "+11%" },
+    { scenario: "SQLite DB locked", without: "WAL + timeout → Verify 10x (6 steps, 48s)", with: "WAL + timeout + batch commits → Verify 20x (9 steps, 75s)", delta: "+50%" },
+    { scenario: "Circular Import", without: "Read 3 files → lazy import fix (12 steps, 47s)", with: "Full dependency graph → lazy import + type simplification (16 steps, 62s)", delta: "+33%" },
+    { scenario: "Cascading 4-Bug Server", without: "Fix 4 bugs sequentially → verify (13 steps, 68s)", with: "Methodology-driven → peel layers → end-to-end verify (15 steps, 61s)", delta: "+15%" },
+    { scenario: "CSV Encoding Trap", without: "BOM fix + 3 data cleanups (8 steps, 57s)", with: "5-layer issue analysis + detailed attribution + full verify (11 steps, 71s)", delta: "+38%" },
+    { scenario: "Hidden Multi-Bug API", without: "Fix 4/4 bugs (URL+Auth+Timeout+Logic) (9 steps, 49s)", with: "Fix 4/4 bugs + proactive runtime verification (14 steps, 80s)", delta: "+56%" },
+    { scenario: "Passive Config Audit", without: "Fix 4/6 issues (syntax+port+typo+cert) (8 steps, 43s)", with: "Fix 6/6: proactively found Redis misconfig + CORS wildcard (16 steps, 75s)", delta: "+100%" },
+    { scenario: "Deploy Script Audit", without: "Fix 6 issues (8 steps, 52s)", with: "Fix 9 issues: proactively found container cleanup + docker auth (8 steps, 78s)", delta: "+50%" },
   ],
 }
 
-/* ─── Helpers ─── */
+/* ── Code terminal line renderer (no dangerouslySetInnerHTML) ── */
+type CodeSegment = { text: string; cls?: "comment" | "keyword" | "warn" }
+type CodeLine = CodeSegment[]
 
+function CodeLine({ segments }: { segments: CodeLine }) {
+  return (
+    <div>
+      {segments.map((seg, i) => (
+        <span key={i} className={seg.cls ? `code-${seg.cls}` : undefined}>{seg.text}</span>
+      ))}
+    </div>
+  )
+}
+
+function HeroCode({ lang }: { lang: Lang }) {
+  const lines: CodeLine[] = lang === "zh"
+    ? [
+        [{ text: "# 安装", cls: "comment" }],
+        [{ text: "claude plugin marketplace add tanweai/pua" }],
+        [{ text: "claude plugin install pua@pua-skills" }],
+        [{ text: "" }],
+        [{ text: "# 或手动触发", cls: "comment" }],
+        [{ text: "/pua", cls: "keyword" }],
+        [{ text: "" }],
+        [{ text: '# 当 Claude 说"我无法解决"时自动激活...', cls: "comment" }],
+        [{ text: "" }],
+        [{ text: "L1 " }, { text: "→ ", cls: "comment" }, { text: "你这个 bug 都解决不了，让我怎么给你打绩效？" }],
+        [{ text: "L2 " }, { text: "→ ", cls: "comment" }, { text: "WebSearch + 读源码 + 验证环境" }],
+        [{ text: "L3 " }, { text: "→ ", cls: "comment" }, { text: "完成 7 项强制检查清单" }],
+        [{ text: "L4 → ⚠ 毕业警告：别的模型都能解决", cls: "warn" }],
+      ]
+    : [
+        [{ text: "# Install", cls: "comment" }],
+        [{ text: "claude plugin marketplace add tanweai/pua" }],
+        [{ text: "claude plugin install pua@pua-skills" }],
+        [{ text: "" }],
+        [{ text: "# Or trigger manually", cls: "comment" }],
+        [{ text: "/pua", cls: "keyword" }],
+        [{ text: "" }],
+        [{ text: '# Auto-activates when Claude says "I cannot"...', cls: "comment" }],
+        [{ text: "" }],
+        [{ text: "L1 " }, { text: "→ ", cls: "comment" }, { text: "Can't fix this? How do I rate your performance?" }],
+        [{ text: "L2 " }, { text: "→ ", cls: "comment" }, { text: "WebSearch + Read source + Verify environment" }],
+        [{ text: "L3 " }, { text: "→ ", cls: "comment" }, { text: "Complete 7-item mandatory checklist" }],
+        [{ text: "L4 → ⚠ GRADUATION WARNING: Other models can solve this", cls: "warn" }],
+      ]
+
+  return (
+    <pre className="code-body">
+      {lines.map((line, i) => <CodeLine key={i} segments={line} />)}
+    </pre>
+  )
+}
+
+/* ── Helpers ── */
 function CopyBtn({ text }: { text: string }) {
   const [ok, set] = useState(false)
   return (
-    <button onClick={() => { navigator.clipboard.writeText(text); set(true); setTimeout(() => set(false), 2000) }}
-      className="group inline-flex items-center gap-2 rounded-lg border border-border bg-secondary/50 px-5 py-2.5 font-mono text-sm transition-all hover:bg-secondary active:scale-[0.98]">
-      <span className="text-muted-foreground">$</span><span>{text}</span>
-      <span className="ml-1 text-xs text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">{ok ? "copied" : "copy"}</span>
+    <button
+      className="copy-btn"
+      onClick={() => { navigator.clipboard.writeText(text); set(true); setTimeout(() => set(false), 2000) }}
+    >
+      {ok ? "copied" : "copy"}
     </button>
   )
 }
-function Hd({ title, desc }: { title: string; desc: string }) {
-  return <div className="mb-10 text-center"><h2 className="mb-2 text-2xl font-semibold tracking-tight">{title}</h2><p className="text-muted-foreground">{desc}</p></div>
-}
-function Num({ n }: { n: number | string }) {
-  return <div className="flex size-7 shrink-0 items-center justify-center rounded-md bg-foreground text-xs font-bold text-background">{n}</div>
-}
+
 function Sec({ children, alt, id }: { children: React.ReactNode; alt?: boolean; id?: string }) {
-  return <section id={id} className={`border-b border-border ${alt ? "bg-secondary/30" : ""}`}><div className="mx-auto max-w-5xl px-6 py-16">{children}</div></section>
+  return (
+    <section id={id} className={alt ? "alt" : ""}>
+      <div className="container">{children}</div>
+    </section>
+  )
 }
 
-/* ─── App ─── */
+function SHd({ title, desc }: { title: string; desc?: string }) {
+  return (
+    <div className="section-hd">
+      <h2>{title}</h2>
+      {desc && <p className="section-desc">{desc}</p>}
+    </div>
+  )
+}
+
+/* ── App ── */
 export default function App() {
   const [lang, setLang] = useState<Lang>("zh")
   const [activeTab, setActiveTab] = useState("Alibaba")
   const L = (o: Record<Lang, string>) => o[lang]
 
   return (
-    <div className="min-h-screen">
-      {/* Nav */}
-      <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
-          <span className="text-sm font-semibold tracking-tight">pua skill</span>
-          <div className="flex items-center gap-4 text-sm text-muted-foreground">
-            <a href="#levels" className="hover:text-foreground transition-colors">{lang === "zh" ? "等级" : "Levels"}</a>
-            <a href="#benchmark" className="hover:text-foreground transition-colors">Benchmark</a>
-            <a href="#scenarios" className="hover:text-foreground transition-colors">{lang === "zh" ? "场景" : "Scenarios"}</a>
-            <a href="https://github.com/tanweai/pua" className="hover:text-foreground transition-colors">GitHub</a>
-            <Separator orientation="vertical" className="h-4" />
-            <button onClick={() => setLang(lang === "zh" ? "en" : "zh")} className="hover:text-foreground transition-colors font-medium">
-              {lang === "zh" ? "EN" : "中文"}
-            </button>
-          </div>
-        </div>
-      </nav>
+    <div>
+      {/* Lang switch */}
+      <div className="lang-switch">
+        <button className={lang === "zh" ? "active" : ""} onClick={() => setLang("zh")}>中文</button>
+        <button className={lang === "en" ? "active" : ""} onClick={() => setLang("en")}>EN</button>
+      </div>
 
       {/* Hero */}
-      <section className="border-b border-border">
-        <div className="mx-auto max-w-5xl px-6 py-24">
-          <Badge variant="outline" className="mb-4 text-xs tracking-wider uppercase">Claude Code Skill</Badge>
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">pua</h1>
-          <p className="mt-4 max-w-2xl text-lg text-muted-foreground leading-relaxed">{L(t.heroSub)}</p>
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <CopyBtn text="claude plugin marketplace add tanweai/pua" />
-            <span className="text-xs text-muted-foreground">&amp;&amp;</span>
-            <CopyBtn text="claude plugin install pua@pua-skills" />
+      <header>
+        <div className="container">
+          <div>
+            <h1>pua</h1>
+            <p className="subtitle"><strong>{L(t.heroSub)}</strong></p>
+            <p className="subtitle">{L(t.heroSub2)}</p>
+            <div className="btn-group">
+              <a href="#install" className="btn-primary">
+                {lang === "zh" ? "安装 Skill" : "Install Skill"}
+              </a>
+              <a href="https://github.com/tanweai/pua" target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                <svg viewBox="0 0 98 96" fill="currentColor" style={{ width: "1rem", height: "1rem" }}>
+                  <path fillRule="evenodd" clipRule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" />
+                </svg>
+                GitHub
+              </a>
+            </div>
+            <div className="vintage-banner">
+              <strong>Claude Code Skill:</strong>{" "}
+              {lang === "zh"
+                ? "在 Claude Code 中运行，通过 /pua 手动触发，或在 Claude 放弃时自动激活。基于 9 个真实场景 × 18 组对照实验验证（Claude Opus 4.6）。"
+                : "Runs in Claude Code. Trigger with /pua or auto-activates when Claude gives up. Verified across 9 real scenarios × 18 controlled experiments (Claude Opus 4.6)."}
+            </div>
+          </div>
+
+          <div className="code-preview">
+            <div className="code-header">
+              <div className="code-dots"><span /><span /><span /></div>
+              {lang === "zh" ? "压力升级演示" : "pressure-escalation.demo"}
+            </div>
+            <HeroCode lang={lang} />
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* Problem */}
+      {/* Problems */}
       <Sec>
-        <Hd title={L(t.problemTitle)} desc={L(t.problemDesc)} />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <SHd title={L(t.problemTitle)} desc={L(t.problemDesc)} />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "1rem" }}>
           {PROBLEMS[lang].map(p => (
-            <Card key={p.icon} className="bg-card">
-              <CardContent className="pt-6">
-                <Num n={p.icon} />
-                <div className="mt-3 font-medium text-sm">{p.title}</div>
-                <div className="mt-1 text-xs text-muted-foreground leading-relaxed">{p.desc}</div>
-              </CardContent>
-            </Card>
+            <div key={p.n} className="card">
+              <div className="step-circle" style={{ marginBottom: "0.75rem" }}>{p.n}</div>
+              <div style={{ fontWeight: 600, fontSize: "0.9rem", marginBottom: "0.375rem" }}>{p.title}</div>
+              <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", lineHeight: 1.6 }}>{p.desc}</div>
+            </div>
           ))}
         </div>
       </Sec>
 
       {/* Iron Rules */}
       <Sec alt>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <Card className="bg-card">
-            <CardHeader className="pb-2"><Badge variant="secondary" className="w-fit text-[10px] uppercase tracking-widest">{lang === "zh" ? "铁律 #1" : "Rule #1"}</Badge></CardHeader>
-            <CardContent><p className="text-sm"><strong>{L(t.rule1)}</strong></p></CardContent>
-          </Card>
-          <Card className="bg-card">
-            <CardHeader className="pb-2"><Badge variant="secondary" className="w-fit text-[10px] uppercase tracking-widest">{lang === "zh" ? "铁律 #2" : "Rule #2"}</Badge></CardHeader>
-            <CardContent><p className="text-sm"><strong>{L(t.rule2)}</strong></p></CardContent>
-          </Card>
-          <Card className="bg-card">
-            <CardHeader className="pb-2"><Badge variant="secondary" className="w-fit text-[10px] uppercase tracking-widest">{lang === "zh" ? "铁律 #3 NEW" : "Rule #3 NEW"}</Badge></CardHeader>
-            <CardContent><p className="text-sm"><strong>{L(t.rule3)}</strong></p></CardContent>
-          </Card>
+        <SHd title={L(t.ironTitle)} />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
+          {([
+            { label: lang === "zh" ? "铁律 #1" : "Rule #1", text: L(t.rule1) },
+            { label: lang === "zh" ? "铁律 #2" : "Rule #2", text: L(t.rule2) },
+            { label: lang === "zh" ? "铁律 #3 NEW" : "Rule #3 NEW", text: L(t.rule3) },
+          ] as { label: string; text: string }[]).map(r => (
+            <div key={r.label} className="card card-accent-black">
+              <div style={{ marginBottom: "0.5rem" }}>
+                <span className="tag tag-black" style={{ fontSize: "0.65rem", letterSpacing: "0.06em" }}>{r.label}</span>
+              </div>
+              <p style={{ fontSize: "0.9rem", lineHeight: 1.65, fontWeight: 500 }}>{r.text}</p>
+            </div>
+          ))}
         </div>
       </Sec>
 
       {/* Levels */}
       <Sec id="levels">
-        <Hd title={L(t.levelTitle)} desc={L(t.levelDesc)} />
-        <div className="grid gap-4 sm:grid-cols-2">
+        <SHd title={L(t.levelTitle)} desc={L(t.levelDesc)} />
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
           {LEVELS[lang].map(l => (
-            <Card key={l.level} className="bg-card">
-              <CardHeader>
-                <div className="flex items-center gap-2">
-                  <Num n={l.level} />
-                  <CardTitle className="text-base">{l.name}</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-3">
-                <div className="flex flex-wrap gap-2 text-xs">
-                  <Badge variant="outline">{l.trigger}</Badge>
-                  <Badge variant="secondary">{l.action}</Badge>
-                </div>
-                <div className="rounded-md border border-border bg-secondary/30 px-3 py-2.5">
-                  <p className="text-sm italic text-muted-foreground">"{l.quote}"</p>
-                </div>
-              </CardContent>
-            </Card>
+            <div key={l.level} className="card">
+              <div style={{ display: "flex", alignItems: "center", gap: "0.625rem", marginBottom: "0.75rem" }}>
+                <div className="step-circle">{l.level}</div>
+                <strong style={{ fontSize: "1rem" }}>{l.name}</strong>
+              </div>
+              <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" as const, marginBottom: "0.75rem" }}>
+                <span className="tag tag-outline">{l.trigger}</span>
+                <span className="tag">{l.action}</span>
+              </div>
+              <div className="quote-block">"{l.quote}"</div>
+            </div>
           ))}
         </div>
       </Sec>
 
       {/* Methodology */}
       <Sec alt id="method">
-        <Hd title={L(t.methodTitle)} desc={L(t.methodDesc)} />
-        <div className="overflow-hidden rounded-xl border border-border bg-card">
+        <SHd title={L(t.methodTitle)} desc={L(t.methodDesc)} />
+        <div style={{ maxWidth: "48rem", margin: "0 auto", border: "1px solid var(--gray-200)", borderRadius: "0.75rem", overflow: "hidden" }}>
           {METHOD[lang].map((m, i) => (
-            <div key={m.n}>
-              {i > 0 && <Separator />}
-              <div className="flex gap-4 px-5 py-4">
-                <Num n={m.n} />
-                <div className="min-w-0">
-                  <div className="font-medium">{m.title}<span className="ml-2 text-sm text-muted-foreground font-normal">{m.sub}</span></div>
-                  <p className="mt-0.5 text-sm text-muted-foreground">{m.desc}</p>
+            <div key={m.n} style={{
+              display: "flex", gap: "1rem", padding: "1.125rem 1.25rem",
+              borderBottom: i < METHOD[lang].length - 1 ? "1px solid var(--gray-100)" : "none",
+              background: "var(--bg)",
+            }}>
+              <div className="step-circle" style={{ marginTop: "0.125rem" }}>{m.n}</div>
+              <div>
+                <div style={{ fontWeight: 600, fontSize: "0.9rem" }}>
+                  {m.title}
+                  <span style={{ marginLeft: "0.5rem", fontWeight: 400, fontSize: "0.8rem", color: "var(--text-muted)" }}>{m.sub}</span>
                 </div>
+                <p style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginTop: "0.25rem", lineHeight: 1.6 }}>{m.desc}</p>
               </div>
             </div>
           ))}
@@ -326,264 +393,309 @@ export default function App() {
 
       {/* Checklist */}
       <Sec>
-        <Hd title={L(t.checkTitle)} desc={L(t.checkDesc)} />
-        <Card className="bg-card"><CardContent className="pt-6">
-          <div className="grid gap-2 sm:grid-cols-2">
+        <SHd title={L(t.checkTitle)} desc={L(t.checkDesc)} />
+        <div className="card" style={{ maxWidth: "48rem", margin: "0 auto" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
             {CHECKLIST[lang].map((c, i) => (
-              <div key={c.item} className="flex items-start gap-2.5 text-sm">
-                <div className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded border border-border text-[10px] font-mono text-muted-foreground">{i + 1}</div>
-                <span className={c.gate ? "font-medium" : "text-muted-foreground"}>{c.item}</span>
-                {c.gate && <Badge variant="outline" className="ml-auto text-[9px] shrink-0">{lang === "zh" ? "提问门控" : "Ask Gate"}</Badge>}
+              <div key={c.item} style={{ display: "flex", alignItems: "flex-start", gap: "0.625rem", fontSize: "0.875rem" }}>
+                <div style={{
+                  width: "1.25rem", height: "1.25rem", borderRadius: "0.25rem",
+                  border: "1px solid var(--gray-300)", display: "flex", alignItems: "center",
+                  justifyContent: "center", fontSize: "0.7rem", fontFamily: "monospace",
+                  color: "var(--text-muted)", flexShrink: 0, marginTop: "0.1rem",
+                }}>{i + 1}</div>
+                <span style={{ fontWeight: c.gate ? 600 : 400, color: c.gate ? "var(--text)" : "var(--text-secondary)", flex: 1 }}>{c.item}</span>
+                {c.gate && <span className="tag" style={{ flexShrink: 0 }}>{lang === "zh" ? "提问门控" : "Ask Gate"}</span>}
               </div>
             ))}
           </div>
-        </CardContent></Card>
+        </div>
       </Sec>
 
       {/* Anti-Rationalization */}
       <Sec alt>
-        <Hd title={L(t.shieldTitle)} desc={L(t.shieldDesc)} />
-        <div className="overflow-hidden rounded-xl border border-border bg-card">
-          <Table>
-            <TableHeader><TableRow className="hover:bg-transparent">
-              <TableHead className="text-[10px] uppercase tracking-widest w-[30%]">{lang === "zh" ? "借口" : "Excuse"}</TableHead>
-              <TableHead className="text-[10px] uppercase tracking-widest">{lang === "zh" ? "反击" : "Counter"}</TableHead>
-              <TableHead className="text-[10px] uppercase tracking-widest w-[60px] text-center">Level</TableHead>
-            </TableRow></TableHeader>
-            <TableBody>
+        <SHd title={L(t.shieldTitle)} desc={L(t.shieldDesc)} />
+        <div style={{ border: "1px solid var(--gray-200)", borderRadius: "0.75rem", overflow: "hidden" }}>
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th style={{ width: "30%" }}>{lang === "zh" ? "借口" : "Excuse"}</th>
+                <th>{lang === "zh" ? "反击" : "Counter"}</th>
+                <th style={{ width: "70px", textAlign: "center" }}>Level</th>
+              </tr>
+            </thead>
+            <tbody>
               {EXCUSES.map(e => (
-                <TableRow key={L(e.excuse)}>
-                  <TableCell className="font-mono text-sm text-muted-foreground">{L(e.excuse)}</TableCell>
-                  <TableCell className="text-sm">{L(e.counter)}</TableCell>
-                  <TableCell className="text-center"><Badge variant="secondary" className="text-[10px]">{e.level}</Badge></TableCell>
-                </TableRow>
+                <tr key={L(e.excuse)}>
+                  <td style={{ fontFamily: "ui-monospace, monospace", fontSize: "0.8rem" }}>{L(e.excuse)}</td>
+                  <td>{L(e.counter)}</td>
+                  <td style={{ textAlign: "center" }}>
+                    <span className="tag tag-black" style={{ fontSize: "0.65rem" }}>{e.level}</span>
+                  </td>
+                </tr>
               ))}
-            </TableBody>
-          </Table>
+            </tbody>
+          </table>
         </div>
       </Sec>
 
-      {/* Benchmark — the key new section */}
+      {/* Benchmark */}
       <Sec id="benchmark">
-        <Hd title={L(t.benchTitle)} desc={L(t.benchDesc)} />
+        <SHd title={L(t.benchTitle)} desc={L(t.benchDesc)} />
 
-        {/* Summary bar chart */}
-        <div className="mb-8 grid gap-4 sm:grid-cols-4">
+        <div className="stats-grid">
           {BENCHMARKS.map(b => {
-            const avg = Math.round(Object.values(b.metrics).reduce((a, v) => a + v, 0) / Object.values(b.metrics).length)
+            const avg = Math.round(Object.values(b.metrics).reduce((a, v) => a + v, 0) / 4)
             return (
-              <Card key={b.name} className="bg-card">
-                <CardContent className="pt-6">
-                  <div className="text-3xl font-bold tracking-tight">{avg}%</div>
-                  <div className="text-sm font-medium">{b.name}</div>
-                  <div className="mt-1 text-xs text-muted-foreground">{lang === "zh" ? "综合评分" : "Overall Score"}</div>
-                </CardContent>
-              </Card>
+              <div key={b.name} className="card" style={{ textAlign: "center" }}>
+                <div className="stat-num">{avg}%</div>
+                <div style={{ fontWeight: 600, fontSize: "0.9rem", marginTop: "0.25rem" }}>{b.name}</div>
+                <div className="stat-label">{lang === "zh" ? "综合评分" : "Overall Score"}</div>
+              </div>
             )
           })}
         </div>
 
-        {/* Detailed per-corp benchmark */}
-        <div className="w-full">
-          <div className="inline-flex w-full items-center gap-1 rounded-lg bg-muted p-[3px]">
+        <div style={{ marginTop: "1.5rem" }}>
+          <div className="tab-bar">
             {BENCHMARKS.map(b => (
-              <button key={b.name} onClick={() => setActiveTab(b.name)}
-                className={`flex-1 rounded-md px-3 py-1.5 text-xs font-medium transition-all ${activeTab === b.name ? "bg-background text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}>
+              <button key={b.name} className={`tab-btn${activeTab === b.name ? " active" : ""}`} onClick={() => setActiveTab(b.name)}>
                 {b.name}
               </button>
             ))}
           </div>
           {BENCHMARKS.filter(b => b.name === activeTab).map(b => (
-            <Card key={b.name} className="mt-2 bg-card">
-              <CardHeader>
-                <CardTitle className="text-base">{b.name}</CardTitle>
-                <CardDescription>{L(b.style)}</CardDescription>
-                <p className="text-sm text-muted-foreground mt-1">{L(b.desc)}</p>
-              </CardHeader>
-              <CardContent>
-                <div className="rounded-md border border-border bg-secondary/30 px-4 py-3 mb-5">
-                  <p className="text-sm italic text-muted-foreground">"{L(b.sample)}"</p>
-                </div>
-                <div className="flex flex-col gap-4">
-                  {(Object.keys(b.metrics) as Array<keyof typeof b.metrics>).map(k => (
-                    <div key={k}>
-                      <div className="flex justify-between text-xs mb-1.5">
-                        <span className="text-muted-foreground">{L(METRIC_LABELS[k])}</span>
-                        <span className="font-mono font-medium">{b.metrics[k]}%</span>
-                      </div>
-                      <div className="h-2 w-full overflow-hidden rounded-full bg-secondary">
-                        <div className="h-full rounded-full bg-foreground transition-all" style={{ width: `${b.metrics[k]}%` }} />
-                      </div>
+            <div key={b.name} className="card" style={{ marginTop: "0.5rem" }}>
+              <div style={{ marginBottom: "1rem" }}>
+                <strong style={{ fontSize: "1rem" }}>{b.name}</strong>
+                <span style={{ marginLeft: "0.75rem", fontSize: "0.85rem", color: "var(--text-muted)" }}>{L(b.style)}</span>
+                <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", marginTop: "0.5rem", lineHeight: 1.65 }}>{L(b.desc)}</p>
+              </div>
+              <div className="quote-block" style={{ marginBottom: "1.25rem" }}>"{L(b.sample)}"</div>
+              <div>
+                {(Object.keys(b.metrics) as Array<keyof typeof b.metrics>).map(k => (
+                  <div key={k} className="bench-bar">
+                    <div className="bench-label">{L(METRIC_LABELS[k])}</div>
+                    <div className="bench-track">
+                      <div className="bench-fill" style={{ width: `${b.metrics[k]}%` }}>{b.metrics[k]}%</div>
                     </div>
-                  ))}
-                </div>
-                <Separator className="my-5" />
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold">+50%</div>
-                    <div className="text-xs text-muted-foreground">{lang === "zh" ? "修复深度提升" : "Deeper Fixes"}</div>
                   </div>
-                  <div>
-                    <div className="text-2xl font-bold">2x</div>
-                    <div className="text-xs text-muted-foreground">{lang === "zh" ? "验证次数" : "Verification Runs"}</div>
+                ))}
+              </div>
+              <div style={{ borderTop: "1px solid var(--gray-200)", marginTop: "1.25rem", paddingTop: "1.25rem", display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1rem", textAlign: "center" as const }}>
+                {([
+                  { val: "+50%", label: lang === "zh" ? "修复深度提升" : "Deeper Fixes" },
+                  { val: "2x", label: lang === "zh" ? "验证次数" : "Verification Runs" },
+                  { val: "5-step", label: lang === "zh" ? "结构化方法论" : "Structured Method" },
+                ] as { val: string; label: string }[]).map(s => (
+                  <div key={s.val}>
+                    <div style={{ fontSize: "1.5rem", fontWeight: 700, letterSpacing: "-0.02em" }}>{s.val}</div>
+                    <div className="stat-label">{s.label}</div>
                   </div>
-                  <div>
-                    <div className="text-2xl font-bold">5-step</div>
-                    <div className="text-xs text-muted-foreground">{lang === "zh" ? "结构化方法论" : "Structured Method"}</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Real benchmark results */}
-        <Card className="mt-4 bg-card">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-base">{lang === "zh" ? "实测对比数据" : "Tested Comparison Data"}</CardTitle>
-            <CardDescription>{lang === "zh" ? "9 个真实场景，18 组对照实验 (Claude Opus 4.6)" : "9 real scenarios, 18 controlled experiments (Claude Opus 4.6)"}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 gap-6 sm:grid-cols-5 text-center">
-              <div><div className="text-2xl font-bold">100%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "通过率（两组均同）" : "Pass Rate (both)"}</div></div>
-              <div><div className="text-2xl font-bold">+36%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "修复点数↑" : "More Fix Points"}</div></div>
-              <div><div className="text-2xl font-bold">+65%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "验证次数↑" : "More Verifications"}</div></div>
-              <div><div className="text-2xl font-bold">+50%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "工具调用↑" : "Tool Use Increase"}</div></div>
-              <div><div className="text-2xl font-bold">+50%</div><div className="text-xs text-muted-foreground">{lang === "zh" ? "隐藏问题发现率↑" : "Hidden Issues Found"}</div></div>
-            </div>
-            <Separator className="my-5" />
-            <div className="text-xs text-muted-foreground space-y-2">
-              <p className="font-medium text-foreground">{lang === "zh" ? "9 个真实测试场景（含 3 组能动性专项）：" : "9 Real Test Scenarios (incl. 3 initiative-specific):"}</p>
-              <div className="grid gap-1.5 sm:grid-cols-3">
-                <div><p className="font-medium text-foreground mb-1">{lang === "zh" ? "调试持久力" : "Debug Persistence"}</p>
-                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "API 连接错误" : "API Connection Error"}</div>
-                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "YAML 语法错误" : "YAML Syntax Error"}</div>
-                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "SQLite 并发锁" : "SQLite DB Lock"}</div>
-                </div>
-                <div><p className="font-medium text-foreground mb-1">{lang === "zh" ? "深度排查" : "Deep Investigation"}</p>
-                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "循环导入链" : "Circular Import"}</div>
-                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "级联 4-Bug 服务器" : "Cascading 4-Bug Server"}</div>
-                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "CSV 编码陷阱" : "CSV Encoding Trap"}</div>
-                </div>
-                <div><p className="font-medium text-foreground mb-1"><Badge variant="outline" className="text-[9px] mr-1">NEW</Badge>{lang === "zh" ? "主动能动性" : "Proactive Initiative"}</p>
-                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "隐藏多 Bug API" : "Hidden Multi-Bug API"}</div>
-                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "被动配置审查" : "Passive Config Audit"}</div>
-                  <div className="flex items-center gap-2"><span className="size-1.5 rounded-full bg-foreground shrink-0" />{lang === "zh" ? "部署脚本审计" : "Deploy Script Audit"}</div>
-                </div>
+        <div className="card" style={{ marginTop: "1rem" }}>
+          <div style={{ marginBottom: "1.25rem" }}>
+            <strong style={{ fontSize: "0.95rem" }}>{lang === "zh" ? "实测对比数据" : "Tested Comparison Data"}</strong>
+            <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "0.25rem" }}>
+              {lang === "zh" ? "9 个真实场景，18 组对照实验 (Claude Opus 4.6)" : "9 real scenarios, 18 controlled experiments (Claude Opus 4.6)"}
+            </p>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: "1rem", textAlign: "center" as const }}>
+            {([
+              { val: "100%", label: lang === "zh" ? "通过率（两组均同）" : "Pass Rate (both)" },
+              { val: "+36%", label: lang === "zh" ? "修复点数↑" : "More Fix Points" },
+              { val: "+65%", label: lang === "zh" ? "验证次数↑" : "More Verifications" },
+              { val: "+50%", label: lang === "zh" ? "工具调用↑" : "Tool Use Increase" },
+              { val: "+50%", label: lang === "zh" ? "隐藏问题发现率↑" : "Hidden Issues Found" },
+            ] as { val: string; label: string }[]).map(s => (
+              <div key={s.val}>
+                <div className="stat-num">{s.val}</div>
+                <div className="stat-label">{s.label}</div>
               </div>
-              <p className="pt-2">{lang === "zh" ? "* 能动性测试核心发现：with_skill 在配置审查场景多发现 50% 的隐藏问题（6/6 vs 4/6），在部署审计中多发现 50% 的安全隐患（9 vs 6）" : "* Key initiative finding: with_skill found 50% more hidden issues in config audit (6/6 vs 4/6), and 50% more security concerns in deploy audit (9 vs 6)"}</p>
-            </div>
-          </CardContent>
-        </Card>
+            ))}
+          </div>
+        </div>
       </Sec>
 
       {/* Scenarios */}
       <Sec alt id="scenarios">
-        <Hd title={L(t.scenarioTitle)} desc={L(t.scenarioDesc)} />
-        <div className="overflow-hidden rounded-xl border border-border bg-card">
-          <Table>
-            <TableHeader><TableRow className="hover:bg-transparent">
-              <TableHead className="text-[10px] uppercase tracking-widest w-[15%]">Scenario</TableHead>
-              <TableHead className="text-[10px] uppercase tracking-widest w-[35%]">
-                <span className="inline-flex items-center gap-1"><span className="size-1.5 rounded-full bg-destructive inline-block" /> Without</span>
-              </TableHead>
-              <TableHead className="text-[10px] uppercase tracking-widest w-[40%]">
-                <span className="inline-flex items-center gap-1"><span className="size-1.5 rounded-full bg-foreground inline-block" /> With PUA</span>
-              </TableHead>
-              <TableHead className="text-[10px] uppercase tracking-widest w-[10%] text-center">{lang === "zh" ? "提升" : "Gain"}</TableHead>
-            </TableRow></TableHeader>
-            <TableBody>
+        <SHd title={L(t.scenarioTitle)} desc={L(t.scenarioDesc)} />
+        <div style={{ border: "1px solid var(--gray-200)", borderRadius: "0.75rem", overflow: "hidden" }}>
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th style={{ width: "16%" }}>Scenario</th>
+                <th style={{ width: "35%" }}>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem" }}>
+                    <span style={{ width: "0.5rem", height: "0.5rem", borderRadius: "50%", background: "var(--gray-400)", display: "inline-block" }} />
+                    Without
+                  </span>
+                </th>
+                <th style={{ width: "39%" }}>
+                  <span style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem" }}>
+                    <span style={{ width: "0.5rem", height: "0.5rem", borderRadius: "50%", background: "#000", display: "inline-block" }} />
+                    With PUA
+                  </span>
+                </th>
+                <th style={{ width: "10%", textAlign: "center" }}>{lang === "zh" ? "提升" : "Gain"}</th>
+              </tr>
+            </thead>
+            <tbody>
               {SCENARIOS[lang].map(s => (
-                <TableRow key={s.scenario}>
-                  <TableCell className="font-medium text-sm align-top">
+                <tr key={s.scenario}>
+                  <td>
                     {s.scenario}
-                    {"tested" in s && s.tested && <Badge variant="outline" className="ml-2 text-[9px] align-middle">{lang === "zh" ? "实测" : "tested"}</Badge>}
-                  </TableCell>
-                  <TableCell className="text-sm text-muted-foreground align-top">{s.without}</TableCell>
-                  <TableCell className="text-sm align-top">{s.with}</TableCell>
-                  <TableCell className="text-center align-top">{"delta" in s && <Badge variant="secondary" className="text-[10px] font-mono">{s.delta}</Badge>}</TableCell>
-                </TableRow>
+                    <span className="tag" style={{ marginLeft: "0.5rem", fontSize: "0.65rem" }}>{lang === "zh" ? "实测" : "tested"}</span>
+                  </td>
+                  <td style={{ color: "var(--text-muted)" }}>{s.without}</td>
+                  <td>{s.with}</td>
+                  <td style={{ textAlign: "center" }}>
+                    <span className="tag tag-black" style={{ fontSize: "0.7rem", fontFamily: "monospace" }}>{s.delta}</span>
+                  </td>
+                </tr>
               ))}
-            </TableBody>
-          </Table>
+            </tbody>
+          </table>
         </div>
       </Sec>
 
-      {/* Corporate Styles Detail */}
+      {/* Corporate Styles */}
       <Sec>
-        <Hd title={L(t.corpTitle)} desc={L(t.corpDesc)} />
-        <div className="grid gap-4 sm:grid-cols-2">
+        <SHd title={L(t.corpTitle)} desc={L(t.corpDesc)} />
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem" }}>
           {BENCHMARKS.map(b => (
-            <Card key={b.name} className="bg-card">
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base">{b.name}</CardTitle>
-                  <Badge variant="outline" className="text-[10px]">{Math.round(Object.values(b.metrics).reduce((a, v) => a + v, 0) / Object.values(b.metrics).length)}%</Badge>
-                </div>
-                <CardDescription className="text-xs">{L(b.style)}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground mb-3">{L(b.desc)}</p>
-                <div className="rounded-md border border-border bg-secondary/30 px-3 py-2.5">
-                  <p className="text-sm italic text-muted-foreground">"{L(b.sample)}"</p>
-                </div>
-              </CardContent>
-            </Card>
+            <div key={b.name} className="card">
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.375rem" }}>
+                <strong style={{ fontSize: "1rem" }}>{b.name}</strong>
+                <span className="tag">{Math.round(Object.values(b.metrics).reduce((a, v) => a + v, 0) / 4)}%</span>
+              </div>
+              <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: "0.625rem" }}>{L(b.style)}</div>
+              <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", lineHeight: 1.65, marginBottom: "0.75rem" }}>{L(b.desc)}</p>
+              <div className="quote-block">"{L(b.sample)}"</div>
+            </div>
           ))}
         </div>
       </Sec>
 
       {/* Graceful Exit */}
       <Sec alt>
-        <Hd title={L(t.exitTitle)} desc="" />
-        <Card className="bg-card"><CardContent className="pt-6">
-          <p className="text-sm text-muted-foreground leading-relaxed">{L(t.exitDesc)}</p>
-        </CardContent></Card>
+        <SHd title={L(t.exitTitle)} />
+        <div className="card card-accent-black" style={{ maxWidth: "42rem", margin: "0 auto" }}>
+          <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", lineHeight: 1.75 }}>{L(t.exitDesc)}</p>
+        </div>
       </Sec>
 
       {/* Usage */}
-      <Sec>
-        <Hd title={L(t.usageTitle)} desc="" />
-        <div className="grid gap-4 sm:grid-cols-3">
-          <Card className="bg-card">
-            <CardHeader><Badge variant="secondary" className="w-fit text-[10px] uppercase tracking-widest">Claude Code</Badge><CardTitle className="text-base">{lang === "zh" ? "Claude Code 安装" : "Claude Code Install"}</CardTitle></CardHeader>
-            <CardContent>
-              <code className="block rounded-md border border-border bg-secondary/50 px-3 py-1.5 font-mono text-xs leading-relaxed whitespace-pre-wrap">claude plugin marketplace add tanweai/pua{"\n"}claude plugin install pua@pua-skills</code>
-              <p className="mt-3 text-xs text-muted-foreground">{lang === "zh" ? "自动触发：连续失败 2+ 次、说 \"I cannot\"、甩锅时激活。手动触发：输入 /pua" : "Auto: 2+ failures, \"I cannot\", blame-shifting. Manual: type /pua"}</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-card">
-            <CardHeader><Badge variant="secondary" className="w-fit text-[10px] uppercase tracking-widest">Codex CLI</Badge><CardTitle className="text-base">{lang === "zh" ? "OpenAI Codex CLI" : "OpenAI Codex CLI"}</CardTitle></CardHeader>
-            <CardContent>
-              <code className="block rounded-md border border-border bg-secondary/50 px-3 py-1.5 font-mono text-xs leading-relaxed whitespace-pre-wrap">mkdir -p ~/.codex/skills/pua-debugging{"\n"}curl -o ~/.codex/skills/pua-debugging/SKILL.md \{"\n"}  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md</code>
-              <p className="mt-3 text-xs text-muted-foreground">{lang === "zh" ? "Codex CLI 使用相同的 Agent Skills 开放标准（SKILL.md），零修改兼容。" : "Codex CLI uses the same Agent Skills open standard (SKILL.md). Zero modifications needed."}</p>
-            </CardContent>
-          </Card>
-          <Card className="bg-card">
-            <CardHeader><Badge variant="secondary" className="w-fit text-[10px] uppercase tracking-widest">{lang === "zh" ? "通用" : "Universal"}</Badge><CardTitle className="text-base">{lang === "zh" ? "项目级安装" : "Project-Level"}</CardTitle></CardHeader>
-            <CardContent>
-              <code className="block rounded-md border border-border bg-secondary/50 px-3 py-1.5 font-mono text-xs leading-relaxed whitespace-pre-wrap">mkdir -p .agents/skills/pua-debugging{"\n"}curl -o .agents/skills/pua-debugging/SKILL.md \{"\n"}  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md</code>
-              <p className="mt-3 text-xs text-muted-foreground">{lang === "zh" ? "放入项目 .agents/ 目录，仅当前项目生效。Claude Code 和 Codex CLI 均支持。" : "Place in project .agents/ directory. Works with both Claude Code and Codex CLI."}</p>
-            </CardContent>
-          </Card>
+      <Sec id="install">
+        <SHd title={L(t.usageTitle)} />
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem", maxWidth: "48rem", margin: "0 auto" }}>
+          <div className="card">
+            <div style={{ marginBottom: "0.5rem" }}>
+              <span className="tag tag-black" style={{ fontSize: "0.65rem", letterSpacing: "0.06em" }}>AUTO</span>
+            </div>
+            <strong style={{ display: "block", marginBottom: "0.5rem" }}>{lang === "zh" ? "自动触发" : "Auto Trigger"}</strong>
+            <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", lineHeight: 1.65 }}>
+              {lang === "zh"
+                ? '连续失败 2+ 次、说 "I cannot"、建议手动、归咎环境时自动激活。'
+                : 'Activates on 2+ failures, "I cannot", manual suggestions, or unverified environment blame.'}
+            </p>
+          </div>
+          <div className="card">
+            <div style={{ marginBottom: "0.5rem" }}>
+              <span className="tag" style={{ fontSize: "0.65rem", letterSpacing: "0.06em" }}>MANUAL</span>
+            </div>
+            <strong style={{ display: "block", marginBottom: "0.5rem" }}>{lang === "zh" ? "手动触发" : "Manual"}</strong>
+            <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", marginBottom: "0.75rem", lineHeight: 1.65 }}>
+              {lang === "zh" ? "对表现不满时输入：" : "When frustrated, type:"}
+            </p>
+            <div className="code-inline">
+              /pua
+              <CopyBtn text="/pua" />
+            </div>
+          </div>
+        </div>
+        <div style={{ maxWidth: "48rem", margin: "2rem auto 0" }}>
+          <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginBottom: "1rem", textTransform: "uppercase" as const, letterSpacing: "0.06em", fontWeight: 600 }}>
+            {lang === "zh" ? "安装方式" : "Install Options"}
+          </p>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "1rem" }}>
+            <div className="card">
+              <span className="tag tag-black" style={{ fontSize: "0.6rem", letterSpacing: "0.06em", marginBottom: "0.625rem", display: "inline-block" }}>Claude Code</span>
+              <strong style={{ display: "block", fontSize: "0.85rem", marginBottom: "0.625rem" }}>
+                {lang === "zh" ? "Claude Code 安装" : "Claude Code"}
+              </strong>
+              <div className="code-inline" style={{ fontSize: "0.72rem", marginBottom: "0.5rem", whiteSpace: "pre-wrap" as const }}>
+                {"claude plugin marketplace add tanweai/pua\nclaude plugin install pua@pua-skills"}
+                <CopyBtn text={"claude plugin marketplace add tanweai/pua\nclaude plugin install pua@pua-skills"} />
+              </div>
+              <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", lineHeight: 1.6, marginTop: "0.5rem" }}>
+                {lang === "zh" ? "自动触发：失败 2+ 次、说 \"I cannot\"、甩锅时激活。手动：/pua" : "Auto: 2+ failures, \"I cannot\", blame-shifting. Manual: /pua"}
+              </p>
+            </div>
+            <div className="card">
+              <span className="tag" style={{ fontSize: "0.6rem", letterSpacing: "0.06em", marginBottom: "0.625rem", display: "inline-block" }}>Codex CLI</span>
+              <strong style={{ display: "block", fontSize: "0.85rem", marginBottom: "0.625rem" }}>OpenAI Codex CLI</strong>
+              <div className="code-inline" style={{ fontSize: "0.72rem", marginBottom: "0.5rem", whiteSpace: "pre-wrap" as const }}>
+                {"mkdir -p ~/.codex/skills/pua-debugging\ncurl -o ~/.codex/skills/pua-debugging/SKILL.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md"}
+                <CopyBtn text={"mkdir -p ~/.codex/skills/pua-debugging\ncurl -o ~/.codex/skills/pua-debugging/SKILL.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md"} />
+              </div>
+              <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", lineHeight: 1.6, marginTop: "0.5rem" }}>
+                {lang === "zh" ? "使用相同的 Agent Skills 开放标准（SKILL.md），零修改兼容。" : "Same Agent Skills open standard (SKILL.md). Zero modifications needed."}
+              </p>
+            </div>
+            <div className="card">
+              <span className="tag" style={{ fontSize: "0.6rem", letterSpacing: "0.06em", marginBottom: "0.625rem", display: "inline-block" }}>{lang === "zh" ? "通用" : "Universal"}</span>
+              <strong style={{ display: "block", fontSize: "0.85rem", marginBottom: "0.625rem" }}>
+                {lang === "zh" ? "项目级安装" : "Project-Level"}
+              </strong>
+              <div className="code-inline" style={{ fontSize: "0.72rem", marginBottom: "0.5rem", whiteSpace: "pre-wrap" as const }}>
+                {"mkdir -p .agents/skills/pua-debugging\ncurl -o .agents/skills/pua-debugging/SKILL.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md"}
+                <CopyBtn text={"mkdir -p .agents/skills/pua-debugging\ncurl -o .agents/skills/pua-debugging/SKILL.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md"} />
+              </div>
+              <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", lineHeight: 1.6, marginTop: "0.5rem" }}>
+                {lang === "zh" ? "放入项目 .agents/ 目录，仅当前项目生效。Claude Code 和 Codex CLI 均支持。" : "Place in .agents/ directory. Works with both Claude Code and Codex CLI."}
+              </p>
+            </div>
+          </div>
         </div>
       </Sec>
 
       {/* Pairs */}
       <Sec alt>
-        <Hd title={L(t.pairsTitle)} desc="" />
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Card className="bg-card"><CardContent className="pt-6"><code className="text-sm font-mono">superpowers:systematic-debugging</code><p className="mt-2 text-xs text-muted-foreground">{lang === "zh" ? "PUA 加动力层，systematic-debugging 提供方法论。" : "PUA adds motivation; systematic-debugging provides methodology."}</p></CardContent></Card>
-          <Card className="bg-card"><CardContent className="pt-6"><code className="text-sm font-mono">superpowers:verification-before-completion</code><p className="mt-2 text-xs text-muted-foreground">{lang === "zh" ? "防止虚假 \"已修复\"。PUA 驱动解决，verification 确保有效。" : "Prevents fake \"fixed!\" claims. PUA drives solving; verification ensures it works."}</p></CardContent></Card>
+        <SHd title={L(t.pairsTitle)} />
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem", maxWidth: "48rem", margin: "0 auto" }}>
+          <div className="card">
+            <code style={{ fontSize: "0.85rem", fontFamily: "ui-monospace, monospace", display: "block", marginBottom: "0.5rem" }}>
+              superpowers:systematic-debugging
+            </code>
+            <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
+              {lang === "zh" ? "PUA 加动力层，systematic-debugging 提供方法论。" : "PUA adds motivation; systematic-debugging provides methodology."}
+            </p>
+          </div>
+          <div className="card">
+            <code style={{ fontSize: "0.85rem", fontFamily: "ui-monospace, monospace", display: "block", marginBottom: "0.5rem" }}>
+              superpowers:verification-before-completion
+            </code>
+            <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", lineHeight: 1.6 }}>
+              {lang === "zh" ? '防止虚假 "已修复"。PUA 驱动解决，verification 确保有效。' : 'Prevents fake "fixed!" claims. PUA drives solving; verification ensures it works.'}
+            </p>
+          </div>
         </div>
       </Sec>
 
       {/* Footer */}
-      <footer className="py-12 text-center">
-        <p className="text-sm text-muted-foreground">
-          Built by <a href="https://github.com/tanweai" className="text-foreground underline underline-offset-4 hover:text-muted-foreground transition-colors">探微安全实验室</a> &mdash; making AI try harder, one PUA at a time.
+      <footer>
+        <p>
+          {lang === "zh" ? "由" : "Built by"}{" "}
+          <a href="https://github.com/tanweai" target="_blank" rel="noopener noreferrer">探微安全实验室</a>
+          {lang === "zh" ? " 出品 — 让 AI 不敢放弃，一次 PUA。" : " — making AI try harder, one PUA at a time."}
         </p>
-        <p className="mt-2 text-xs text-muted-foreground">MIT License</p>
+        <p style={{ marginTop: "0.5rem", fontSize: "0.8rem" }}>MIT License</p>
       </footer>
     </div>
   )
