@@ -529,34 +529,33 @@ export default function App() {
           <table className="data-table">
             <thead>
               <tr>
-                <th style={{ width: "16%" }}>Scenario</th>
-                <th style={{ width: "35%" }}>
+                <th style={{ width: "18%" }}>Scenario</th>
+                <th style={{ width: "41%" }}>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem" }}>
                     <span style={{ width: "0.5rem", height: "0.5rem", borderRadius: "50%", background: "var(--gray-400)", display: "inline-block" }} />
                     Without
                   </span>
                 </th>
-                <th style={{ width: "39%" }}>
+                <th style={{ width: "41%" }}>
                   <span style={{ display: "inline-flex", alignItems: "center", gap: "0.375rem" }}>
                     <span style={{ width: "0.5rem", height: "0.5rem", borderRadius: "50%", background: "#000", display: "inline-block" }} />
                     With PUA
                   </span>
                 </th>
-                <th style={{ width: "10%", textAlign: "center" }}>{lang === "zh" ? "提升" : "Gain"}</th>
               </tr>
             </thead>
             <tbody>
               {SCENARIOS[lang].map(s => (
                 <tr key={s.scenario}>
                   <td>
-                    {s.scenario}
-                    <span className="tag" style={{ marginLeft: "0.5rem", fontSize: "0.65rem" }}>{lang === "zh" ? "实测" : "tested"}</span>
+                    <div>{s.scenario}</div>
+                    <div style={{ marginTop: "0.375rem", display: "flex", gap: "0.375rem", flexWrap: "wrap" as const }}>
+                      <span className="tag tag-black" style={{ fontSize: "0.65rem", fontFamily: "monospace" }}>{s.delta}</span>
+                      <span className="tag" style={{ fontSize: "0.65rem" }}>{lang === "zh" ? "实测" : "tested"}</span>
+                    </div>
                   </td>
                   <td style={{ color: "var(--text-muted)" }}>{s.without}</td>
                   <td>{s.with}</td>
-                  <td style={{ textAlign: "center" }}>
-                    <span className="tag tag-black" style={{ fontSize: "0.7rem", fontFamily: "monospace" }}>{s.delta}</span>
-                  </td>
                 </tr>
               ))}
             </tbody>
