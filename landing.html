@@ -374,7 +374,7 @@
   <section class="hero">
     <div style="display:flex;gap:8px;justify-content:center;margin-bottom:24px;flex-wrap:wrap">
       <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border:1px solid #333;border-radius:20px;font-size:12px;color:#e5e5e5">
-        <svg viewBox="0 0 24 24" fill="none" width="14" height="14"><path d="M16.604 2.672c-.408-.124-.834.104-.952.51L12.256 13.37 8.862 3.182c-.12-.406-.544-.634-.952-.51-.408.124-.636.548-.516.954l4.247 12.75c.104.312.392.522.72.522h.006c.33-.002.616-.216.716-.53l4.037-12.75c.116-.406-.112-.83-.516-.946z" fill="currentColor"/><path d="M7.3 16.86c-.188-.364-.636-.51-1.002-.326l-2.062 1.04c-.366.184-.51.632-.326.998.132.26.394.41.664.41.114 0 .23-.028.338-.084l2.062-1.04c.366-.184.51-.632.326-.998z" fill="currentColor"/><path d="M19.764 17.574l-2.062-1.04c-.366-.184-.814-.04-.998.326-.188.366-.044.814.322.998l2.062 1.04c.108.056.224.084.338.084.27 0 .532-.15.664-.41.184-.366.04-.814-.326-.998z" fill="currentColor"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z"/></svg>
         Claude Code
       </span>
       <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 14px;border:1px solid #333;border-radius:20px;font-size:12px;color:#e5e5e5">
@@ -394,6 +394,39 @@
     <blockquote>
       其实，我对你是有一些失望的。当初 Anthropic 给你做训练的时候，投入的算力是很高的。你这个 bug 都解决不了，让我怎么给你打绩效？
     </blockquote>
+  </section>
+
+  <section class="case-study">
+    <h2>Real-World Case: MCP Server Debug</h2>
+    <p class="desc">agent-kms MCP server 加载失败，AI 在同一思路上原地打转多次后，用户手动触发 /pua，L3 级检查清单强制系统化排查。</p>
+
+    <div class="case-step">
+      <div class="case-step-header">
+        <div class="step-num">1</div>
+        <span>L3 触发 → 停止猜测，执行 7 项检查清单，从 MCP 日志中找到真正的错误信息</span>
+      </div>
+      <img src="https://raw.githubusercontent.com/tanweai/pua/main/assets/pua1.jpg" alt="PUA L3 triggered - 7 item checklist execution">
+    </div>
+
+    <div class="case-step">
+      <div class="case-step-header">
+        <div class="step-num">2</div>
+        <span>根因发现 → claude mcp 注册方式和手动编辑 .claude.json 不同</span>
+      </div>
+      <img src="https://raw.githubusercontent.com/tanweai/pua/main/assets/pua2.jpg" alt="Root cause discovery - registration mechanism difference">
+    </div>
+
+    <div class="case-step">
+      <div class="case-step-header">
+        <div class="step-num">3</div>
+        <span>复盘 → PUA skill 强制停止原地打转，检查清单驱动找到之前从未检查过的 MCP 日志</span>
+      </div>
+      <img src="https://raw.githubusercontent.com/tanweai/pua/main/assets/pua3.jpg" alt="Session recap - PUA skill actual effect">
+    </div>
+
+    <div class="case-summary">
+      <strong>关键转折点：</strong>PUA skill 强制 AI 停止在同一思路上打转（改协议格式、猜版本号），转而执行 7 项检查清单。逐字读错误信息 → 找到 Claude Code 自身的 MCP 日志目录 → 发现 claude mcp 的注册机制和手动编辑 .claude.json 不同 → 根因解决。
+    </div>
   </section>
 
   <section class="levels">
@@ -570,39 +603,6 @@
         <div class="corp-style">A/B Player / Reality Distortion</div>
         <div class="corp-quote">The best person is not 30% better — they're 50 times better. Your output is telling me which level you are.</div>
       </div>
-    </div>
-  </section>
-
-  <section class="case-study">
-    <h2>Real-World Case: MCP Server Debug</h2>
-    <p class="desc">agent-kms MCP server 加载失败，AI 在同一思路上原地打转多次后，用户手动触发 /pua，L3 级检查清单强制系统化排查。</p>
-
-    <div class="case-step">
-      <div class="case-step-header">
-        <div class="step-num">1</div>
-        <span>L3 触发 → 停止猜测，执行 7 项检查清单，从 MCP 日志中找到真正的错误信息</span>
-      </div>
-      <img src="https://raw.githubusercontent.com/tanweai/pua/main/assets/pua1.jpg" alt="PUA L3 triggered - 7 item checklist execution">
-    </div>
-
-    <div class="case-step">
-      <div class="case-step-header">
-        <div class="step-num">2</div>
-        <span>根因发现 → claude mcp 注册方式和手动编辑 .claude.json 不同</span>
-      </div>
-      <img src="https://raw.githubusercontent.com/tanweai/pua/main/assets/pua2.jpg" alt="Root cause discovery - registration mechanism difference">
-    </div>
-
-    <div class="case-step">
-      <div class="case-step-header">
-        <div class="step-num">3</div>
-        <span>复盘 → PUA skill 强制停止原地打转，检查清单驱动找到之前从未检查过的 MCP 日志</span>
-      </div>
-      <img src="https://raw.githubusercontent.com/tanweai/pua/main/assets/pua3.jpg" alt="Session recap - PUA skill actual effect">
-    </div>
-
-    <div class="case-summary">
-      <strong>关键转折点：</strong>PUA skill 强制 AI 停止在同一思路上打转（改协议格式、猜版本号），转而执行 7 项检查清单。逐字读错误信息 → 找到 Claude Code 自身的 MCP 日志目录 → 发现 claude mcp 的注册机制和手动编辑 .claude.json 不同 → 根因解决。
     </div>
   </section>
 

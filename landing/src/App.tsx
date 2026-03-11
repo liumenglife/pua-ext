@@ -461,10 +461,8 @@ export default function App() {
             </div>
             <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem", flexWrap: "wrap" }}>
               <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", borderRadius: "9999px", border: "1px solid var(--gray-200)", background: "var(--bg)", fontSize: "0.8rem", fontWeight: 500 }}>
-                <svg viewBox="0 0 24 24" fill="none" style={{ width: "1.1rem", height: "1.1rem" }}>
-                  <path d="M16.604 2.672c-.408-.124-.834.104-.952.51L12.256 13.37 8.862 3.182c-.12-.406-.544-.634-.952-.51-.408.124-.636.548-.516.954l4.247 12.75c.104.312.392.522.72.522h.006c.33-.002.616-.216.716-.53l4.037-12.75c.116-.406-.112-.83-.516-.946z" fill="currentColor"/>
-                  <path d="M7.3 16.86c-.188-.364-.636-.51-1.002-.326l-2.062 1.04c-.366.184-.51.632-.326.998.132.26.394.41.664.41.114 0 .23-.028.338-.084l2.062-1.04c.366-.184.51-.632.326-.998z" fill="currentColor"/>
-                  <path d="M19.764 17.574l-2.062-1.04c-.366-.184-.814-.04-.998.326-.188.366-.044.814.322.998l2.062 1.04c.108.056.224.084.338.084.27 0 .532-.15.664-.41.184-.366.04-.814-.326-.998z" fill="currentColor"/>
+                <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: "1.1rem", height: "1.1rem" }}>
+                  <path d="M17.3041 3.541h-3.6718l6.696 16.918H24Zm-10.6082 0L0 20.459h3.7442l1.3693-3.5527h7.0052l1.3693 3.5528h3.7442L10.5363 3.5409Zm-.3712 10.2232 2.2914-5.9456 2.2914 5.9456Z"/>
                 </svg>
                 Claude Code
               </div>
@@ -506,8 +504,41 @@ export default function App() {
         </div>
       </Sec>
 
-      {/* Iron Rules */}
+      {/* Real-World Case Study */}
       <Sec alt>
+        <SHd title={L(t.caseTitle)} desc={L(t.caseDesc)} />
+        <div style={{ maxWidth: "48rem", margin: "0 auto", display: "flex", flexDirection: "column", gap: "2rem" }}>
+          {[
+            { img: "/pua1.jpg", step: "01", desc: L(t.caseStep1) },
+            { img: "/pua2.jpg", step: "02", desc: L(t.caseStep2) },
+            { img: "/pua3.jpg", step: "03", desc: L(t.caseStep3) },
+          ].map((c) => (
+            <div key={c.step}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.75rem" }}>
+                <span className="step-circle">{c.step}</span>
+                <span style={{ fontSize: "0.9rem", fontWeight: 500 }}>{c.desc}</span>
+              </div>
+              <img
+                src={c.img}
+                alt={c.desc}
+                style={{ width: "100%", borderRadius: "0.75rem", border: "1px solid var(--gray-200)" }}
+                loading="lazy"
+              />
+            </div>
+          ))}
+          <div className="card card-accent-black" style={{ marginTop: "0.5rem" }}>
+            <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", lineHeight: 1.75 }}>
+              <strong>{lang === "zh" ? "关键转折点：" : "Key Turning Point: "}</strong>
+              {lang === "zh"
+                ? "PUA skill 强制 AI 停止在同一思路上打转（改协议格式、猜版本号），转而执行 7 项检查清单。逐字读错误信息 → 找到 Claude Code 自身的 MCP 日志目录 → 发现 claude mcp 的注册机制和手动编辑 .claude.json 不同 → 根因解决。"
+                : "PUA skill forced the AI to stop spinning (tweaking protocol format, guessing version numbers) and instead execute the 7-item checklist. Read errors word-by-word → found Claude Code's own MCP log directory → discovered claude mcp's registration mechanism differs from manual .claude.json editing → root cause resolved."}
+            </p>
+          </div>
+        </div>
+      </Sec>
+
+      {/* Iron Rules */}
+      <Sec>
         <SHd title={L(t.ironTitle)} />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.25rem" }}>
           {([
@@ -777,39 +808,6 @@ export default function App() {
               <div className="quote-block">"{L(b.sample)}"</div>
             </div>
           ))}
-        </div>
-      </Sec>
-
-      {/* Real-World Case Study */}
-      <Sec>
-        <SHd title={L(t.caseTitle)} desc={L(t.caseDesc)} />
-        <div style={{ maxWidth: "48rem", margin: "0 auto", display: "flex", flexDirection: "column", gap: "2rem" }}>
-          {[
-            { img: "/pua1.jpg", step: "01", desc: L(t.caseStep1) },
-            { img: "/pua2.jpg", step: "02", desc: L(t.caseStep2) },
-            { img: "/pua3.jpg", step: "03", desc: L(t.caseStep3) },
-          ].map((c) => (
-            <div key={c.step}>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.75rem" }}>
-                <span className="step-circle">{c.step}</span>
-                <span style={{ fontSize: "0.9rem", fontWeight: 500 }}>{c.desc}</span>
-              </div>
-              <img
-                src={c.img}
-                alt={c.desc}
-                style={{ width: "100%", borderRadius: "0.75rem", border: "1px solid var(--gray-200)" }}
-                loading="lazy"
-              />
-            </div>
-          ))}
-          <div className="card card-accent-black" style={{ marginTop: "0.5rem" }}>
-            <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", lineHeight: 1.75 }}>
-              <strong>{lang === "zh" ? "关键转折点：" : "Key Turning Point: "}</strong>
-              {lang === "zh"
-                ? "PUA skill 强制 AI 停止在同一思路上打转（改协议格式、猜版本号），转而执行 7 项检查清单。逐字读错误信息 → 找到 Claude Code 自身的 MCP 日志目录 → 发现 claude mcp 的注册机制和手动编辑 .claude.json 不同 → 根因解决。"
-                : "PUA skill forced the AI to stop spinning (tweaking protocol format, guessing version numbers) and instead execute the 7-item checklist. Read errors word-by-word → found Claude Code's own MCP log directory → discovered claude mcp's registration mechanism differs from manual .claude.json editing → root cause resolved."}
-            </p>
-          </div>
         </div>
       </Sec>
 
