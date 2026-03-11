@@ -43,4 +43,11 @@ describe("landing responsive rendering", () => {
     expect(landingStyles).toContain(".desktop-only { display: none !important; }")
     expect(landingStyles).toContain(".mobile-only { display: grid !important; }")
   })
+
+  it("limits dual-view rendering to the two comparison sections", () => {
+    render(<App />)
+
+    expect(document.querySelectorAll(".mobile-only").length).toBe(2)
+    expect(document.querySelectorAll(".desktop-only").length).toBe(2)
+  })
 })
