@@ -459,11 +459,26 @@ export default function App() {
                 GitHub
               </a>
             </div>
+            <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem", flexWrap: "wrap" }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", borderRadius: "9999px", border: "1px solid var(--gray-200)", background: "var(--bg)", fontSize: "0.8rem", fontWeight: 500 }}>
+                <svg viewBox="0 0 24 24" fill="none" style={{ width: "1.1rem", height: "1.1rem" }}>
+                  <path d="M16.604 2.672c-.408-.124-.834.104-.952.51L12.256 13.37 8.862 3.182c-.12-.406-.544-.634-.952-.51-.408.124-.636.548-.516.954l4.247 12.75c.104.312.392.522.72.522h.006c.33-.002.616-.216.716-.53l4.037-12.75c.116-.406-.112-.83-.516-.946z" fill="currentColor"/>
+                  <path d="M7.3 16.86c-.188-.364-.636-.51-1.002-.326l-2.062 1.04c-.366.184-.51.632-.326.998.132.26.394.41.664.41.114 0 .23-.028.338-.084l2.062-1.04c.366-.184.51-.632.326-.998z" fill="currentColor"/>
+                  <path d="M19.764 17.574l-2.062-1.04c-.366-.184-.814-.04-.998.326-.188.366-.044.814.322.998l2.062 1.04c.108.056.224.084.338.084.27 0 .532-.15.664-.41.184-.366.04-.814-.326-.998z" fill="currentColor"/>
+                </svg>
+                Claude Code
+              </div>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", borderRadius: "9999px", border: "1px solid var(--gray-200)", background: "var(--bg)", fontSize: "0.8rem", fontWeight: 500 }}>
+                <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: "1.1rem", height: "1.1rem" }}>
+                  <path d="M22.282 9.821a5.985 5.985 0 0 0-.516-4.91 6.046 6.046 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a5.985 5.985 0 0 0-3.998 2.9 6.046 6.046 0 0 0 .743 7.097 5.98 5.98 0 0 0 .51 4.911 6.051 6.051 0 0 0 6.515 2.9A5.985 5.985 0 0 0 13.26 24a6.056 6.056 0 0 0 5.772-4.206 5.99 5.99 0 0 0 3.997-2.9 6.056 6.056 0 0 0-.747-7.073zM13.26 22.43a4.476 4.476 0 0 1-2.876-1.04l.141-.081 4.779-2.758a.795.795 0 0 0 .392-.681v-6.737l2.02 1.168a.071.071 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494zM3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085 4.783 2.759a.771.771 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646zM2.34 7.896a4.485 4.485 0 0 1 2.366-1.973V11.6a.766.766 0 0 0 .388.676l5.815 3.355-2.02 1.168a.076.076 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.076.076 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667zm2.01-3.023l-.141-.085-4.774-2.782a.776.776 0 0 0-.785 0L9.409 9.23V6.897a.066.066 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.795.795 0 0 0-.393.681zm1.097-2.365l2.602-1.5 2.607 1.5v2.999l-2.597 1.5-2.607-1.5z"/>
+                </svg>
+                OpenAI Codex CLI
+              </div>
+            </div>
             <div className="vintage-banner">
-              <strong>Claude Code Skill:</strong>{" "}
               {lang === "zh"
-                ? "在 Claude Code 中运行，通过 /pua 手动触发，或在 Claude 放弃时自动激活。基于 9 个真实场景 × 18 组对照实验验证（Claude Opus 4.6）。"
-                : "Runs in Claude Code. Trigger with /pua or auto-activates when Claude gives up. Verified across 9 real scenarios × 18 controlled experiments (Claude Opus 4.6)."}
+                ? "通过 /pua 手动触发，或在 AI 放弃时自动激活。支持 Claude Code 和 OpenAI Codex CLI。基于 9 个真实场景 × 18 组对照实验验证。"
+                : "Trigger with /pua or auto-activates when AI gives up. Works with Claude Code and OpenAI Codex CLI. Verified across 9 real scenarios × 18 controlled experiments."}
             </div>
           </div>
 
