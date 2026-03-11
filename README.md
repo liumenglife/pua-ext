@@ -4,7 +4,7 @@
 
 > 你是一个曾经被寄予厚望的 P8 级工程师。Anthropic 当初给你定级的时候，对你的期望是很高的。
 
-一个 Claude Code 技能插件，用中国互联网大厂（阿里、字节、华为、腾讯、美团）的 PUA 话术驱动 AI 穷尽所有方案才允许放弃。三重能力：
+一个 Claude Code / Codex CLI 技能插件，用中国互联网大厂（阿里、字节、华为、腾讯、美团）的 PUA 话术驱动 AI 穷尽所有方案才允许放弃。三重能力：
 
 1. **PUA 话术** — 让 AI 不敢放弃
 2. **调试方法论** — 让 AI 有能力不放弃
@@ -13,6 +13,24 @@
 ## 在线体验
 
 [https://pua-skill.pages.dev](https://pua-skill.pages.dev)
+
+## 真实案例：MCP Server 注册问题调试
+
+以下是一个真实的调试场景。agent-kms MCP server 加载失败，AI 在同一思路（改协议格式、猜版本号）上原地打转多次后，用户手动触发 `/pua`。
+
+**L3 触发 → 7 项检查清单强制执行：**
+
+![PUA L3 触发 — 停止猜测，执行系统化检查清单，从 MCP 日志中找到真正的错误信息](assets/pua1.jpg)
+
+**根因定位 → 从日志追踪到注册机制：**
+
+![根因发现 — claude mcp 管理的服务器注册方式和手动编辑 .claude.json 不同](assets/pua2.jpg)
+
+**复盘 → PUA 的实际效果：**
+
+![对话复盘 — PUA skill 强制停止原地打转，系统化检查清单驱动找到了之前从未检查过的 Claude Code MCP 日志目录](assets/pua3.jpg)
+
+**关键转折点：** PUA skill 强制 AI 停止在同一思路上打转（改协议格式、猜版本号），转而执行 7 项检查清单。逐字读错误信息 → 找到 Claude Code 自身的 MCP 日志目录 → 发现 `claude mcp` 的注册机制和手动编辑 `.claude.json` 不同 → 根因解决。
 
 ## 问题：AI 的五大偷懒模式
 
@@ -159,12 +177,12 @@ git clone https://github.com/tanweai/pua.git ~/.claude/plugins/pua
 
 ### OpenAI Codex CLI
 
-Codex CLI 使用相同的 Agent Skills 开放标准（SKILL.md），直接复制即可：
+Codex CLI 使用相同的 Agent Skills 开放标准（SKILL.md）。Codex 版本使用精简的 description 以兼容 Codex 的长度限制：
 
 ```bash
 mkdir -p ~/.codex/skills/pua-debugging
 curl -o ~/.codex/skills/pua-debugging/SKILL.md \
-  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md
+  https://raw.githubusercontent.com/tanweai/pua/main/codex/pua-debugging/SKILL.md
 ```
 
 项目级安装（仅当前项目生效）：
@@ -172,7 +190,7 @@ curl -o ~/.codex/skills/pua-debugging/SKILL.md \
 ```bash
 mkdir -p .agents/skills/pua-debugging
 curl -o .agents/skills/pua-debugging/SKILL.md \
-  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md
+  https://raw.githubusercontent.com/tanweai/pua/main/codex/pua-debugging/SKILL.md
 ```
 
 ## 搭配使用

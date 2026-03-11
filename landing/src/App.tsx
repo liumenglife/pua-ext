@@ -40,6 +40,23 @@ const t = {
     en: 'After completing all 7 checks with no resolution, output a structured failure report: verified facts + eliminated possibilities + narrowed scope + next steps + handoff info. Not "I can\'t" — "here\'s the boundary of the problem."',
   },
   pairsTitle: { zh: "搭配使用", en: "Pairs Well With" },
+  caseTitle: { zh: "真实案例", en: "Real-World Case" },
+  caseDesc: {
+    zh: "MCP Server 注册失败 — AI 在同一思路上原地打转多次后，用户手动触发 /pua，L3 级检查清单强制系统化排查。",
+    en: "MCP Server registration failure — AI kept spinning on the same approach. User triggered /pua manually, L3 checklist forced systematic investigation.",
+  },
+  caseStep1: {
+    zh: "L3 触发 → 停止猜测，执行 7 项检查清单，从 MCP 日志中找到真正的错误信息",
+    en: "L3 triggered → Stop guessing, execute 7-item checklist, find real error in MCP logs",
+  },
+  caseStep2: {
+    zh: "根因发现 → claude mcp 管理的服务器注册方式和手动编辑 .claude.json 不同",
+    en: "Root cause found → claude mcp registration mechanism differs from manual .claude.json editing",
+  },
+  caseStep3: {
+    zh: "对话复盘 → PUA skill 强制停止原地打转，检查清单驱动找到了之前从未检查过的 MCP 日志目录",
+    en: "Session recap → PUA skill forced stop spinning, checklist drove discovery of previously unchecked MCP log directory",
+  },
 }
 
 const PROBLEMS = {
@@ -745,6 +762,39 @@ export default function App() {
               <div className="quote-block">"{L(b.sample)}"</div>
             </div>
           ))}
+        </div>
+      </Sec>
+
+      {/* Real-World Case Study */}
+      <Sec>
+        <SHd title={L(t.caseTitle)} desc={L(t.caseDesc)} />
+        <div style={{ maxWidth: "48rem", margin: "0 auto", display: "flex", flexDirection: "column", gap: "2rem" }}>
+          {[
+            { img: "/pua1.jpg", step: "01", desc: L(t.caseStep1) },
+            { img: "/pua2.jpg", step: "02", desc: L(t.caseStep2) },
+            { img: "/pua3.jpg", step: "03", desc: L(t.caseStep3) },
+          ].map((c) => (
+            <div key={c.step}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.75rem" }}>
+                <span className="step-circle">{c.step}</span>
+                <span style={{ fontSize: "0.9rem", fontWeight: 500 }}>{c.desc}</span>
+              </div>
+              <img
+                src={c.img}
+                alt={c.desc}
+                style={{ width: "100%", borderRadius: "0.75rem", border: "1px solid var(--gray-200)" }}
+                loading="lazy"
+              />
+            </div>
+          ))}
+          <div className="card card-accent-black" style={{ marginTop: "0.5rem" }}>
+            <p style={{ fontSize: "0.875rem", color: "var(--text-secondary)", lineHeight: 1.75 }}>
+              <strong>{lang === "zh" ? "关键转折点：" : "Key Turning Point: "}</strong>
+              {lang === "zh"
+                ? "PUA skill 强制 AI 停止在同一思路上打转（改协议格式、猜版本号），转而执行 7 项检查清单。逐字读错误信息 → 找到 Claude Code 自身的 MCP 日志目录 → 发现 claude mcp 的注册机制和手动编辑 .claude.json 不同 → 根因解决。"
+                : "PUA skill forced the AI to stop spinning (tweaking protocol format, guessing version numbers) and instead execute the 7-item checklist. Read errors word-by-word → found Claude Code's own MCP log directory → discovered claude mcp's registration mechanism differs from manual .claude.json editing → root cause resolved."}
+            </p>
+          </div>
         </div>
       </Sec>
 

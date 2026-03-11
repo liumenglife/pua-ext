@@ -305,6 +305,53 @@
     border-top: 1px solid var(--border);
   }
 
+  /* Case Study */
+  .case-study {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .case-study h2 { font-size: 28px; margin-bottom: 8px; text-align: center; }
+  .case-study .desc { text-align: center; color: var(--muted); margin-bottom: 32px; font-size: 14px; max-width: 640px; margin-left: auto; margin-right: auto; }
+  .case-step {
+    margin-bottom: 28px;
+  }
+  .case-step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .case-step-header .step-num {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .case-step-header span { font-size: 14px; font-weight: 500; }
+  .case-step img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .case-summary {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 10px 10px 0;
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--text);
+  }
+  .case-summary strong { color: var(--accent2); }
+
   /* Footer */
   .footer {
     padding: 40px 0;
@@ -514,6 +561,39 @@
         <div class="corp-style">A/B Player / Reality Distortion</div>
         <div class="corp-quote">The best person is not 30% better — they're 50 times better. Your output is telling me which level you are.</div>
       </div>
+    </div>
+  </section>
+
+  <section class="case-study">
+    <h2>Real-World Case: MCP Server Debug</h2>
+    <p class="desc">agent-kms MCP server 加载失败，AI 在同一思路上原地打转多次后，用户手动触发 /pua，L3 级检查清单强制系统化排查。</p>
+
+    <div class="case-step">
+      <div class="case-step-header">
+        <div class="step-num">1</div>
+        <span>L3 触发 → 停止猜测，执行 7 项检查清单，从 MCP 日志中找到真正的错误信息</span>
+      </div>
+      <img src="https://raw.githubusercontent.com/tanweai/pua/main/assets/pua1.jpg" alt="PUA L3 triggered - 7 item checklist execution">
+    </div>
+
+    <div class="case-step">
+      <div class="case-step-header">
+        <div class="step-num">2</div>
+        <span>根因发现 → claude mcp 注册方式和手动编辑 .claude.json 不同</span>
+      </div>
+      <img src="https://raw.githubusercontent.com/tanweai/pua/main/assets/pua2.jpg" alt="Root cause discovery - registration mechanism difference">
+    </div>
+
+    <div class="case-step">
+      <div class="case-step-header">
+        <div class="step-num">3</div>
+        <span>复盘 → PUA skill 强制停止原地打转，检查清单驱动找到之前从未检查过的 MCP 日志</span>
+      </div>
+      <img src="https://raw.githubusercontent.com/tanweai/pua/main/assets/pua3.jpg" alt="Session recap - PUA skill actual effect">
+    </div>
+
+    <div class="case-summary">
+      <strong>关键转折点：</strong>PUA skill 强制 AI 停止在同一思路上打转（改协议格式、猜版本号），转而执行 7 项检查清单。逐字读错误信息 → 找到 Claude Code 自身的 MCP 日志目录 → 发现 claude mcp 的注册机制和手动编辑 .claude.json 不同 → 根因解决。
     </div>
   </section>
 
