@@ -182,6 +182,12 @@ curl -o .agents/skills/pua-debugging/SKILL.md \
 
 MIT
 
+## Community
+
+- [Discord](https://discord.gg/EcyB3FzJND)
+- [Twitter/X](https://x.com/xsser_w)
+- [GitHub](https://github.com/tanweai/pua)
+
 ## Credits
 
 由 [探微安全实验室](https://github.com/tanweai) 出品 — making AI try harder, one PUA at a time.
