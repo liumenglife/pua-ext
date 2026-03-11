@@ -1,7 +1,11 @@
+import { readFileSync } from "node:fs"
+import { resolve } from "node:path"
 import { render, screen } from "@testing-library/react"
 import { describe, expect, it } from "vitest"
 
 import App from "./App"
+
+const landingStyles = readFileSync(resolve(process.cwd(), "src/index.css"), "utf8")
 
 describe("landing responsive rendering", () => {
   it("renders benchmark tabs from the benchmark data", () => {
@@ -31,5 +35,12 @@ describe("landing responsive rendering", () => {
 
     expect(screen.getByTestId("scenarios-desktop")).toBeInTheDocument()
     expect(screen.getByTestId("scenarios-mobile")).toBeInTheDocument()
+  })
+
+  it("guards mobile-only visibility rules against desktop duplication", () => {
+    expect(landingStyles).toContain(".desktop-only { display: block !important; }")
+    expect(landingStyles).toContain(".mobile-only { display: none !important; }")
+    expect(landingStyles).toContain(".desktop-only { display: none !important; }")
+    expect(landingStyles).toContain(".mobile-only { display: grid !important; }")
   })
 })

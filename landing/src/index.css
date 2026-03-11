@@ -269,8 +269,8 @@ section h2 { font-size: 1.75rem; font-weight: 700; text-align: center; letter-sp
 .install-panel { padding: 1.25rem; }
 .code-inline-pre { padding-right: 4.25rem; }
 
-.desktop-only { display: block; }
-.mobile-only { display: none; }
+.desktop-only { display: block !important; }
+.mobile-only { display: none !important; }
 
 .comparison-card-list {
   display: grid;
@@ -426,8 +426,8 @@ footer a { color: var(--text-secondary); }
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .checklist-grid { grid-template-columns: 1fr; }
-  .desktop-only { display: none; }
-  .mobile-only { display: grid; }
+  .desktop-only { display: none !important; }
+  .mobile-only { display: grid !important; }
   .comparison-panels { grid-template-columns: 1fr; }
   .tab-bar-scroll {
     overflow-x: auto;
