@@ -185,7 +185,7 @@ curl -o ~/.codex/skills/pua-debugging/SKILL.md \
   https://raw.githubusercontent.com/tanweai/pua/main/codex/pua-debugging/SKILL.md
   
 # 如果需要 /pua 指令的话
-mkdir -p ~/.codex/skills/pua-debugging/prompts
+mkdir -p ~/.codex/prompts
 curl -o ~/.codex/prompts/pua.md \
   https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
 ```
