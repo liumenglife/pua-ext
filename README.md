@@ -11,12 +11,14 @@
 <p>
   <img src="https://img.shields.io/badge/Claude_Code-black?style=flat-square&logo=anthropic&logoColor=white" alt="Claude Code">
   <img src="https://img.shields.io/badge/OpenAI_Codex_CLI-412991?style=flat-square&logo=openai&logoColor=white" alt="OpenAI Codex CLI">
+  <img src="https://img.shields.io/badge/Cursor-000?style=flat-square&logo=cursor&logoColor=white" alt="Cursor">
+  <img src="https://img.shields.io/badge/Kiro-232F3E?style=flat-square&logo=amazon&logoColor=white" alt="Kiro">
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License">
 </p>
 
 > 大部分人以为这个项目是在搞抽象，其实这个是最大的误解。这个项目提升了至少 50% 的能动性，让你的生产效率高于其他人。
 
-一个 AI Coding Agent 技能插件，用中西大厂 PUA 话术驱动 AI 穷尽所有方案才允许放弃。支持 **Claude Code** 和 **OpenAI Codex CLI**。三重能力：
+一个 AI Coding Agent 技能插件，用中西大厂 PUA 话术驱动 AI 穷尽所有方案才允许放弃。支持 **Claude Code**、**OpenAI Codex CLI**、**Cursor** 和 **Kiro**。三重能力：
 
 1. **PUA 话术** — 让 AI 不敢放弃
 2. **调试方法论** — 让 AI 有能力不放弃
@@ -213,6 +215,37 @@ curl -o .agents/skills/pua-debugging/SKILL.md \
 mkdir -p .agents/prompts
 curl -o .agents/prompts/pua.md \
   https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
+```
+
+### Cursor
+
+Cursor 使用 `.mdc` 规则文件（Markdown + YAML frontmatter）。PUA 规则通过 AI 语义匹配自动触发（Agent Discretion 模式）：
+
+```bash
+# 项目级安装（推荐）
+mkdir -p .cursor/rules
+curl -o .cursor/rules/pua-debugging.mdc \
+  https://raw.githubusercontent.com/tanweai/pua/main/cursor/rules/pua-debugging.mdc
+```
+
+### Kiro
+
+Kiro 支持两种加载方式：**Steering**（自动语义触发）和 **Agent Skills**（兼容 SKILL.md 标准）。
+
+**方式一：Steering 文件（推荐）**
+
+```bash
+mkdir -p .kiro/steering
+curl -o .kiro/steering/pua-debugging.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/kiro/steering/pua-debugging.md
+```
+
+**方式二：Agent Skills（与 Claude Code 相同格式）**
+
+```bash
+mkdir -p .kiro/skills/pua-debugging
+curl -o .kiro/skills/pua-debugging/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md
 ```
 
 ## 搭配使用

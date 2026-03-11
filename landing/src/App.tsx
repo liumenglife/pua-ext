@@ -437,7 +437,7 @@ function MobileExcuseCards({ lang, L }: { lang: Lang; L: (value: Record<Lang, st
 
 /* ── Install Tabs ── */
 function InstallTabs({ lang }: { lang: Lang }) {
-  const [tab, setTab] = useState<"claude" | "codex" | "project">("claude")
+  const [tab, setTab] = useState<"claude" | "codex" | "cursor" | "kiro" | "project">("claude")
 
   const content = {
     claude: {
@@ -450,7 +450,19 @@ function InstallTabs({ lang }: { lang: Lang }) {
       desc: lang === "zh"
         ? "使用相同的 Agent Skills 开放标准（SKILL.md），零修改兼容 OpenAI Codex CLI。"
         : "Same Agent Skills open standard (SKILL.md). Zero modifications needed for OpenAI Codex CLI.",
-      code: "mkdir -p ~/.codex/skills/pua-debugging\ncurl -o ~/.codex/skills/pua-debugging/SKILL.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md",
+      code: "mkdir -p ~/.codex/skills/pua-debugging\ncurl -o ~/.codex/skills/pua-debugging/SKILL.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/codex/pua-debugging/SKILL.md",
+    },
+    cursor: {
+      desc: lang === "zh"
+        ? "使用 .mdc 规则文件，AI 语义匹配自动触发（Agent Discretion 模式）。"
+        : "Uses .mdc rule files with AI semantic matching (Agent Discretion mode).",
+      code: "mkdir -p .cursor/rules\ncurl -o .cursor/rules/pua-debugging.mdc \\\n  https://raw.githubusercontent.com/tanweai/pua/main/cursor/rules/pua-debugging.mdc",
+    },
+    kiro: {
+      desc: lang === "zh"
+        ? "支持 Steering（自动语义触发）和 Agent Skills（兼容 SKILL.md）两种方式。"
+        : "Supports Steering (auto semantic trigger) and Agent Skills (SKILL.md compatible).",
+      code: "# Steering 方式\nmkdir -p .kiro/steering\ncurl -o .kiro/steering/pua-debugging.md \\\n  https://raw.githubusercontent.com/tanweai/pua/main/kiro/steering/pua-debugging.md",
     },
     project: {
       desc: lang === "zh"
@@ -467,8 +479,10 @@ function InstallTabs({ lang }: { lang: Lang }) {
       <div className="tab-bar tab-bar-install" style={{ marginBottom: "0.75rem" }}>
         <button className={`tab-btn${tab === "claude" ? " active" : ""}`} onClick={() => setTab("claude")}>Claude Code</button>
         <button className={`tab-btn${tab === "codex" ? " active" : ""}`} onClick={() => setTab("codex")}>Codex CLI</button>
+        <button className={`tab-btn${tab === "cursor" ? " active" : ""}`} onClick={() => setTab("cursor")}>Cursor</button>
+        <button className={`tab-btn${tab === "kiro" ? " active" : ""}`} onClick={() => setTab("kiro")}>Kiro</button>
         <button className={`tab-btn${tab === "project" ? " active" : ""}`} onClick={() => setTab("project")}>
-          {lang === "zh" ? "项目级安装" : "Project-Level"}
+          {lang === "zh" ? "项目级" : "Project"}
         </button>
       </div>
       <div className="card install-panel">
@@ -547,6 +561,18 @@ export default function App() {
                 </svg>
                 OpenAI Codex CLI
               </div>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", borderRadius: "9999px", border: "1px solid var(--gray-200)", background: "var(--bg)", fontSize: "0.8rem", fontWeight: 500 }}>
+                <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: "1.1rem", height: "1.1rem" }}>
+                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161l-8.09 8.09a.75.75 0 01-1.06 0l-3.974-3.974a.75.75 0 011.06-1.06l3.444 3.443 7.56-7.56a.75.75 0 011.06 1.061z"/>
+                </svg>
+                Cursor
+              </div>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.5rem 1rem", borderRadius: "9999px", border: "1px solid var(--gray-200)", background: "var(--bg)", fontSize: "0.8rem", fontWeight: 500 }}>
+                <svg viewBox="0 0 24 24" fill="currentColor" style={{ width: "1.1rem", height: "1.1rem" }}>
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                Kiro
+              </div>
             </div>
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "1.5rem" }}>
               <img src="/wechat-qr.jpg" alt="WeChat QR" style={{ width: "180px", height: "auto", borderRadius: "10px" }} />
@@ -556,8 +582,8 @@ export default function App() {
             </div>
             <div className="vintage-banner">
               {lang === "zh"
-                ? "通过 /pua 手动触发，或在 AI 放弃时自动激活。支持 Claude Code 和 OpenAI Codex CLI。基于 9 个真实场景 × 18 组对照实验验证。"
-                : "Trigger with /pua or auto-activates when AI gives up. Works with Claude Code and OpenAI Codex CLI. Verified across 9 real scenarios × 18 controlled experiments."}
+                ? "通过 /pua 手动触发，或在 AI 放弃时自动激活。支持 Claude Code、Codex CLI、Cursor、Kiro。基于 9 个真实场景 × 18 组对照实验验证。"
+                : "Trigger with /pua or auto-activates when AI gives up. Works with Claude Code, Codex CLI, Cursor & Kiro. Verified across 9 real scenarios × 18 controlled experiments."}
             </div>
           </div>
 
