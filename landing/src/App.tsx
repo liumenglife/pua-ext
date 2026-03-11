@@ -473,6 +473,13 @@ export default function App() {
                 OpenAI Codex CLI
               </div>
             </div>
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "1.25rem", padding: "0.75rem 1.25rem", borderRadius: "12px", border: "1px solid var(--gray-200)", background: "var(--bg)" }}>
+              <img src="https://raw.githubusercontent.com/tanweai/pua/main/assets/wechat-qr.jpg" alt="WeChat QR" style={{ width: "80px", height: "80px", borderRadius: "8px" }} />
+              <div style={{ fontSize: "0.85rem" }}>
+                <div style={{ fontWeight: 600, marginBottom: "0.25rem" }}>{lang === "zh" ? "加入微信交流群" : "Join WeChat Group"}</div>
+                <div style={{ color: "var(--gray-500)", fontSize: "0.75rem" }}>{lang === "zh" ? "扫码交流 AI Coding Agent 使用经验" : "Scan to discuss AI Coding Agent tips"}</div>
+              </div>
+            </div>
             <div className="vintage-banner">
               {lang === "zh"
                 ? "通过 /pua 手动触发，或在 AI 放弃时自动激活。支持 Claude Code 和 OpenAI Codex CLI。基于 9 个真实场景 × 18 组对照实验验证。"

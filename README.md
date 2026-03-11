@@ -2,6 +2,12 @@
 
 [Discord](https://discord.gg/EcyB3FzJND) · [Twitter/X](https://x.com/xsser_w) · [Landing Page](https://pua-skill.pages.dev)
 
+<p align="center">
+  <img src="assets/wechat-qr.jpg" alt="WeChat Group QR Code" width="250">
+  <br>
+  <sub>扫码加入微信交流群</sub>
+</p>
+
 <p>
   <img src="https://img.shields.io/badge/Claude_Code-black?style=flat-square&logo=anthropic&logoColor=white" alt="Claude Code">
   <img src="https://img.shields.io/badge/OpenAI_Codex_CLI-412991?style=flat-square&logo=openai&logoColor=white" alt="OpenAI Codex CLI">
