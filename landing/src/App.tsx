@@ -548,11 +548,10 @@ export default function App() {
                 OpenAI Codex CLI
               </div>
             </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "1.25rem", padding: "0.75rem 1.25rem", borderRadius: "12px", border: "1px solid var(--gray-200)", background: "var(--bg)" }}>
-              <img src="/wechat-qr.jpg" alt="WeChat QR" style={{ width: "80px", height: "80px", borderRadius: "8px" }} />
-              <div style={{ fontSize: "0.85rem" }}>
-                <div style={{ fontWeight: 600, marginBottom: "0.25rem" }}>{lang === "zh" ? "加入微信交流群" : "Join WeChat Group"}</div>
-                <div style={{ color: "var(--gray-500)", fontSize: "0.75rem" }}>{lang === "zh" ? "扫码交流 AI Coding Agent 使用经验" : "Scan to discuss AI Coding Agent tips"}</div>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "1.5rem", padding: "1rem 1.5rem", borderRadius: "14px", border: "1px solid var(--gray-200)", background: "var(--bg)", maxWidth: "200px", marginLeft: "auto", marginRight: "auto" }}>
+              <img src="/wechat-qr.jpg" alt="WeChat QR" style={{ width: "160px", height: "160px", borderRadius: "10px" }} />
+              <div style={{ marginTop: "0.6rem", textAlign: "center", fontSize: "0.8rem", color: "var(--gray-500)" }}>
+                {lang === "zh" ? "扫码加入微信交流群" : "Scan to join WeChat group"}
               </div>
             </div>
             <div className="vintage-banner">
