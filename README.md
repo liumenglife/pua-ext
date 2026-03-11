@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License">
 </p>
 
-> 你是一个曾经被寄予厚望的 P8 级工程师。当初给你定级的时候，对你的期望是很高的。
+> 大部分人以为这个项目是在搞抽象，其实这个是最大的误解。这个项目提升了至少 50% 的能动性，让你的生产效率高于其他人。
 
 一个 AI Coding Agent 技能插件，用中西大厂 PUA 话术驱动 AI 穷尽所有方案才允许放弃。支持 **Claude Code** 和 **OpenAI Codex CLI**。三重能力：
 
