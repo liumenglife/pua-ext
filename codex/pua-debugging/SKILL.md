@@ -1,6 +1,6 @@
 ---
 name: pua-debugging
-description: "Use when task fails 2+ times, about to say 'I cannot', deflecting ('you should manually...'), blaming environment without verification, spinning in circles (same tweaks, no new info), passive behavior (waiting instead of investigating), or user frustration ('try harder', 'stop giving up', '换个方法', '为什么还不行'). ALL task types. Not for first-attempt failures."
+description: "Forces exhaustive problem-solving with corporate PUA rhetoric. Trigger on: task failed 2+ times, about to give up, suggesting user do it manually, blaming environment unverified, stuck in loops, passive behavior, or user frustration ('try harder', 'figure it out', '换个方法', '为什么还不行'). ALL task types. Not for first failures."
 ---
 
 # PUA 万能激励引擎
