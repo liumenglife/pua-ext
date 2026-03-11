@@ -488,12 +488,6 @@ footer a { color: var(--text-secondary); }
   .section-desc {
     font-size: 0.95rem;
   }
-  .lang-switch {
-    right: 0.5rem;
-  }
-  .lang-switch button {
-    padding: 0.25rem 0.6rem;
-  }
   .card,
   .narrow-card,
   .comparison-card {
