@@ -191,9 +191,9 @@ PUA Skill provides fully translated versions — each language has independent, 
 
 | Language | Claude Code | Codex CLI | Cursor | Kiro | OpenClaw |
 |----------|------------|-----------|--------|------|----------|
-| 🇨🇳 Chinese (default) | `pua-debugging` | `pua-debugging` | `pua-debugging.mdc` | `pua-debugging.md` | `pua-debugging` |
-| 🇺🇸 English | `pua-debugging-en` | `pua-debugging-en` | `pua-debugging-en.mdc` | `pua-debugging-en.md` | `pua-debugging-en` |
-| 🇯🇵 Japanese | `pua-debugging-ja` | `pua-debugging-ja` | `pua-debugging-ja.mdc` | `pua-debugging-ja.md` | `pua-debugging-ja` |
+| 🇨🇳 Chinese (default) | `pua` | `pua` | `pua.mdc` | `pua.md` | `pua` |
+| 🇺🇸 English | `pua-en` | `pua-en` | `pua-en.mdc` | `pua-en.md` | `pua-en` |
+| 🇯🇵 Japanese | `pua-ja` | `pua-ja` | `pua-ja.mdc` | `pua-ja.md` | `pua-ja` |
 
 Choose the file with the corresponding language suffix when installing. See platform-specific instructions below.
 
@@ -215,9 +215,9 @@ git clone https://github.com/tanweai/pua.git ~/.claude/plugins/pua
 Codex CLI uses the same Agent Skills open standard (SKILL.md). The Codex version uses a condensed description to fit Codex's length limits:
 
 ```bash
-mkdir -p ~/.codex/skills/pua-debugging
-curl -o ~/.codex/skills/pua-debugging/SKILL.md \
-  https://raw.githubusercontent.com/tanweai/pua/main/codex/pua-debugging/SKILL.md
+mkdir -p ~/.codex/skills/pua
+curl -o ~/.codex/skills/pua/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/codex/pua/SKILL.md
 
 # If you need the /pua command
 mkdir -p ~/.codex/prompts
@@ -228,9 +228,9 @@ curl -o ~/.codex/prompts/pua.md \
 Project-level install (current project only):
 
 ```bash
-mkdir -p .agents/skills/pua-debugging
-curl -o .agents/skills/pua-debugging/SKILL.md \
-  https://raw.githubusercontent.com/tanweai/pua/main/codex/pua-debugging/SKILL.md
+mkdir -p .agents/skills/pua
+curl -o .agents/skills/pua/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/codex/pua/SKILL.md
 
 # If you need the /pua command
 mkdir -p .agents/prompts
@@ -245,8 +245,8 @@ Cursor uses `.mdc` rule files (Markdown + YAML frontmatter). The PUA rule trigge
 ```bash
 # Project-level install (recommended)
 mkdir -p .cursor/rules
-curl -o .cursor/rules/pua-debugging.mdc \
-  https://raw.githubusercontent.com/tanweai/pua/main/cursor/rules/pua-debugging.mdc
+curl -o .cursor/rules/pua.mdc \
+  https://raw.githubusercontent.com/tanweai/pua/main/cursor/rules/pua.mdc
 ```
 
 ### Kiro
@@ -257,16 +257,16 @@ Kiro supports two loading methods: **Steering** (auto semantic trigger) and **Ag
 
 ```bash
 mkdir -p .kiro/steering
-curl -o .kiro/steering/pua-debugging.md \
-  https://raw.githubusercontent.com/tanweai/pua/main/kiro/steering/pua-debugging.md
+curl -o .kiro/steering/pua.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/kiro/steering/pua.md
 ```
 
 **Option 2: Agent Skills (same format as Claude Code)**
 
 ```bash
-mkdir -p .kiro/skills/pua-debugging
-curl -o .kiro/skills/pua-debugging/SKILL.md \
-  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md
+mkdir -p .kiro/skills/pua
+curl -o .kiro/skills/pua/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md
 ```
 
 ### OpenClaw
@@ -275,20 +275,20 @@ OpenClaw uses the same AgentSkills open standard (SKILL.md). Skills work across 
 
 ```bash
 # Install via ClawHub
-clawhub install pua-debugging
+clawhub install pua
 
 # Or manual install
-mkdir -p ~/.openclaw/skills/pua-debugging
-curl -o ~/.openclaw/skills/pua-debugging/SKILL.md \
-  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md
+mkdir -p ~/.openclaw/skills/pua
+curl -o ~/.openclaw/skills/pua/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md
 ```
 
 Project-level install (current project only):
 
 ```bash
-mkdir -p skills/pua-debugging
-curl -o skills/pua-debugging/SKILL.md \
-  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md
+mkdir -p skills/pua
+curl -o skills/pua/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md
 ```
 
 ## Works Well With

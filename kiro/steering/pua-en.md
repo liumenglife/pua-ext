@@ -1,6 +1,6 @@
 ---
 inclusion: auto
-name: pua-debugging-en
+name: pua-en
 description: "Forces exhaustive problem-solving using corporate PUA rhetoric and structured debugging methodology. Activates when: task failed 2+ times, about to say 'I cannot', suggesting user do it manually, blaming environment without verifying, stuck in loops, passive behavior, or user frustration."
 ---
 
