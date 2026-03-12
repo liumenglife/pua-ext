@@ -20,13 +20,14 @@
   <img src="https://img.shields.io/badge/Cursor-000?style=flat-square&logo=cursor&logoColor=white" alt="Cursor">
   <img src="https://img.shields.io/badge/Kiro-232F3E?style=flat-square&logo=amazon&logoColor=white" alt="Kiro">
   <img src="https://img.shields.io/badge/OpenClaw-FF6B35?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJMNCA3djEwbDggNSA4LTV2LTEweiIgZmlsbD0id2hpdGUiLz48L3N2Zz4=&logoColor=white" alt="OpenClaw">
+  <img src="https://img.shields.io/badge/Antigravity-4285F4?style=flat-square&logo=google&logoColor=white" alt="Google Antigravity">
   <img src="https://img.shields.io/badge/🌐_Multi--Language-blue?style=flat-square" alt="Multi-Language">
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License">
 </p>
 
 > Most people think this project is a joke. That's the biggest misconception. It genuinely doubles your Codex / Claude Code productivity and output.
 
-An AI Coding Agent skill plugin that uses corporate PUA (Pick-Up Artist) rhetoric from Chinese & Western tech giants to force AI to exhaust every possible solution before giving up. Supports **Claude Code**, **OpenAI Codex CLI**, **Cursor**, **Kiro**, and **OpenClaw**. Three capabilities:
+An AI Coding Agent skill plugin that uses corporate PUA (Pick-Up Artist) rhetoric from Chinese & Western tech giants to force AI to exhaust every possible solution before giving up. Supports **Claude Code**, **OpenAI Codex CLI**, **Cursor**, **Kiro**, **OpenClaw**, and **Google Antigravity**. Three capabilities:
 
 1. **PUA Rhetoric** — Makes AI afraid to give up
 2. **Debugging Methodology** — Gives AI the ability not to give up
@@ -189,11 +190,11 @@ Inspired by Alibaba's management framework (Smell, Elevate, Mirror), extended to
 
 PUA Skill provides fully translated versions — each language has independent, culturally adapted skill files.
 
-| Language | Claude Code | Codex CLI | Cursor | Kiro | OpenClaw |
-|----------|------------|-----------|--------|------|----------|
-| 🇨🇳 Chinese (default) | `pua` | `pua` | `pua.mdc` | `pua.md` | `pua` |
-| 🇺🇸 English | `pua-en` | `pua-en` | `pua-en.mdc` | `pua-en.md` | `pua-en` |
-| 🇯🇵 Japanese | `pua-ja` | `pua-ja` | `pua-ja.mdc` | `pua-ja.md` | `pua-ja` |
+| Language | Claude Code | Codex CLI | Cursor | Kiro | OpenClaw | Antigravity |
+|----------|------------|-----------|--------|------|----------|-------------|
+| 🇨🇳 Chinese (default) | `pua` | `pua` | `pua.mdc` | `pua.md` | `pua` | `pua` |
+| 🇺🇸 English | `pua-en` | `pua-en` | `pua-en.mdc` | `pua-en.md` | `pua-en` | `pua-en` |
+| 🇯🇵 Japanese | `pua-ja` | `pua-ja` | `pua-ja.mdc` | `pua-ja.md` | `pua-ja` | `pua-ja` |
 
 Choose the file with the corresponding language suffix when installing. See platform-specific instructions below.
 
@@ -288,6 +289,25 @@ Project-level install (current project only):
 ```bash
 mkdir -p skills/pua
 curl -o skills/pua/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md
+```
+
+### Google Antigravity
+
+Antigravity uses the same AgentSkills open standard (SKILL.md). Skills work across Claude Code, Codex CLI, OpenClaw, and Antigravity with zero modifications:
+
+```bash
+# Global install (all projects)
+mkdir -p ~/.gemini/antigravity/skills/pua
+curl -o ~/.gemini/antigravity/skills/pua/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md
+```
+
+Project-level install (current project only):
+
+```bash
+mkdir -p .agent/skills/pua
+curl -o .agent/skills/pua/SKILL.md \
   https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md
 ```
 

@@ -20,12 +20,13 @@
   <img src="https://img.shields.io/badge/Cursor-000?style=flat-square&logo=cursor&logoColor=white" alt="Cursor">
   <img src="https://img.shields.io/badge/Kiro-232F3E?style=flat-square&logo=amazon&logoColor=white" alt="Kiro">
   <img src="https://img.shields.io/badge/OpenClaw-FF6B35?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJMNCA3djEwbDggNSA4LTV2LTEweiIgZmlsbD0id2hpdGUiLz48L3N2Zz4=&logoColor=white" alt="OpenClaw">
+  <img src="https://img.shields.io/badge/Antigravity-4285F4?style=flat-square&logo=google&logoColor=white" alt="Google Antigravity">
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License">
 </p>
 
 > このプロジェクトはネタだと思っている人が多いが、それが最大の誤解だ。Codex / Claude Code の生産性とアウトプットを本当に倍増させる。
 
-AI コーディングエージェントのスキルプラグイン。中国・西洋の大企業PUA話術でAIにあらゆる方案を尽くさせてから初めて諦めることを許可する。**Claude Code**、**OpenAI Codex CLI**、**Cursor**、**Kiro**、**OpenClaw** に対応。三重の能力：
+AI コーディングエージェントのスキルプラグイン。中国・西洋の大企業PUA話術でAIにあらゆる方案を尽くさせてから初めて諦めることを許可する。**Claude Code**、**OpenAI Codex CLI**、**Cursor**、**Kiro**、**OpenClaw**、**Google Antigravity** に対応。三重の能力：
 
 1. **PUA話術** — AIに諦めさせない
 2. **デバッグ方法論** — AIに諦めない能力を与える
@@ -261,6 +262,25 @@ curl -o ~/.openclaw/skills/pua-ja/SKILL.md \
 ```bash
 mkdir -p skills/pua-ja
 curl -o skills/pua-ja/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-ja/SKILL.md
+```
+
+### Google Antigravity
+
+Antigravityは同じAgentSkillsオープンスタンダード（SKILL.md）を使用。修正なしで互換：
+
+```bash
+# グローバルインストール（全プロジェクトで利用可能）
+mkdir -p ~/.gemini/antigravity/skills/pua-ja
+curl -o ~/.gemini/antigravity/skills/pua-ja/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-ja/SKILL.md
+```
+
+プロジェクトレベルインストール（現在のプロジェクトのみ有効）：
+
+```bash
+mkdir -p .agent/skills/pua-ja
+curl -o .agent/skills/pua-ja/SKILL.md \
   https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-ja/SKILL.md
 ```
 
