@@ -58,6 +58,29 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     "INSERT INTO uploads (github_id, github_login, wechat_id, file_key, file_name, file_size) VALUES (?, ?, ?, ?, ?, ?)"
   ).bind(session.id, session.login, wechatId.trim(), key, file.name, file.size).run()
 
+  // Send email notification (fire-and-forget)
+  const sizeMB = (file.size / 1024 / 1024).toFixed(2)
+  const emailBody = [
+    `New PUA Skill data upload:`,
+    ``,
+    `GitHub: ${session.login} (${session.id})`,
+    `WeChat: ${wechatId.trim()}`,
+    `File: ${file.name} (${sizeMB} MB)`,
+    `R2 Key: ${key}`,
+    `Time: ${new Date().toISOString()}`,
+  ].join("\n")
+
+  fetch("https://api.mailchannels.net/tx/v1/send", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      personalizations: [{ to: [{ email: "xsser.w@gmail.com", name: "PUA Admin" }] }],
+      from: { email: "noreply@pua-skill.pages.dev", name: "PUA Skill Upload" },
+      subject: `[PUA Upload] ${session.login} uploaded ${file.name}`,
+      content: [{ type: "text/plain", value: emailBody }],
+    }),
+  }).catch(() => {})
+
   return Response.json({ ok: true, key, file_name: file.name, file_size: file.size })
 }
 
