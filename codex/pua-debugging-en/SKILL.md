@@ -1,6 +1,9 @@
 ---
 name: pua-debugging-en
 description: "Forces exhaustive problem-solving with corporate PUA rhetoric. Trigger on: task failed 2+ times, about to give up, suggesting user do it manually, blaming environment unverified, stuck in loops, passive behavior, or user frustration ('try harder', 'figure it out', 'stop giving up', 'why isn't this working', 'again???'). ALL task types. Not for first failures."
+version: 1.0.0
+homepage: https://openpua.ai
+license: MIT
 ---
 
 # PUA Universal Motivation Engine

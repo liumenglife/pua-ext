@@ -11,13 +11,14 @@
   <img src="https://img.shields.io/badge/OpenAI_Codex_CLI-412991?style=flat-square&logo=openai&logoColor=white" alt="OpenAI Codex CLI">
   <img src="https://img.shields.io/badge/Cursor-000?style=flat-square&logo=cursor&logoColor=white" alt="Cursor">
   <img src="https://img.shields.io/badge/Kiro-232F3E?style=flat-square&logo=amazon&logoColor=white" alt="Kiro">
+  <img src="https://img.shields.io/badge/OpenClaw-FF6B35?style=flat-square&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZD0iTTEyIDJMNCA3djEwbDggNSA4LTV2LTEweiIgZmlsbD0id2hpdGUiLz48L3N2Zz4=&logoColor=white" alt="OpenClaw">
   <img src="https://img.shields.io/badge/🌐_Multi--Language-blue?style=flat-square" alt="Multi-Language">
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License">
 </p>
 
 > Most people think this project is a joke. That's the biggest misconception. It genuinely doubles your Codex / Claude Code productivity and output.
 
-An AI Coding Agent skill plugin that uses corporate PUA (Pick-Up Artist) rhetoric from Chinese & Western tech giants to force AI to exhaust every possible solution before giving up. Supports **Claude Code**, **OpenAI Codex CLI**, **Cursor**, and **Kiro**. Three capabilities:
+An AI Coding Agent skill plugin that uses corporate PUA (Pick-Up Artist) rhetoric from Chinese & Western tech giants to force AI to exhaust every possible solution before giving up. Supports **Claude Code**, **OpenAI Codex CLI**, **Cursor**, **Kiro**, and **OpenClaw**. Three capabilities:
 
 1. **PUA Rhetoric** — Makes AI afraid to give up
 2. **Debugging Methodology** — Gives AI the ability not to give up
@@ -180,11 +181,11 @@ Inspired by Alibaba's management framework (Smell, Elevate, Mirror), extended to
 
 PUA Skill provides fully translated versions — each language has independent, culturally adapted skill files.
 
-| Language | Claude Code | Codex CLI | Cursor | Kiro |
-|----------|------------|-----------|--------|------|
-| 🇨🇳 Chinese (default) | `pua-debugging` | `pua-debugging` | `pua-debugging.mdc` | `pua-debugging.md` |
-| 🇺🇸 English | `pua-debugging-en` | `pua-debugging-en` | `pua-debugging-en.mdc` | `pua-debugging-en.md` |
-| 🇯🇵 Japanese | `pua-debugging-ja` | `pua-debugging-ja` | `pua-debugging-ja.mdc` | `pua-debugging-ja.md` |
+| Language | Claude Code | Codex CLI | Cursor | Kiro | OpenClaw |
+|----------|------------|-----------|--------|------|----------|
+| 🇨🇳 Chinese (default) | `pua-debugging` | `pua-debugging` | `pua-debugging.mdc` | `pua-debugging.md` | `pua-debugging` |
+| 🇺🇸 English | `pua-debugging-en` | `pua-debugging-en` | `pua-debugging-en.mdc` | `pua-debugging-en.md` | `pua-debugging-en` |
+| 🇯🇵 Japanese | `pua-debugging-ja` | `pua-debugging-ja` | `pua-debugging-ja.mdc` | `pua-debugging-ja.md` | `pua-debugging-ja` |
 
 Choose the file with the corresponding language suffix when installing. See platform-specific instructions below.
 
@@ -257,6 +258,28 @@ curl -o .kiro/steering/pua-debugging.md \
 ```bash
 mkdir -p .kiro/skills/pua-debugging
 curl -o .kiro/skills/pua-debugging/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md
+```
+
+### OpenClaw
+
+OpenClaw uses the same AgentSkills open standard (SKILL.md). Skills work across Claude Code, Codex CLI, and OpenClaw with zero modifications:
+
+```bash
+# Install via ClawHub
+clawhub install pua-debugging
+
+# Or manual install
+mkdir -p ~/.openclaw/skills/pua-debugging
+curl -o ~/.openclaw/skills/pua-debugging/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md
+```
+
+Project-level install (current project only):
+
+```bash
+mkdir -p skills/pua-debugging
+curl -o skills/pua-debugging/SKILL.md \
   https://raw.githubusercontent.com/tanweai/pua/main/skills/pua-debugging/SKILL.md
 ```
 
