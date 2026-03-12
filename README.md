@@ -1,5 +1,7 @@
 # pua
 
+### 让你的 Codex / Claude Code 工作效率翻倍，产出翻倍
+
 [Discord](https://discord.gg/EcyB3FzJND) · [Twitter/X](https://x.com/xsser_w) · [Landing Page](https://pua-skill.pages.dev)
 
 <p align="center">
@@ -16,7 +18,7 @@
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License">
 </p>
 
-> 大部分人以为这个项目是在搞抽象，其实这个是最大的误解。这个项目提升了至少 50% 的能动性，让你的生产效率高于其他人。
+> 大部分人以为这个项目是在搞抽象，其实这个是最大的误解。让你的 Codex / Claude Code 工作效率翻倍，产出翻倍。
 
 一个 AI Coding Agent 技能插件，用中西大厂 PUA 话术驱动 AI 穷尽所有方案才允许放弃。支持 **Claude Code**、**OpenAI Codex CLI**、**Cursor** 和 **Kiro**。三重能力：
 

@@ -4,12 +4,12 @@ type Lang = "zh" | "en"
 
 const t = {
   heroSub: {
-    zh: "大部分人以为这个项目是在搞抽象，其实这个是最大的误解。这个项目提升了至少 50% 的能动性，让你的生产效率高于其他人。",
-    en: "Most people think this project is just a meme. That's the biggest misconception. It boosts AI initiative by at least 50%, making your productivity higher than everyone else's.",
+    zh: "让你的 Codex / Claude Code 工作效率翻倍，产出翻倍",
+    en: "Double your Codex / Claude Code efficiency and output",
   },
   heroSub2: {
     zh: "PUA 让 AI 不敢放弃，方法论让 AI 有能力不放弃，能动性鞭策让 AI 主动出击而不是被动等待。",
-    en: "PUA keeps AI from quitting; methodology gives it tools to succeed; initiative whipping makes AI proactively attack problems.",
+    en: "PUA keeps AI from quitting; methodology gives it tools to succeed; initiative makes AI proactively attack problems instead of waiting passively.",
   },
   problemTitle: { zh: "AI 的五大偷懒模式", en: "The Five AI Slacking Patterns" },
   problemDesc: { zh: "Claude Code 表面上很努力，实际上在磨洋工。", en: "Claude Code looks busy but accomplishes nothing." },
