@@ -574,10 +574,18 @@ export default function App() {
                 Kiro
               </div>
             </div>
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "1.5rem" }}>
-              <img src="/wechat-qr.jpg" alt="WeChat QR" style={{ width: "180px", height: "auto", borderRadius: "10px" }} />
-              <div style={{ marginTop: "0.5rem", textAlign: "center", fontSize: "0.8rem", color: "var(--gray-500)" }}>
-                {lang === "zh" ? "扫码加入微信交流群" : "Scan to join WeChat group"}
+            <div style={{ display: "flex", gap: "1.5rem", justifyContent: "center", alignItems: "flex-start", marginTop: "1.5rem", flexWrap: "wrap" }}>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <img src="/wechat-qr.jpg" alt="WeChat QR" style={{ width: "180px", height: "auto", borderRadius: "10px" }} />
+                <div style={{ marginTop: "0.5rem", textAlign: "center", fontSize: "0.8rem", color: "var(--gray-500)" }}>
+                  {lang === "zh" ? "扫码加入微信交流群" : "Scan to join WeChat group"}
+                </div>
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <img src="/xiao.jpg" alt="小助手微信" style={{ width: "180px", height: "auto", borderRadius: "10px" }} />
+                <div style={{ marginTop: "0.5rem", textAlign: "center", fontSize: "0.8rem", color: "var(--gray-500)" }}>
+                  {lang === "zh" ? "添加小助手微信" : "Add assistant on WeChat"}
+                </div>
               </div>
             </div>
             <div className="vintage-banner">

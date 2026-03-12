@@ -6,8 +6,10 @@
 
 <p align="center">
   <img src="assets/wechat-qr.jpg" alt="WeChat Group QR Code" width="250">
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <img src="assets/xiao.jpg" alt="小助手微信" width="250">
   <br>
-  <sub>扫码加入微信交流群</sub>
+  <sub>扫码加入微信交流群 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 添加小助手微信</sub>
 </p>
 
 <p>
