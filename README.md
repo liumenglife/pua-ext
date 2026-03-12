@@ -257,6 +257,23 @@ curl -o .kiro/skills/pua-debugging/SKILL.md \
 - `superpowers:systematic-debugging` — PUA 加动力层，systematic-debugging 提供方法论
 - `superpowers:verification-before-completion` — 防止虚假 "已修复" 声明
 
+## 贡献数据
+
+上传你的 Claude Code / Codex CLI 对话记录（`.jsonl`），帮助我们改进 PUA Skill 的效果。
+
+**[上传入口 →](https://pua-skill.pages.dev/#/contribute)**
+
+上传的文件将用于 Benchmark 测试和消融实验（Ablation Study）分析，帮助量化不同 PUA 策略对 AI 调试行为的影响。
+
+获取 `.jsonl` 文件：
+```bash
+# Claude Code
+ls ~/.claude/projects/*/sessions/*.jsonl
+
+# Codex CLI
+ls ~/.codex/sessions/*.jsonl
+```
+
 ## License
 
 MIT

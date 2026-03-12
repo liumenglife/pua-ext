@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import Contribute from "./pages/Contribute"
 
 type Lang = "zh" | "en"
 
@@ -497,9 +498,25 @@ function InstallTabs({ lang }: { lang: Lang }) {
 }
 
 /* ── App ── */
+function useHashRoute() {
+  const [hash, setHash] = useState(window.location.hash)
+  useEffect(() => {
+    const onHash = () => setHash(window.location.hash)
+    window.addEventListener("hashchange", onHash)
+    return () => window.removeEventListener("hashchange", onHash)
+  }, [])
+  return hash
+}
+
 export default function App() {
+  const hash = useHashRoute()
   const [lang, setLang] = useState<Lang>("zh")
   const [activeTab, setActiveTab] = useState("Alibaba")
+
+  // Route: #/contribute
+  if (hash === "#/contribute") {
+    return <Contribute lang={lang} />
+  }
   const L = (o: Record<Lang, string>) => o[lang]
   const activeBenchmark = BENCHMARKS.find((benchmark) => benchmark.name === activeTab) ?? BENCHMARKS[0]
   const benchmarkSummary = [
@@ -540,6 +557,14 @@ export default function App() {
             <div className="btn-group">
               <a href="#install" className="btn-primary">
                 {lang === "zh" ? "安装 Skill" : "Install Skill"}
+              </a>
+              <a href="#/contribute" className="btn-secondary">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ width: "1rem", height: "1rem" }}>
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
+                {lang === "zh" ? "贡献数据" : "Contribute Data"}
               </a>
               <a href="https://github.com/tanweai/pua" target="_blank" rel="noopener noreferrer" className="btn-secondary">
                 <svg viewBox="0 0 98 96" fill="currentColor" style={{ width: "1rem", height: "1rem" }}>
