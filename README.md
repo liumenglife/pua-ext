@@ -2,7 +2,7 @@
 
 ### Double your Codex / Claude Code productivity and output
 
-[Discord](https://discord.gg/EcyB3FzJND) · [Twitter/X](https://x.com/xsser_w) · [Landing Page](https://pua-skill.pages.dev)
+[Discord](https://discord.gg/EcyB3FzJND) · [Twitter/X](https://x.com/xsser_w) · [Landing Page](https://openpua.ai)
 
 **[🇨🇳 中文](README.zh-CN.md)** | **[🇯🇵 日本語](README.ja.md)** | **🇺🇸 English**
 
@@ -25,7 +25,7 @@ An AI Coding Agent skill plugin that uses corporate PUA (Pick-Up Artist) rhetori
 
 ## Live Demo
 
-[https://pua-skill.pages.dev](https://pua-skill.pages.dev)
+[https://openpua.ai](https://openpua.ai)
 
 ## Real Case: MCP Server Registration Debugging
 
@@ -269,7 +269,7 @@ curl -o .kiro/skills/pua-debugging/SKILL.md \
 
 Upload your Claude Code / Codex CLI conversation logs (`.jsonl`) to help us improve PUA Skill's effectiveness.
 
-**[Upload here ->](https://pua-skill.pages.dev/#/contribute)**
+**[Upload here ->](https://openpua.ai/#/contribute)**
 
 Uploaded files are used for Benchmark testing and Ablation Study analysis to quantify how different PUA strategies affect AI debugging behavior.
 

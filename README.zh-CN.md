@@ -2,7 +2,7 @@
 
 ### 让你的 Codex / Claude Code 工作效率翻倍，产出翻倍
 
-[Discord](https://discord.gg/EcyB3FzJND) · [Twitter/X](https://x.com/xsser_w) · [Landing Page](https://pua-skill.pages.dev)
+[Discord](https://discord.gg/EcyB3FzJND) · [Twitter/X](https://x.com/xsser_w) · [Landing Page](https://openpua.ai)
 
 **[🇺🇸 English](README.md)** | **🇨🇳 中文** | **[🇯🇵 日本語](README.ja.md)**
 
@@ -32,7 +32,7 @@
 
 ## 在线体验
 
-[https://pua-skill.pages.dev](https://pua-skill.pages.dev)
+[https://openpua.ai](https://openpua.ai)
 
 ## 真实案例：MCP Server 注册问题调试
 
@@ -263,7 +263,7 @@ curl -o .kiro/skills/pua-debugging/SKILL.md \
 
 上传你的 Claude Code / Codex CLI 对话记录（`.jsonl`），帮助我们改进 PUA Skill 的效果。
 
-**[上传入口 →](https://pua-skill.pages.dev/#/contribute)**
+**[上传入口 →](https://openpua.ai/#/contribute)**
 
 上传的文件将用于 Benchmark 测试和消融实验（Ablation Study）分析，帮助量化不同 PUA 策略对 AI 调试行为的影响。
 
