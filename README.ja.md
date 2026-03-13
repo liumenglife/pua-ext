@@ -6,7 +6,7 @@
 
 ### Codex / Claude Code の生産性とアウトプットを倍増させる
 
-[Discord](https://discord.gg/EcyB3FzJND) · [Twitter/X](https://x.com/xsser_w) · [Landing Page](https://openpua.ai)
+[Telegram](https://t.me/+wBWh6h-h1RhiZTI1) · [Discord](https://discord.gg/EcyB3FzJND) · [Twitter/X](https://x.com/xsser_w) · [Landing Page](https://openpua.ai)
 
 **[🇺🇸 English](README.md)** | **[🇨🇳 中文](README.zh-CN.md)** | **🇯🇵 日本語**
 
