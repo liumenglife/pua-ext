@@ -205,6 +205,16 @@ Choose the file with the corresponding language suffix when installing. See plat
 
 ## Installation
 
+### Vercel Skills CLI
+
+Vercel Skills CLI is a general installation method for skills and is not tied to a specific AI tool. This English README installs the English skill:
+
+```bash
+npx skills add tanweai/pua --skill pua-en
+```
+
+If the current session does not pick up the new skill immediately, restart your AI tool.
+
 ### Claude Code
 
 ```bash
@@ -219,21 +229,6 @@ git clone https://github.com/tanweai/pua.git ~/.claude/plugins/pua
 ### OpenAI Codex CLI
 
 Codex CLI uses the same Agent Skills open standard (SKILL.md). The Codex version uses a condensed description to fit Codex's length limits:
-
-**Option 1: Install with Vercel Skills CLI (recommended)**
-
-```bash
-npx skills add https://github.com/tanweai/pua --skill pua
-
-# If you need the /pua command
-mkdir -p ~/.codex/prompts
-curl -o ~/.codex/prompts/pua.md \
-  https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
-```
-
-If the current Codex session does not pick up the new skill immediately, restart Codex.
-
-**Option 2: Manual install**
 
 ```bash
 mkdir -p ~/.codex/skills/pua
