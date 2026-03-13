@@ -206,6 +206,21 @@ git clone https://github.com/tanweai/pua.git ~/.claude/plugins/pua
 
 Codex CLI 使用相同的 Agent Skills 开放标准（SKILL.md）。Codex 版本使用精简的 description 以兼容 Codex 的长度限制：
 
+**方式一：通过 Vercel Skills CLI 安装（推荐）**
+
+```bash
+npx skills add https://github.com/tanweai/pua --skill pua
+
+# 如果需要 /pua 指令的话
+mkdir -p ~/.codex/prompts
+curl -o ~/.codex/prompts/pua.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
+```
+
+如果当前 Codex 会话没有立即识别到新 skill，重启 Codex 即可。
+
+**方式二：手动安装**
+
 ```bash
 mkdir -p ~/.codex/skills/pua
 curl -o ~/.codex/skills/pua/SKILL.md \

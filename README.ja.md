@@ -207,6 +207,21 @@ git clone https://github.com/tanweai/pua.git ~/.claude/plugins/pua
 
 Codex CLIは同じAgent Skillsオープンスタンダード（SKILL.md）を使用。Codex版はCodexの長さ制限に対応した短縮descriptionを使用：
 
+**方法1：Vercel Skills CLIでインストール（推奨）**
+
+```bash
+npx skills add https://github.com/tanweai/pua --skill pua-ja
+
+# /pua コマンドが必要な場合
+mkdir -p ~/.codex/prompts
+curl -o ~/.codex/prompts/pua.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
+```
+
+現在のCodexセッションで新しいskillがすぐに反映されない場合は、Codexを再起動してください。
+
+**方法2：手動インストール**
+
 ```bash
 mkdir -p ~/.codex/skills/pua-ja
 curl -o ~/.codex/skills/pua-ja/SKILL.md \
