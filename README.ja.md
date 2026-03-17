@@ -209,14 +209,42 @@ git clone https://github.com/tanweai/pua.git ~/.claude/plugins/pua
 
 Codex CLIは同じAgent Skillsオープンスタンダード（SKILL.md）を使用。Codex版はCodexの長さ制限に対応した短縮descriptionを使用：
 
+**推奨：一括インストール（git clone + シンボリックリンク、`git pull` での更新に対応）**
+
+Codexに実行させる：
+```
+Fetch and follow instructions from https://raw.githubusercontent.com/tanweai/pua/main/.codex/INSTALL.md
+```
+
+**手動インストール：**
+
 ```bash
 mkdir -p ~/.codex/skills/pua-ja
 curl -o ~/.codex/skills/pua-ja/SKILL.md \
   https://raw.githubusercontent.com/tanweai/pua/main/codex/pua-ja/SKILL.md
 
-# /puaコマンドが必要な場合
 mkdir -p ~/.codex/prompts
 curl -o ~/.codex/prompts/pua.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
+```
+
+**トリガー方法：**
+
+| 方法 | コマンド | 必要なもの |
+|------|---------|-----------|
+| 自動トリガー | 操作不要、descriptionによるマッチング | SKILL.md |
+| 直接呼び出し | 対話で `$pua` と入力 | SKILL.md |
+| 手動プロンプト | 対話で `/prompts:pua` と入力 | SKILL.md + prompts/pua.md |
+
+プロジェクトレベルインストール（現在のプロジェクトのみ有効）：
+
+```bash
+mkdir -p .agents/skills/pua-ja
+curl -o .agents/skills/pua-ja/SKILL.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/codex/pua-ja/SKILL.md
+
+mkdir -p .agents/prompts
+curl -o .agents/prompts/pua.md \
   https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
 ```
 
