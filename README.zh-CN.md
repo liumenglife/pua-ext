@@ -207,16 +207,42 @@ git clone https://github.com/tanweai/pua.git ~/.claude/plugins/pua
 
 Codex CLI 使用相同的 Agent Skills 开放标准（SKILL.md）。Codex 版本使用精简的 description 以兼容 Codex 的长度限制：
 
+**推荐：一键安装（git clone + symlink，支持 `git pull` 更新）**
+
+让 Codex 执行：
+```
+Fetch and follow instructions from https://raw.githubusercontent.com/tanweai/pua/main/.codex/INSTALL.md
+```
+
+**手动安装：**
+
 ```bash
 mkdir -p ~/.codex/skills/pua
 curl -o ~/.codex/skills/pua/SKILL.md \
   https://raw.githubusercontent.com/tanweai/pua/main/codex/pua/SKILL.md
-  
-# 如果需要 /pua 指令的话
+
 mkdir -p ~/.codex/prompts
 curl -o ~/.codex/prompts/pua.md \
   https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
 ```
+
+**Windows 用户**（PowerShell，确保中文正确写入）：
+
+```powershell
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills\pua"
+$url = "https://raw.githubusercontent.com/tanweai/pua/main/codex/pua/SKILL.md"
+$dest = "$env:USERPROFILE\.codex\skills\pua\SKILL.md"
+$content = (Invoke-WebRequest $url).Content
+[System.IO.File]::WriteAllText($dest, $content, (New-Object System.Text.UTF8Encoding $false))
+```
+
+**触发方式：**
+
+| 方式 | 命令 | 需要 |
+|------|------|------|
+| 自动触发 | 无需操作，根据 description 匹配 | SKILL.md |
+| 直接调用 | 对话中输入 `$pua` | SKILL.md |
+| 手动 prompt | 对话中输入 `/prompts:pua` | SKILL.md + prompts/pua.md |
 
 项目级安装（仅当前项目生效）：
 
@@ -225,7 +251,6 @@ mkdir -p .agents/skills/pua
 curl -o .agents/skills/pua/SKILL.md \
   https://raw.githubusercontent.com/tanweai/pua/main/codex/pua/SKILL.md
 
-# 如果需要 /pua 指令的话
 mkdir -p .agents/prompts
 curl -o .agents/prompts/pua.md \
   https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md

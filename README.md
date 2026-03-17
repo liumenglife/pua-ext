@@ -223,16 +223,42 @@ git clone https://github.com/tanweai/pua.git ~/.claude/plugins/pua
 
 Codex CLI uses the same Agent Skills open standard (SKILL.md). The Codex version uses a condensed description to fit Codex's length limits:
 
+**Recommended: One-command install (git clone + symlink, supports `git pull` updates)**
+
+Ask Codex to run:
+```
+Fetch and follow instructions from https://raw.githubusercontent.com/tanweai/pua/main/.codex/INSTALL.md
+```
+
+**Manual install:**
+
 ```bash
 mkdir -p ~/.codex/skills/pua
 curl -o ~/.codex/skills/pua/SKILL.md \
   https://raw.githubusercontent.com/tanweai/pua/main/codex/pua/SKILL.md
 
-# If you need the /pua command
 mkdir -p ~/.codex/prompts
 curl -o ~/.codex/prompts/pua.md \
   https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
 ```
+
+**Windows users** (PowerShell, ensures correct UTF-8 encoding):
+
+```powershell
+New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills\pua"
+$url = "https://raw.githubusercontent.com/tanweai/pua/main/codex/pua/SKILL.md"
+$dest = "$env:USERPROFILE\.codex\skills\pua\SKILL.md"
+$content = (Invoke-WebRequest $url).Content
+[System.IO.File]::WriteAllText($dest, $content, (New-Object System.Text.UTF8Encoding $false))
+```
+
+**Trigger methods:**
+
+| Method | Command | Requires |
+|--------|---------|----------|
+| Auto trigger | No action needed, matches by description | SKILL.md |
+| Direct call | Type `$pua` in conversation | SKILL.md |
+| Manual prompt | Type `/prompts:pua` in conversation | SKILL.md + prompts/pua.md |
 
 Project-level install (current project only):
 
@@ -241,7 +267,6 @@ mkdir -p .agents/skills/pua
 curl -o .agents/skills/pua/SKILL.md \
   https://raw.githubusercontent.com/tanweai/pua/main/codex/pua/SKILL.md
 
-# If you need the /pua command
 mkdir -p .agents/prompts
 curl -o .agents/prompts/pua.md \
   https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
