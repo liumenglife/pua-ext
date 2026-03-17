@@ -242,16 +242,6 @@ curl -o ~/.codex/prompts/pua.md \
   https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
 ```
 
-**Windows users** (PowerShell, ensures correct UTF-8 encoding):
-
-```powershell
-New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills\pua"
-$url = "https://raw.githubusercontent.com/tanweai/pua/main/codex/pua/SKILL.md"
-$dest = "$env:USERPROFILE\.codex\skills\pua\SKILL.md"
-$content = (Invoke-WebRequest $url).Content
-[System.IO.File]::WriteAllText($dest, $content, (New-Object System.Text.UTF8Encoding $false))
-```
-
 **Trigger methods:**
 
 | Method | Command | Requires |

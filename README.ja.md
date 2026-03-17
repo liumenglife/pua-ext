@@ -227,16 +227,6 @@ curl -o ~/.codex/prompts/pua.md \
   https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
 ```
 
-**Windows ユーザー**（PowerShell、UTF-8エンコーディングを確実に）：
-
-```powershell
-New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills\pua-ja"
-$url = "https://raw.githubusercontent.com/tanweai/pua/main/codex/pua-ja/SKILL.md"
-$dest = "$env:USERPROFILE\.codex\skills\pua-ja\SKILL.md"
-$content = (Invoke-WebRequest $url).Content
-[System.IO.File]::WriteAllText($dest, $content, (New-Object System.Text.UTF8Encoding $false))
-```
-
 **トリガー方法：**
 
 | 方法 | コマンド | 必要なもの |

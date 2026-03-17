@@ -226,16 +226,6 @@ curl -o ~/.codex/prompts/pua.md \
   https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
 ```
 
-**Windows 用户**（PowerShell，确保中文正确写入）：
-
-```powershell
-New-Item -ItemType Directory -Force "$env:USERPROFILE\.codex\skills\pua"
-$url = "https://raw.githubusercontent.com/tanweai/pua/main/codex/pua/SKILL.md"
-$dest = "$env:USERPROFILE\.codex\skills\pua\SKILL.md"
-$content = (Invoke-WebRequest $url).Content
-[System.IO.File]::WriteAllText($dest, $content, (New-Object System.Text.UTF8Encoding $false))
-```
-
 **触发方式：**
 
 | 方式 | 命令 | 需要 |
