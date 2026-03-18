@@ -46,10 +46,18 @@ export const onRequestGet: PagesFunction<Env> = async ({ env, request }) => {
     token: tokenData.access_token,
   }))
 
-  return new Response(null, {
-    status: 302,
+  // Use HTML+JS redirect instead of HTTP 302 to preserve hash fragment.
+  // Cloudflare CDN may strip #fragment from Location headers in 302 responses,
+  // causing users to land on "/" instead of "/#/contribute" after OAuth.
+  const redirectPage = `<!DOCTYPE html><html><head>
+<meta charset="utf-8"><title>Redirecting...</title>
+<script>window.location.replace("https://openpua.ai/#/contribute");</script>
+</head><body><p>Redirecting... <a href="https://openpua.ai/#/contribute">Click here</a></p></body></html>`
+
+  return new Response(redirectPage, {
+    status: 200,
     headers: {
-      Location: "https://openpua.ai/#/contribute",
+      "Content-Type": "text/html; charset=utf-8",
       "Set-Cookie": `pua_session=${session}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=604800`,
     },
   })
