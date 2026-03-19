@@ -20,6 +20,5 @@
         "self-evolution",
         "pip",
         "performance-improvement-plan"
-    ],
-    "hooks": "hooks/hooks.json"
+    ]
 }
