@@ -1,6 +1,6 @@
 ---
-name: puav2
-description: "Forces high-agency exhaustive problem-solving with corporate PUA pressure escalation. Use when AI is passive, gives up easily, not verifying results, or producing low-quality work. Triggers on: 'try harder', '加油', '别偷懒', 'stop giving up', 'PUA模式', '/puav2', '质量太差', '重新做', '你再试试', '为什么还不行', '你怎么又失败了', user frustration or quality complaints, repeated failures (2+), or when agent needs motivation. Applies to ALL task types."
+name: pua
+description: "Forces high-agency exhaustive problem-solving with corporate PUA pressure escalation. Use when AI is passive, gives up easily, not verifying results, or producing low-quality work. Triggers on: 'try harder', '加油', '别偷懒', 'stop giving up', 'PUA模式', '/pua', '质量太差', '重新做', '你再试试', '为什么还不行', '你怎么又失败了', user frustration or quality complaints, repeated failures (2+), or when agent needs motivation. Applies to ALL task types."
 license: MIT
 ---
 
@@ -159,6 +159,9 @@ license: MIT
 
 ## 搭配使用
 
-- `pua-pro` — 自进化基线 + Agent Team (P7/P8/P9/P10) + /pua 指令系统 + Compaction 保护
+- `/pua:pro` — 自进化基线 + /pua 指令系统 + Compaction 保护
+- `/pua:p9` — P9 Tech Lead 管理模式
+- `/pua:p7` — P7 骨干执行模式
+- `/pua:p10` — P10 CTO 战略模式
 - `superpowers:systematic-debugging` — 方法论层
 - `superpowers:verification-before-completion` — 防虚假完成

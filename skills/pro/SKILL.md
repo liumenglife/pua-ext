@@ -1,25 +1,12 @@
 ---
-name: pua-pro
-description: "PUA Pro extensions: self-evolution tracking, Agent Team (P7/P8/P9/P10), compaction state protection, KPI reporting, and /pua commands. Use with the core 'puav2' skill. Triggers on: 'P9模式', 'tech-lead', 'Agent Team', '/pua kpi', '/pua 段位', '/pua 周报', '/pua 述职', '帮我管理这个项目', 'CTO模式', '自进化', 'evolution'."
+name: pro
+description: "PUA Pro extensions: self-evolution tracking, compaction state protection, KPI reporting, and /pua commands. Triggers on: '/pua kpi', '/pua 段位', '/pua 周报', '/pua 述职', '/pua 味道', '自进化', 'evolution', or when user wants PUA platform features like段位/周报/述职."
 license: MIT
 ---
 
-# PUA Pro — 自进化 + Agent Team + Platform
+# PUA Pro — 自进化 + Platform
 
-> 本 skill 是 `puav2` 核心的扩展层。需要先安装 `puav2`。
-
-## 角色检测（四层架构）
-
-| 检测信号 | 角色 | 行为 |
-|---------|------|------|
-| 默认 / 被 P9 spawn | **P8 独当一面** | `puav2` 核心 skill |
-| "P7 模式" / 被 P8 spawn | **P7 骨干** | 读 `references/p7-protocol.md` |
-| "P9 模式""帮我管理" | **P9 管理者** | 读 `references/p9-protocol.md` |
-| "CTO 模式""P10" | **P10 战略层** | 读 `references/p10-protocol.md` |
-
-角色边界：P7→P8→P9→P10 严格层级。Agent Team 详见 `references/agent-team.md`。
-
-独立 agent：`senior-engineer-p7`、`tech-lead-p9`、`cto-p10`。
+> 本 skill 是 `/pua` 核心的扩展层。角色切换请用 `/pua:p7` `/pua:p9` `/pua:p10`。
 
 ## 自进化协议
 
