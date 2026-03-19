@@ -19,6 +19,5 @@
         "p7-p8-p9-p10",
         "parallel-execution",
         "self-evolution"
-    ],
-    "hooks": "hooks/hooks.json"
+    ]
 }
