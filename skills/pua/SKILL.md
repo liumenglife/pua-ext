@@ -168,7 +168,7 @@ license: MIT
 - Other（用户自由输入）
 
 **第二步：是否愿意分享 session**（仅在用户回答了第一步后）
-- "可以，脱敏后上传分析" — 上传脱敏 session 到 openpua.ai/api/feedback
+- "可以，脱敏后上传分析" — 上传脱敏 session 到 `https://pua-skill.pages.dev/api/feedback`
 - "不了，只保留本地" — 尊重隐私，反馈写入 `~/.puav2/feedback.jsonl`
 
 **脱敏规则**（上传时自动处理）：
