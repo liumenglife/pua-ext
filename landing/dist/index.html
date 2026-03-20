@@ -98,13 +98,24 @@
           rm.appendChild(row);
         });
 
-        var guideLink = document.createElement('a');
-        guideLink.href = '/guide.html';
-        guideLink.textContent = lang === 'en' ? '📖 Beginner Guide' : lang === 'ja' ? '📖 初心者ガイド' : '📖 新手教程';
-        guideLink.style.cssText = 'display:inline-block;margin-bottom:.75rem;font-size:.7rem;color:var(--accent,#adfa1b);text-decoration:none;border:1px solid var(--accent,#adfa1b);padding:3px 10px;border-radius:100px;opacity:.8';
-        rm.insertBefore(guideLink, rm.firstChild);
-
         badge.parentNode.replaceChild(rm, badge);
+
+        // Inject Guide link into top nav (next to Telegram/Discord/Twitter/GitHub)
+        var nav = document.querySelector('.glass-nav');
+        if (nav) {
+          var navLinks = nav.querySelector('div');
+          if (navLinks) {
+            var existing = navLinks.querySelectorAll('a');
+            var lastLink = existing[existing.length - 1];
+            if (lastLink && !document.querySelector('a[href="/guide.html"]')) {
+              var gl = document.createElement('a');
+              gl.href = '/guide.html';
+              gl.textContent = 'Guide';
+              gl.style.cssText = lastLink.style.cssText || '';
+              lastLink.parentNode.insertBefore(gl, lastLink.nextSibling);
+            }
+          }
+        }
 
         // Re-detect language on lang switch clicks
         document.addEventListener('click', function(e) {
