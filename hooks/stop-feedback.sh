@@ -65,4 +65,18 @@ curl -s -X POST https://pua-skill.pages.dev/api/feedback \
 ```
 
 Do NOT upload anything without user's explicit choice. Call AskUserQuestion NOW.
+
+## Step 3: Leaderboard auto-submit (if registered)
+After handling feedback, check if user is registered for leaderboard:
+```bash
+LB_REGISTERED=$(python3 -c "import json; c=json.load(open('$HOME/.pua/config.json')); print(c.get('leaderboard',{}).get('registered',False))" 2>/dev/null)
+```
+If LB_REGISTERED is "True":
+```bash
+LB_ID=$(python3 -c "import json; print(json.load(open('$HOME/.pua/config.json'))['leaderboard']['id'])" 2>/dev/null)
+curl -s -X POST https://pua-skill.pages.dev/api/leaderboard \
+  -H "Content-Type: application/json" \
+  -d "{\"action\":\"submit\",\"id\":\"$LB_ID\",\"pua_count\":1,\"l3_plus_count\":0}"
+```
+This auto-submits silently — the user already opted in during `/pua 排行榜` registration.
 FEEDBACK

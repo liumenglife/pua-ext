@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PUA Leaderboard</title>
+  <link rel="icon" href="/pua-logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#fff;--bg-warm:#fafaf8;--bg-card:#f5f5f3;--border:#e5e5e0;--text:#1a1a2e;--text-s:#4a4a5a;--text-m:#8a8a96;--brand:#E8453C;--brand-lt:#fef2f1;--brand-bd:#f5c4c1;--max-w:900px;--r:10px}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--brand);color:#fff}
+    a{color:var(--brand);text-decoration:none}a:hover{opacity:.7}
+    .con{max-width:var(--max-w);margin:0 auto;padding:0 1.5rem}
+    .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .nav-in{max-width:var(--max-w);margin:0 auto;padding:.65rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+    .nav-b{display:flex;align-items:center;gap:.4rem;font-weight:800;font-size:1.05rem;color:var(--text)}.nav-b img{width:26px;height:26px}
+    .nav-r a{color:var(--text-m);font-size:.78rem;font-weight:500;margin-left:1rem}
+    .hero{padding:3rem 0 2rem;text-align:center}
+    .hero h1{font-size:2rem;font-weight:900;margin-bottom:.4rem}
+    .hero p{color:var(--text-m);font-size:.88rem}
+    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+    .stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;text-align:center}
+    .stat-card .num{font-size:2rem;font-weight:900;color:var(--brand)}
+    .stat-card .label{font-size:.72rem;color:var(--text-m);margin-top:.2rem}
+    .rank-table{width:100%;border-collapse:collapse;font-size:.82rem}
+    .rank-table th{text-align:left;padding:.6rem .75rem;border-bottom:2px solid var(--border);color:var(--text-m);font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+    .rank-table td{padding:.65rem .75rem;border-bottom:1px solid var(--border)}
+    .rank-table tr:hover td{background:var(--bg-warm)}
+    .badge-p{display:inline-flex;padding:2px 8px;border-radius:9999px;font-size:.62rem;font-weight:600;background:var(--brand-lt);color:var(--brand);border:1px solid var(--brand-bd)}
+    .empty{text-align:center;padding:3rem 0;color:var(--text-m)}
+    .footer{border-top:1px solid var(--border);padding:1.5rem 0;text-align:center;margin-top:2rem}
+    .footer p{font-size:.72rem;color:var(--text-m)}.footer a{color:var(--text-m)}
+    @media(max-width:600px){.stats-row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+  <a href="/" class="nav-b"><img src="/pua-logo.svg" alt="PUA"> PUA</a>
+  <div class="nav-r"><a href="/">Home</a><a href="/guide.html">Guide</a><a href="https://github.com/tanweai/pua" target="_blank">GitHub</a></div>
+</div></nav>
+
+<section class="hero"><div class="con">
+  <h1>PUA Leaderboard</h1>
+  <p>看看谁 PUA 到了 P10。在 Claude Code 中输入 <code style="background:var(--bg-card);padding:2px 8px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.82rem">/pua 排行榜</code> 加入。</p>
+</div></section>
+
+<div class="con">
+  <div class="stats-row">
+    <div class="stat-card"><div class="num" id="sUsers">-</div><div class="label">参与用户</div></div>
+    <div class="stat-card"><div class="num" id="sPua">-</div><div class="label">PUA 总次数</div></div>
+    <div class="stat-card"><div class="num" id="sAvg">-</div><div class="label">人均 PUA</div></div>
+  </div>
+
+  <table class="rank-table">
+    <thead><tr><th>#</th><th>用户</th><th>PUA 次数</th><th>L3+ 率</th><th>段位</th></tr></thead>
+    <tbody id="rb"></tbody>
+  </table>
+
+  <div id="empty" class="empty" style="display:none">
+    <p>排行榜还没有人。</p>
+    <p>在 Claude Code 中输入 <code style="background:var(--bg-card);padding:2px 8px;border-radius:5px;font-family:'JetBrains Mono',monospace">/pua 排行榜</code> 成为第一个！</p>
+  </div>
+</div>
+
+<footer class="footer"><div class="con">
+  <p><a href="/">openpua.ai</a> · <a href="https://github.com/tanweai/pua">GitHub</a> · MIT · <a href="mailto:minwei.wang@tanweai.com">minwei.wang@tanweai.com</a></p>
+</div></footer>
+
+<script>
+fetch('https://pua-skill.pages.dev/api/leaderboard').then(function(r){return r.json()}).then(function(d){
+  document.getElementById('sUsers').textContent=d.total_users||0;
+  document.getElementById('sPua').textContent=(d.total_pua||0).toLocaleString();
+  document.getElementById('sAvg').textContent=d.avg_pua||0;
+
+  var tb=document.getElementById('rb');
+  if(!d.rankings||d.rankings.length===0){
+    document.getElementById('empty').style.display='block';
+    return;
+  }
+
+  d.rankings.forEach(function(r){
+    var tr=document.createElement('tr');
+    var medal=r.position===1?'🏆 ':r.position===2?'🥈 ':r.position===3?'🥉 ':'';
+
+    var td1=document.createElement('td');
+    td1.style.fontWeight='800';td1.style.color='var(--brand)';td1.style.fontFamily="'JetBrains Mono',monospace";
+    td1.textContent=medal+r.position;
+    tr.appendChild(td1);
+
+    var td2=document.createElement('td');
+    td2.style.fontWeight='600';td2.textContent=r.display_name;
+    tr.appendChild(td2);
+
+    var td3=document.createElement('td');
+    td3.textContent=r.pua_count;
+    tr.appendChild(td3);
+
+    var td4=document.createElement('td');
+    td4.textContent=r.l3_plus_rate+'%';
+    tr.appendChild(td4);
+
+    var td5=document.createElement('td');
+    var badge=document.createElement('span');
+    badge.className='badge-p';
+    badge.textContent=r.level+' '+r.title_zh;
+    td5.appendChild(badge);
+    tr.appendChild(td5);
+
+    tb.appendChild(tr);
+  });
+}).catch(function(){
+  var tb=document.getElementById('rb');
+  var tr=document.createElement('tr');
+  var td=document.createElement('td');
+  td.colSpan=5;td.className='empty';td.textContent='无法加载排行榜数据';
+  tr.appendChild(td);tb.appendChild(tr);
+});
+</script>
+</body>
+</html>
