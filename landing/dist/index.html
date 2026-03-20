@@ -98,6 +98,12 @@
           rm.appendChild(row);
         });
 
+        var guideLink = document.createElement('a');
+        guideLink.href = '/guide.html';
+        guideLink.textContent = lang === 'en' ? '📖 Beginner Guide' : lang === 'ja' ? '📖 初心者ガイド' : '📖 新手教程';
+        guideLink.style.cssText = 'display:inline-block;margin-top:.75rem;font-size:.7rem;color:var(--accent,#adfa1b);text-decoration:none;border:1px solid var(--accent,#adfa1b);padding:3px 10px;border-radius:100px;opacity:.8';
+        rm.appendChild(guideLink);
+
         badge.parentNode.replaceChild(rm, badge);
 
         // Re-detect language on lang switch clicks
