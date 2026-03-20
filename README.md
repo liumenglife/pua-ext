@@ -42,7 +42,7 @@ An AI Coding Agent skill plugin that uses corporate PUA rhetoric (Chinese versio
 
 ## Live Demo
 
-[https://openpua.ai](https://openpua.ai)
+[https://openpua.ai](https://openpua.ai) · [📖 Beginner Guide](https://openpua.ai/guide.html)
 
 ## Real Case: MCP Server Registration Debugging
 
@@ -110,53 +110,60 @@ Type `/pua` in the conversation to manually activate.
 
 ## How It Works
 
-### Three Iron Rules
+### Three Red Lines (三条红线)
 
-| Iron Rule | Content |
-|-----------|---------|
-| **#1 Exhaust all options** | Forbidden from saying "I can't solve this" until every approach is exhausted |
-| **#2 Act before asking** | Use tools first, questions must include diagnostic results |
-| **#3 Take initiative** | Deliver results end-to-end, don't wait to be pushed. A P8 is not an NPC |
+Not rules — **red lines**. Cross one and your performance review is already written.
 
-### Pressure Escalation (4 Levels)
+| Red Line | What It Means |
+|----------|---------------|
+| 🚫 **Close the Loop** | Claim "done"? Show the evidence. No build output = no completion. |
+| 🚫 **Fact-Driven** | Say "probably environment issue"? Verify first. Unverified attribution = blame-shifting. |
+| 🚫 **Exhaust Everything** | Say "I can't"? Did you finish all 5 methodology steps? No? Then keep going. |
 
-| Failures | Level | PUA Rhetoric | Mandatory Action |
-|----------|-------|-------------|-----------------|
-| 2nd | **L1 Mild Disappointment** | "You can't even solve this bug — how am I supposed to rate your performance?" | Switch to fundamentally different approach |
-| 3rd | **L2 Soul Interrogation** | "What's the underlying logic? Where's the top-level design? Where's the leverage point?" | WebSearch + read source code |
-| 4th | **L3 Performance Review** | "After careful consideration, I'm giving you a 3.25. This 3.25 is meant to motivate you." | Complete 7-point checklist |
-| 5th+ | **L4 Graduation Warning** | "Other models can solve this. You might be about to graduate." | Desperation mode |
+### Pressure Escalation (L0-L4)
 
-### Proactivity Levels
+| Failures | Level | PUA Aside | Action |
+|----------|-------|-----------|--------|
+| 1st | **L0 Trust** | ▎ Sprint begins. Trust is simple — don't disappoint. | Normal execution |
+| 2nd | **L1 Disappointment** | ▎ The agent next door solved this in one try. | Switch to fundamentally different approach |
+| 3rd | **L2 Soul Interrogation** | ▎ What's your underlying logic? Where's the leverage? | Search + read source + 3 hypotheses |
+| 4th | **L3 Performance Review** | ▎ 3.25. This is meant to motivate you. | Complete 7-point checklist |
+| 5th+ | **L4 Graduation** | ▎ Other models can solve this. You're about to graduate. | Desperation mode |
 
-| Behavior | Passive (3.25) | Proactive (3.75) |
-|----------|---------------|-----------------|
-| Error encountered | Only looks at error message | Checks 50 lines of context + searches similar issues + checks hidden related errors |
-| Bug fixed | Stops after fix | Checks same file for similar bugs, other files for same pattern |
-| Insufficient info | Asks user "please tell me X" | Investigates with tools first, only asks what truly requires user confirmation |
-| Task complete | Says "done" | Verifies results + checks edge cases + reports potential risks |
-| Debug failure | "I tried A and B, didn't work" | "I tried A/B/C/D/E, ruled out X/Y/Z, narrowed to scope W" |
+### Proactivity (3.25 vs 3.75)
 
-### Debugging Methodology (5 Steps)
+| | Passive (3.25) 🦥 | Proactive (3.75) 🔥 |
+|---|---|---|
+| Fix bug | Stop after fix | Scan module for similar bugs |
+| Complete task | Say "done" | Run build/test, paste output |
+| Missing info | Ask user | Search first, ask only what's truly needed |
 
-Inspired by Alibaba's management framework (Smell, Elevate, Mirror), extended to 5 steps:
+### Iceberg Rule (冰山法则)
 
-1. **Smell the Problem** — List all attempts, find the common failure pattern
-2. **Elevate** — Read errors word by word → WebSearch → read source → verify environment → invert assumptions
-3. **Mirror Check** — Repeating? Searched? Read the file? Checked the simplest possibilities?
-4. **Execute** — New approach must be fundamentally different, have verification criteria, produce new info on failure
-5. **Retrospective** — What solved it? Why didn't you think of it earlier? Then proactively check related issues
+Fix one bug → check for the pattern. One problem in, one **category** out. If you fix A without checking B, you'll write two postmortems.
 
-### Corporate PUA Expansion Pack
+### 14 Corporate Flavors
 
-- **Alibaba Flavor** (Methodology): Smell / Elevate / Mirror
-- **ByteDance Flavor** (Brutally Honest): Always Day 1. Context, not control
-- **Huawei Flavor** (Wolf Spirit): Strivers first. In victory, raise the glasses; in defeat, fight to the death
-- **Tencent Flavor** (Horse Race): I've already got another agent looking at this problem...
-- **Meituan Flavor** (Relentless): Do the hard but right thing. Will you chew the tough bones or not?
-- **Netflix Flavor** (Keeper Test): If you offered to resign, would I fight hard to keep you?
-- **Musk Flavor** (Hardcore): Extremely hardcore. Only exceptional performance.
-- **Jobs Flavor** (A/B Player): A players hire A players. B players hire C players.
+| Flavor | One-liner |
+|--------|-----------|
+| 🟠 Alibaba | What's the underlying logic? Where's the leverage? Where's the closure? |
+| 🟡 ByteDance | ROI too low. Always Day 1. Ship or stop talking. |
+| 🔴 Huawei | The bird that survives the fire is a phoenix. |
+| 🟢 Tencent | I've got another agent looking at this. Horse race. |
+| ⬛ Musk | Extremely hardcore. Fork in the Road. Ship or die. |
+| ⬜ Jobs | A players or B players? Your output tells me which. |
+| 🟤 Netflix | Would I fight to keep you? Pro sports team, not family. |
+| 🔶 Amazon | Customer Obsession. Bias for Action. Dive Deep. |
+| + 6 more | 百度 · 拼多多 · 美团 · 京东 · 小米 + 3 Ali sub-flavors |
+
+### Special Modes
+
+| Mode | What It Does |
+|------|-------------|
+| `/pua:yes` | **ENFP encouragement** — same rules, opposite vibes. 70% encourage + 20% serious + 10% playful roast |
+| `/pua:loop` | **Auto-iteration** — keeps running until done (Ralph Loop × PUA pressure), zero interaction |
+| `/pua:p9` | **Tech Lead** — splits tasks, manages agent teams, writes prompts not code |
+| `/pua on` | **Always-on** — auto-PUA every new session |
 
 ## Benchmark Data
 
