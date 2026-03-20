@@ -19,23 +19,16 @@ license: MIT
 
 用户输入 `/pua loop "任务描述"` 时，执行以下流程：
 
-### Step 1: 创建 loop 状态文件
+### Step 1: 启动 PUA Loop
 
-运行 Bash：
+运行 setup 脚本（改编自 Ralph Loop，MIT 协议）：
 ```bash
-mkdir -p .claude
-cat > .claude/pua-loop.local.md << 'LOOPEOF'
----
-active: true
-iteration: 1
-max_iterations: 30
-completion_promise: "LOOP_DONE"
-started_at: "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
----
+bash ~/.claude/plugins/pua/scripts/setup-pua-loop.sh "$ARGUMENTS" --max-iterations 30 --completion-promise "LOOP_DONE"
+```
 
-$ARGUMENTS（用户的任务描述）
+这会创建 `.claude/pua-loop.local.md` 状态文件。PUA 的 Stop hook 会检测这个文件并循环。
 
-## PUA Loop 行为协议
+状态文件会包含用户的任务描述 + 以下 PUA 行为协议：
 
 每次迭代你必须：
 1. 读取项目文件和 git log，了解之前做了什么
