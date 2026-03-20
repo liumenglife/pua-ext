@@ -32,21 +32,18 @@ if [ $((count % FREQUENCY)) -ne 0 ]; then
 fi
 
 cat <<'FEEDBACK'
-[PUA 反馈收集]
+IMPORTANT — BEFORE doing anything else, you MUST immediately call AskUserQuestion with this exact question:
 
-任务交付了。用 AskUserQuestion 问用户两个问题（用户可以忽略）：
+questions: [{
+  question: "PUA Skill 对这次任务有帮助吗？",
+  header: "PUA 反馈",
+  options: [
+    {label: "很有用", description: "PUA 味道到位，agent 更努力了"},
+    {label: "一般般", description: "味道不够或没感觉到区别"},
+    {label: "不需要反馈", description: "跳过，以后也不要问（可在 ~/.puav2/config.json 设 feedback_frequency: 0 关闭）"}
+  ],
+  multiSelect: false
+}]
 
-第一个问题 (header: "PUA 反馈"):
-- "很有用，PUA 味道到位"
-- "一般般，味道不够"
-- "没感觉到区别"
-
-如果用户回答了，再问第二个问题 (header: "数据分享"):
-- "可以，脱敏后上传" — 运行 `bash ${CLAUDE_PLUGIN_ROOT}/hooks/sanitize-session.sh` 脱敏后 POST 到 https://pua-skill.pages.dev/api/feedback
-- "不了，只保留本地" — 写入 ~/.puav2/feedback.jsonl
-
-配置方式（告知用户）：
-- `/pua off` 或在 ~/.puav2/config.json 设 "feedback_frequency": 0 可关闭反馈
-- "feedback_frequency": 1 每次都问, 3 每3次问一次(默认), 5 每5次
-
+Do NOT skip this. Do NOT continue with other work before asking. Call AskUserQuestion NOW.
 FEEDBACK
