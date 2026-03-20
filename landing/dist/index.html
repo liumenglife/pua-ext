@@ -11,9 +11,67 @@
     <meta property="og:type" content="website" />
     <script type="module" crossorigin src="/assets/index--C3jDJ_g.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-c-M_Xwwt.css">
+    <style>
+      .pua-roadmap{max-width:680px;margin:1.5rem auto 0;padding:0 1rem}
+      .pua-roadmap-title{font-size:.75rem;color:var(--text-muted,#71717a);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem}
+      .pua-rm-item{padding:0 0 .75rem 1.25rem;border-left:2px solid var(--border,#27272a);position:relative}
+      .pua-rm-item:last-child{border-left-color:transparent}
+      .pua-rm-item::before{content:'';width:10px;height:10px;border-radius:50%;background:var(--text-muted,#71717a);position:absolute;left:-6px;top:4px;opacity:.4}
+      .pua-rm-item.latest::before{background:var(--accent,#adfa1b);opacity:1}
+      .pua-rm-ver{font-size:.8rem;font-weight:700;color:var(--text,#fafafa)}
+      .pua-rm-item.latest .pua-rm-ver{color:var(--accent,#adfa1b)}
+      .pua-rm-desc{font-size:.7rem;color:var(--text-muted,#71717a);margin-top:2px;line-height:1.5}
+      .pua-rm-tag{display:inline-block;font-size:.6rem;padding:1px 6px;border-radius:100px;border:1px solid var(--border,#27272a);color:var(--text-secondary,#a1a1aa);margin-right:4px;margin-top:3px}
+      .pua-rm-tag.new{border-color:var(--accent,#adfa1b);color:var(--accent,#adfa1b)}
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "4dfa805499264080a512b9999de3a5b6"}'></script>
+    <script>
+      // Inject roadmap timeline after React renders hero-badge
+      var _ro = new MutationObserver(function() {
+        var badge = document.querySelector('.hero-badge');
+        if (!badge) return;
+        _ro.disconnect();
+        var rm = document.createElement('div');
+        rm.className = 'pua-roadmap';
+        var title = document.createElement('div');
+        title.className = 'pua-roadmap-title';
+        title.textContent = 'Roadmap';
+        rm.appendChild(title);
+        var items = [
+          {v:'v2.7',d:'强制关联 display-protocol · 能动性对照表 · L1-L4 压力旁白 · v1 味道浓度恢复',tags:['NEW','Force-Link'],latest:true},
+          {v:'v2.6',d:'SB Leader 夸夸模式 · ENFP × 14 味道 · 70% 鼓励 + 20% 正经 + 10% 戏谑',tags:['ENFP','夸夸'],latest:true},
+          {v:'v2.5',d:'隐私同意机制 · 强制行为执行 · Unicode 方框表格 (┌─┬─┐)',tags:['Privacy','Unicode'],latest:false},
+          {v:'v2.4',d:'Stop hook 反馈 · session 脱敏上传 · /pua survey 调研问卷',tags:['Feedback','Survey'],latest:false},
+          {v:'v2.3',d:'8 Skill 拆分 · Sub-agent 注入 · 冰山法则 · Always-On (/pua on|off)',tags:['Modular','Always-On'],latest:false},
+          {v:'v2.0',d:'渐进式加载 (-62% tokens) · 三条红线 · 14 味道种子表 · Agent Team · Hooks',tags:['-62%','Anthropic'],latest:false},
+          {v:'v1.x',d:'三条铁律 · L1-L4 压力 · 7 项检查清单 · 13 味道 · 9 场景 × 18 对照实验',tags:['Original'],latest:false}
+        ];
+        items.forEach(function(it, idx) {
+          var el = document.createElement('div');
+          el.className = 'pua-rm-item' + (it.latest ? ' latest' : '');
+          if (idx === items.length - 1) el.style.borderLeftColor = 'transparent';
+          var ver = document.createElement('div');
+          ver.className = 'pua-rm-ver';
+          ver.textContent = it.v;
+          el.appendChild(ver);
+          var desc = document.createElement('div');
+          desc.className = 'pua-rm-desc';
+          desc.textContent = it.d;
+          el.appendChild(desc);
+          it.tags.forEach(function(t) {
+            var tag = document.createElement('span');
+            tag.className = 'pua-rm-tag' + (it.latest ? ' new' : '');
+            tag.textContent = t;
+            el.appendChild(tag);
+          });
+          rm.appendChild(el);
+        });
+        badge.parentNode.replaceChild(rm, badge);
+      });
+      _ro.observe(document.getElementById('root'), { childList: true, subtree: true });
+    </script>
   </body>
 </html>
