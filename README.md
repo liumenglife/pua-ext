@@ -465,30 +465,31 @@ Spawn pua-enforcer as an independent watchdog in your Agent Team.
 | No persistent shared variables | State transferred via `[PUA-REPORT]` message format |
 | Broadcast is one-way | Leader acts as centralized coordinator |
 
-## What's New in v2.7
+## What's New in v2.8
 
 ### Changelog
 
 | Version | Highlights |
 |---------|-----------|
-| **v2.7** | Force-link display-protocol, restore能动性对照表 + L1-L4压力旁白, v1味道浓度恢复 |
-| **v2.6** | `/pua:sb-leader` SB Leader夸夸模式 (ENFP × 14味道, 70%鼓励+20%正经+10%戏谑) |
-| **v2.5** | Privacy consent, forced behavior execution, Unicode box-drawing display (`┌─┬─┐`) |
-| **v2.4** | Stop hook feedback (rating→脱敏→upload), `/pua survey`, sanitize script |
-| **v2.3** | 8 modular skills, sub-agent PUA injection, 冰山法则, always-on (`/pua on/off`) |
-| **v2.2** | Progressive disclosure (653→247 lines, -62% tokens), Gotchas, trigger optimization |
-| **v2.0** | 三条红线, 14-flavor seed table, Agent Team (P7/P8/P9/P10) |
+| **v2.8** | Beginner guide page, README overhaul, roadmap polish |
+| **v2.7** | Force-link display-protocol, 能动性対照表 + L1-L4 压力旁白 restored, v1 flavor density |
+| **v2.6** | `/pua:yes` ENFP 夸夸模式 (70% encourage + 20% serious + 10% playful roast) |
+| **v2.5** | Privacy consent for all uploads, forced behavior execution, Unicode `┌─┬─┐` display |
+| **v2.4** | Stop hook feedback pipeline, session sanitizer, `/pua survey`, `/pua:loop` auto-iteration |
+| **v2.3** | 10 modular skills, sub-agent PUA injection, 冰山法则, always-on (`/pua on/off`) |
+| **v2.0** | 三条红线, 14-flavor seed table, Agent Team (P7-P10), progressive disclosure (-62% tokens) |
 | **v1.x** | Original: 3 iron rules, L1-L4 pressure, 7-point checklist, 13 flavors |
 
 ### Architecture
 
 ```
-/pua            → Core engine (247 lines) — red lines + flavor + pressure + methodology
+/pua:pua        → Core engine (247 lines) — red lines + flavor + pressure + methodology
 /pua:p7         → P7 Senior Engineer — solution-driven execution
-/pua:p9         → P9 Tech Lead — Task Prompt management
+/pua:p9         → P9 Tech Lead — Task Prompt management, agent teams
 /pua:p10        → P10 CTO — strategic direction
 /pua:pro        → Self-evolution + KPI + 段位 + survey
-/pua:sb-leader  → SB Leader 夸夸模式 (ENFP, opposite vibes)
+/pua:yes        → ENFP 夸夸模式 (same rules, opposite vibes)
+/pua:loop       → Auto-iteration (Ralph Loop × PUA pressure, zero interaction)
 /pua:pua-en     → English PIP Edition
 /pua:pua-ja     → 日本語版
 ```
@@ -498,28 +499,30 @@ Spawn pua-enforcer as an independent watchdog in your Agent Team.
 | Command | Description |
 |---------|-------------|
 | `/pua` | Core PUA engine (阿里味 default) |
-| `/pua p7` | P7 骨干模式 |
-| `/pua p9` | P9 Tech Lead 模式 |
-| `/pua p10` | P10 CTO 模式 |
-| `/pua pro` | 自进化 + KPI + 段位 |
-| `/pua sb-leader` | 夸夸模式 (ENFP × 14 flavors) |
+| `/pua:p7` | P7 骨干模式 — solution-driven execution |
+| `/pua:p9` | P9 Tech Lead — write prompts, manage agents |
+| `/pua:p10` | P10 CTO — strategic direction |
+| `/pua:pro` | 自进化 + KPI + 段位 |
+| `/pua:yes` | ENFP 夸夸模式 — encouragement × 14 flavors |
+| `/pua:loop` | Auto-iteration — runs until done, no interaction |
 | `/pua on` | Always-on mode (auto-PUA every session) |
 | `/pua off` | Turn off always-on + feedback |
 | `/pua survey` | Research questionnaire (7 sections) |
-| `/pua 味道` | Switch between 13 corporate flavors |
+| `/pua 味道` | Switch between 14 corporate flavors |
 | `/pua kpi` | Generate KPI report card |
 
 ### Key improvements over v1
 
-| Feature | v1 | v2.5 |
+| Feature | v1 | v2.8 |
 |---------|:---:|:---:|
-| Token cost per load | ~35k | **~8k** (-77%) |
-| Skills | 1 monolithic | **7 modular** (pua/p7/p9/p10/pro/en/ja) |
+| Token cost per load | ~35k | **~9k** (-74%) |
+| Skills | 1 monolithic | **10 modular** (pua/p7/p9/p10/pro/yes/loop/en/ja) |
 | Compaction protection | None | **PreCompact + SessionStart hooks** |
-| Flavor accuracy (CN) | Claude guesses | **金句種子表 + 声音示範** |
+| Flavor accuracy (CN) | Claude guesses | **金句種子表 + 声音示範 + force-link** |
 | Display | Markdown tables | **Unicode box-drawing (┌─┬─┐)** |
-| Feedback | None | **Stop hook + AskUserQuestion + /api/feedback** |
-| Privacy | N/A | **All uploads require explicit consent + session脱敏** |
+| Feedback | None | **Stop hook + consent + sanitize + /api/feedback** |
+| Auto-iteration | None | **`/pua:loop` — Ralph Loop × PUA pressure** |
+| Encouragement mode | None | **`/pua:yes` — ENFP × 14 flavors** |
 | Always-on | None | **`/pua on` — auto-inject every session** |
 | Sub-agent | None | **Auto-inject PUA into spawned agents** |
 

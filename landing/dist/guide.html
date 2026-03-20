@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PUA Skill 新手教程 — 快速上手指南</title>
+  <link rel="icon" href="/pua-logo.svg" type="image/svg+xml">
+  <style>
+    :root{--bg:#09090b;--bg-card:#16161a;--border:#27272a;--text:#fafafa;--text-s:#a1a1aa;--text-m:#71717a;--accent:#adfa1b;--max-w:720px}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+    .container{max-width:var(--max-w);margin:0 auto;padding:2rem 1.5rem}
+    a{color:var(--accent);text-decoration:none}
+    a:hover{text-decoration:underline}
+    h1{font-size:2rem;font-weight:700;margin-bottom:.5rem}
+    h2{font-size:1.25rem;font-weight:600;margin:2.5rem 0 .75rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+    h2:first-of-type{border-top:none;padding-top:0}
+    h3{font-size:1rem;font-weight:600;margin:1.5rem 0 .5rem;color:var(--accent)}
+    p{color:var(--text-s);margin-bottom:.75rem;font-size:.9rem}
+    .subtitle{color:var(--text-m);font-size:.95rem;margin-bottom:2rem}
+    .card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin-bottom:1rem}
+    .card h4{font-size:.85rem;font-weight:600;margin-bottom:.5rem}
+    .card p{font-size:.8rem;margin-bottom:.5rem}
+    code{background:#1e1e22;padding:2px 6px;border-radius:4px;font-size:.8rem;font-family:'JetBrains Mono',monospace}
+    pre{background:#1e1e22;border:1px solid var(--border);border-radius:8px;padding:1rem;overflow-x:auto;margin:.75rem 0;font-size:.8rem;line-height:1.5}
+    pre code{background:none;padding:0}
+    table{width:100%;border-collapse:collapse;margin:.75rem 0;font-size:.8rem}
+    th,td{text-align:left;padding:.5rem .75rem;border-bottom:1px solid var(--border)}
+    th{color:var(--accent);font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}
+    .tag{display:inline-block;font-size:.65rem;padding:2px 8px;border-radius:100px;border:1px solid var(--border);color:var(--text-s);margin-right:4px}
+    .tag.green{border-color:var(--accent);color:var(--accent)}
+    .back{display:inline-block;margin-bottom:1.5rem;color:var(--text-m);font-size:.85rem}
+    .output-example{border-left:3px solid var(--accent);padding-left:1rem;margin:.75rem 0;font-size:.8rem;color:var(--text-s)}
+    .nav{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:2rem}
+    .nav a{font-size:.8rem;padding:.4rem .8rem;border:1px solid var(--border);border-radius:6px;color:var(--text-s)}
+    .nav a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+  </style>
+</head>
+<body>
+<div class="container">
+  <a href="/" class="back">← 返回首页</a>
+  <h1>PUA Skill 新手教程</h1>
+  <p class="subtitle">5 分钟上手，让你的 AI Agent 不再摸鱼。</p>
+
+  <div class="nav">
+    <a href="#install">安装</a>
+    <a href="#commands">命令</a>
+    <a href="#scenes">场景</a>
+    <a href="#output">预期输出</a>
+    <a href="#config">配置</a>
+    <a href="#faq">FAQ</a>
+  </div>
+
+  <h2 id="install">1. 安装</h2>
+
+  <h3>Claude Code（推荐）</h3>
+  <pre><code>claude plugin marketplace add tanweai/pua
+claude plugin install pua@pua-skills</code></pre>
+  <p>安装后重启 Claude Code，输入 <code>/pua</code> 验证。</p>
+
+  <h3>一句话安装（告诉你的 Agent）</h3>
+  <pre><code>Fetch and follow the instructions at https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md</code></pre>
+
+  <h3>其他平台</h3>
+  <p>Codex CLI / Cursor / Kiro / CodeBuddy 等平台的安装方式见 <a href="https://github.com/tanweai/pua#installation">GitHub README</a>。</p>
+
+  <h2 id="commands">2. 全部命令</h2>
+
+  <table>
+    <tr><th>命令</th><th>功能</th><th>场景</th></tr>
+    <tr><td><code>/pua</code></td><td>核心引擎（阿里味 PUA）</td><td>日常任务、debug、部署</td></tr>
+    <tr><td><code>/pua:p7</code></td><td>P7 骨干模式</td><td>方案驱动的子任务执行</td></tr>
+    <tr><td><code>/pua:p9</code></td><td>P9 Tech Lead</td><td>管理多个 Agent 团队</td></tr>
+    <tr><td><code>/pua:p10</code></td><td>P10 CTO</td><td>战略规划、架构决策</td></tr>
+    <tr><td><code>/pua:pro</code></td><td>自进化 + Platform</td><td>KPI、段位、周报</td></tr>
+    <tr><td><code>/pua:yes</code></td><td>ENFP 夸夸模式</td><td>需要鼓励和情绪价值时</td></tr>
+    <tr><td><code>/pua:loop</code></td><td>自动迭代</td><td>大任务、overnight 跑</td></tr>
+    <tr><td><code>/pua on</code></td><td>常驻模式</td><td>每次新会话自动 PUA</td></tr>
+    <tr><td><code>/pua off</code></td><td>关闭</td><td>关闭常驻 + 反馈</td></tr>
+    <tr><td><code>/pua 味道</code></td><td>切换味道</td><td>14 种大厂 PUA 风味</td></tr>
+    <tr><td><code>/pua survey</code></td><td>调研问卷</td><td>帮助我们改进</td></tr>
+  </table>
+
+  <h2 id="scenes">3. 使用场景</h2>
+
+  <div class="card">
+    <h4>场景 A：AI 修 bug 修了 3 次还没修好</h4>
+    <p>直接输入 <code>/pua</code> 或者说 "你怎么又失败了？再试试"</p>
+    <p>PUA 会自动升级到 L2 灵魂拷问，强制换本质不同的方案。</p>
+  </div>
+
+  <div class="card">
+    <h4>场景 B：需要 AI 一直跑到完成</h4>
+    <p>输入 <code>/pua:loop 实现用户认证系统</code></p>
+    <p>AI 会自动迭代最多 30 轮，每轮检查上次改动、跑测试、修问题，直到完成。</p>
+  </div>
+
+  <div class="card">
+    <h4>场景 C：想要鼓励而不是压力</h4>
+    <p>输入 <code>/pua:yes</code></p>
+    <p>底层行为不变（该验证还是验证），但旁白变成 ENFP 式鼓励。</p>
+  </div>
+
+  <div class="card">
+    <h4>场景 D：管理多个 Agent 做大项目</h4>
+    <p>输入 <code>/pua:p9 帮我管理这个项目</code></p>
+    <p>P9 模式会拆解任务、写 Task Prompt、管理 P8 团队。</p>
+  </div>
+
+  <h2 id="output">4. 预期输出</h2>
+
+  <h3>任务启动时</h3>
+  <div class="output-example">
+    🟠 PUA v2 · Sprint 启动<br>
+    ┌─────────┬──────────────────┐<br>
+    │ 📋 任务 │ 修复登录 bug     │<br>
+    ├─────────┼──────────────────┤<br>
+    │ 🔥 味道 │ 🟠 阿里味        │<br>
+    ├─────────┼──────────────────┤<br>
+    │ ⚡ 压力 │ L0 · 信任期      │<br>
+    └─────────┴──────────────────┘<br>
+    ▎ 收到需求，对齐目标，进入 sprint。
+  </div>
+
+  <h3>做了额外工作时</h3>
+  <div class="output-example">
+    ▎ [PUA生效 🔥] 主动加了参数校验 — 裸奔上线等于提前写复盘
+  </div>
+
+  <h3>失败卡壳时（L2）</h3>
+  <div class="output-example">
+    ⚠️ 压力升级 · L2 灵魂拷问<br>
+    ▎ 你这个方案的底层逻辑是什么？抓手在哪？你以为换个参数就叫"换方案"？
+  </div>
+
+  <h3>任务完成时</h3>
+  <div class="output-example">
+    📊 Sprint 交付 · 绩效评估<br>
+    综合绩效：3.75<br>
+    ▎ 勉强配得上 P8。别飘。
+  </div>
+
+  <h2 id="config">5. 配置</h2>
+
+  <p>配置文件：<code>~/.pua/config.json</code></p>
+
+  <table>
+    <tr><th>字段</th><th>默认</th><th>说明</th></tr>
+    <tr><td><code>always_on</code></td><td>false</td><td>每次新会话自动加载 PUA</td></tr>
+    <tr><td><code>feedback_frequency</code></td><td>5</td><td>每 N 次 stop 问一次反馈（0=关闭）</td></tr>
+    <tr><td><code>flavor</code></td><td>"阿里"</td><td>默认味道</td></tr>
+  </table>
+
+  <h2 id="faq">6. FAQ</h2>
+
+  <div class="card">
+    <h4>Q: PUA 会真的让 AI 变强吗？</h4>
+    <p>是的。基于 9 个真实场景 × 18 组对照实验验证：修复数 +36%，验证数 +65%，工具调用 +50%。</p>
+  </div>
+
+  <div class="card">
+    <h4>Q: 太吵了怎么关？</h4>
+    <p><code>/pua off</code> 关闭常驻模式和反馈。或者直接删除 <code>~/.pua/config.json</code>。</p>
+  </div>
+
+  <div class="card">
+    <h4>Q: 支持哪些平台？</h4>
+    <p>Claude Code、Codex CLI、Cursor、Kiro、CodeBuddy、OpenClaw、VSCode Copilot 等。</p>
+  </div>
+
+  <div class="card">
+    <h4>Q: 我的数据安全吗？</h4>
+    <p>所有上传需要明确同意。session 数据自动脱敏（去除路径/密钥/邮箱/IP）。不同意就不传。</p>
+  </div>
+
+  <p style="margin-top:3rem;color:var(--text-m);font-size:.75rem;text-align:center">
+    <a href="/">openpua.ai</a> · <a href="https://github.com/tanweai/pua">GitHub</a> · MIT License
+  </p>
+</div>
+</body>
+</html>
