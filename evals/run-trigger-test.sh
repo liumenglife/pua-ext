@@ -9,7 +9,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="${1:-$(cd "$SCRIPT_DIR/.." && pwd)}"
-RESULTS_DIR="/tmp/puav2-evals/$(date +%s)"
+RESULTS_DIR="/tmp/pua-evals/$(date +%s)"
 mkdir -p "$RESULTS_DIR"
 
 echo "=== PUA v2 Trigger Tests ==="
@@ -34,8 +34,8 @@ test_prompt() {
         > "$outfile" 2>&1 || true
 
     local triggered=false
-    if grep -q '"skill":"puav2"' "$outfile" 2>/dev/null || \
-       grep -q '"skill":"pua:puav2"' "$outfile" 2>/dev/null; then
+    if grep -q '"skill":"pua"' "$outfile" 2>/dev/null || \
+       grep -q '"skill":"pua:pua"' "$outfile" 2>/dev/null; then
         triggered=true
     fi
 

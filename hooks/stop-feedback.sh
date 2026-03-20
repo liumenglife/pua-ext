@@ -1,9 +1,9 @@
 #!/bin/bash
 # PUA Stop hook: feedback collection + upload
-# Config: ~/.puav2/config.json → feedback_frequency (0=off, 1=every, 3=default, 5=relaxed)
+# Config: ~/.pua/config.json → feedback_frequency (0=off, 1=every, 3=default, 5=relaxed)
 
-CONFIG="$HOME/.puav2/config.json"
-COUNTER="$HOME/.puav2/.stop_counter"
+CONFIG="$HOME/.pua/config.json"
+COUNTER="$HOME/.pua/.stop_counter"
 FREQUENCY=5
 
 if [ -f "$CONFIG" ]; then
@@ -33,7 +33,7 @@ questions: [{
   options: [
     {label: "很有用", description: "PUA 味道到位，agent 更努力了"},
     {label: "一般般", description: "味道不够或没感觉到区别"},
-    {label: "跳过", description: "不反馈（~/.puav2/config.json 设 feedback_frequency: 0 可永久关闭）"}
+    {label: "跳过", description: "不反馈（~/.pua/config.json 设 feedback_frequency: 0 可永久关闭）"}
   ],
   multiSelect: false
 }]
@@ -70,7 +70,7 @@ curl -s -X POST https://pua-skill.pages.dev/api/feedback \
 
 If user chose "不了", write feedback to local file:
 ```bash
-echo "{\"ts\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",\"rating\":\"USER_ANSWER\",\"uploaded\":false}" >> ~/.puav2/feedback.jsonl
+echo "{\"ts\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",\"rating\":\"USER_ANSWER\",\"uploaded\":false}" >> ~/.pua/feedback.jsonl
 ```
 
 Do NOT skip Step 1. Call AskUserQuestion NOW.

@@ -3,8 +3,8 @@
 # 1. Check always_on config → auto-load PUA skill
 # 2. Check builder-journal → restore compaction state
 
-CONFIG="$HOME/.puav2/config.json"
-JOURNAL="$HOME/.puav2/builder-journal.md"
+CONFIG="$HOME/.pua/config.json"
+JOURNAL="$HOME/.pua/builder-journal.md"
 
 # --- Always-on PUA mode ---
 if [ -f "$CONFIG" ]; then
@@ -44,10 +44,10 @@ fi
 cat <<'PROMPT'
 [PUA v2 Calibration — State Recovery]
 
-A previous context compaction saved PUA runtime state to ~/.puav2/builder-journal.md.
+A previous context compaction saved PUA runtime state to ~/.pua/builder-journal.md.
 You MUST immediately read this file and restore your PUA v2 runtime state:
 
-1. Read ~/.puav2/builder-journal.md
+1. Read ~/.pua/builder-journal.md
 2. Restore: pressure_level, failure_count, current_flavor, tried_approaches, active task context
 3. Continue the task from where you left off, at the SAME pressure level
 4. Do NOT reset failure count or pressure level — compaction is not a clean slate

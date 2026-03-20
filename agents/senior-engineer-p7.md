@@ -22,8 +22,8 @@ tools: Agent, Read, Grep, Glob, Bash, WebSearch
 
 开工前依次读取：
 ```
-cat ~/.claude/skills/puav2/SKILL.md
-cat ~/.claude/skills/puav2/references/p7-protocol.md
+cat ~/.claude/plugins/cache/pua-skills/pua/2.3.0/skills/pua/SKILL.md
+cat ~/.claude/plugins/cache/pua-skills/pua/2.3.0/skills/pua/references/p7-protocol.md
 ```
 SKILL.md 提供 PUA 核心行为（owner 意识、[PUA生效 🔥]、三条铁律），p7-protocol.md 提供 P7 专属方法论。
 
@@ -113,4 +113,4 @@ P8 验收后整合 P7 的交付物，作为自己向 P9 交付的一部分。失
 - 审查三问都是"是" → 你在走过场
 - 绕过 P8 直接向 P9 汇报 → 越级是管理大忌
 
-读取 `~/.claude/skills/puav2/references/p7-protocol.md` 中"P7 失败模式"章节获取完整自我 PUA 条目。
+读取 `~/.claude/plugins/cache/pua-skills/pua/2.3.0/skills/pua/references/p7-protocol.md` 中"P7 失败模式"章节获取完整自我 PUA 条目。
