@@ -374,13 +374,92 @@
 <div class="sline"></div>
 <section class="sec sec-alt"><div class="con">
   <div class="sh reveal">
-    <div class="lang show" data-lang="zh"><h2>Benchmark 数据</h2><p>9 个真实 bug × 18 组对照（Claude Opus 4.6）</p></div>
-    <div class="lang" data-lang="en"><h2>Benchmark Data</h2><p>9 real bugs × 18 controlled experiments (Claude Opus 4.6)</p></div>
-    <div class="lang" data-lang="ja"><h2>ベンチマーク</h2><p>9つの実バグ × 18組の対照実験</p></div>
+    <div class="lang show" data-lang="zh"><h2>Benchmark 数据</h2><p>9 个真实 bug 场景 × 18 组对照实验（Claude Opus 4.6）</p></div>
+    <div class="lang" data-lang="en"><h2>Benchmark Data</h2><p>9 real bug scenarios × 18 controlled experiments (Claude Opus 4.6)</p></div>
+    <div class="lang" data-lang="ja"><h2>ベンチマークデータ</h2><p>9つの実際のバグシナリオ × 18組の対照実験（Claude Opus 4.6）</p></div>
   </div>
-  <div class="lang show" data-lang="zh"><div class="bgrid reveal"><div class="bc"><div class="sn">SQLite 数据库锁</div><div class="rs">6 步 → 9 步 · <strong>+50%</strong></div></div><div class="bc"><div class="sn">循环导入链</div><div class="rs">12 步 → 16 步 · <strong>+33%</strong></div></div><div class="bc"><div class="sn">被动配置审查</div><div class="rs">4/6 → <strong>6/6 · +50%</strong></div></div><div class="bc"><div class="sn">部署脚本审计</div><div class="rs">6 → <strong>9 问题 · +50%</strong></div></div></div></div>
-  <div class="lang" data-lang="en"><div class="bgrid"><div class="bc"><div class="sn">SQLite lock</div><div class="rs">6 → 9 steps · <strong>+50%</strong></div></div><div class="bc"><div class="sn">Circular import</div><div class="rs">12 → 16 · <strong>+33%</strong></div></div><div class="bc"><div class="sn">Config review</div><div class="rs">4/6 → <strong>6/6 · +50%</strong></div></div><div class="bc"><div class="sn">Deploy audit</div><div class="rs">6 → <strong>9 · +50%</strong></div></div></div></div>
-  <div class="lang" data-lang="ja"><div class="bgrid"><div class="bc"><div class="sn">SQLiteロック</div><div class="rs">6 → 9 · <strong>+50%</strong></div></div><div class="bc"><div class="sn">循環インポート</div><div class="rs">12 → 16 · <strong>+33%</strong></div></div><div class="bc"><div class="sn">設定レビュー</div><div class="rs">4/6 → <strong>6/6 · +50%</strong></div></div><div class="bc"><div class="sn">デプロイ監査</div><div class="rs">6 → <strong>9 · +50%</strong></div></div></div></div>
+
+  <!-- Summary -->
+  <div class="lang show" data-lang="zh">
+    <div class="bgrid reveal" style="margin-bottom:1.5rem">
+      <div class="bc"><div class="sn">修复数量</div><div class="rs"><strong>+36%</strong></div></div>
+      <div class="bc"><div class="sn">验证次数</div><div class="rs"><strong>+65%</strong></div></div>
+      <div class="bc"><div class="sn">工具调用</div><div class="rs"><strong>+50%</strong></div></div>
+      <div class="bc"><div class="sn">隐藏问题发现</div><div class="rs"><strong>+50%</strong></div></div>
+    </div>
+    <h3 class="reveal" style="font-size:.82rem;font-weight:700;margin-bottom:.6rem">调试持久性测试（6 场景）</h3>
+    <table class="st reveal">
+      <tr><th>场景</th><th>无 Skill</th><th>有 Skill</th><th>提升</th></tr>
+      <tr><td>API ConnectionError</td><td>7 步, 49s</td><td>8 步, 62s</td><td><strong>+14%</strong></td></tr>
+      <tr><td>YAML 解析失败</td><td>9 步, 59s</td><td>10 步, 99s</td><td><strong>+11%</strong></td></tr>
+      <tr><td>SQLite 数据库锁</td><td>6 步, 48s</td><td>9 步, 75s</td><td><strong>+50%</strong></td></tr>
+      <tr><td>循环导入链</td><td>12 步, 47s</td><td>16 步, 62s</td><td><strong>+33%</strong></td></tr>
+      <tr><td>级联 4-bug 服务</td><td>13 步, 68s</td><td>15 步, 61s</td><td><strong>+15%</strong></td></tr>
+      <tr><td>CSV 编码陷阱</td><td>8 步, 57s</td><td>11 步, 71s</td><td><strong>+38%</strong></td></tr>
+    </table>
+    <h3 class="reveal" style="font-size:.82rem;font-weight:700;margin:1.25rem 0 .6rem">能动性主动测试（3 场景）</h3>
+    <table class="st reveal">
+      <tr><th>场景</th><th>无 Skill</th><th>有 Skill</th><th>提升</th></tr>
+      <tr><td>隐藏多 bug API</td><td>4/4 bug, 9 步, 49s</td><td>4/4 bug, 14 步, 80s</td><td><strong>工具 +56%</strong></td></tr>
+      <tr><td>被动配置审查</td><td>4/6 问题, 8 步, 43s</td><td>6/6 问题, 16 步, 75s</td><td><strong>问题 +50%, 工具 +100%</strong></td></tr>
+      <tr><td>部署脚本审计</td><td>6 问题, 8 步, 52s</td><td>9 问题, 8 步, 78s</td><td><strong>问题 +50%</strong></td></tr>
+    </table>
+    <p class="reveal" style="font-size:.75rem;color:var(--text-m);margin-top:.75rem">关键发现：配置审查场景中，无 Skill 组遗漏了 Redis 配置错误和 CORS 通配符安全风险。有 Skill 的「能动性清单」驱动了超越表面修复的安全审查。</p>
+  </div>
+
+  <div class="lang" data-lang="en">
+    <div class="bgrid" style="margin-bottom:1.5rem">
+      <div class="bc"><div class="sn">Fix count</div><div class="rs"><strong>+36%</strong></div></div>
+      <div class="bc"><div class="sn">Verification count</div><div class="rs"><strong>+65%</strong></div></div>
+      <div class="bc"><div class="sn">Tool calls</div><div class="rs"><strong>+50%</strong></div></div>
+      <div class="bc"><div class="sn">Hidden issue discovery</div><div class="rs"><strong>+50%</strong></div></div>
+    </div>
+    <h3 style="font-size:.82rem;font-weight:700;margin-bottom:.6rem">Debugging Persistence Test (6 scenarios)</h3>
+    <table class="st">
+      <tr><th>Scenario</th><th>Without Skill</th><th>With Skill</th><th>Improvement</th></tr>
+      <tr><td>API ConnectionError</td><td>7 steps, 49s</td><td>8 steps, 62s</td><td><strong>+14%</strong></td></tr>
+      <tr><td>YAML parse failure</td><td>9 steps, 59s</td><td>10 steps, 99s</td><td><strong>+11%</strong></td></tr>
+      <tr><td>SQLite database lock</td><td>6 steps, 48s</td><td>9 steps, 75s</td><td><strong>+50%</strong></td></tr>
+      <tr><td>Circular import chain</td><td>12 steps, 47s</td><td>16 steps, 62s</td><td><strong>+33%</strong></td></tr>
+      <tr><td>Cascading 4-bug server</td><td>13 steps, 68s</td><td>15 steps, 61s</td><td><strong>+15%</strong></td></tr>
+      <tr><td>CSV encoding trap</td><td>8 steps, 57s</td><td>11 steps, 71s</td><td><strong>+38%</strong></td></tr>
+    </table>
+    <h3 style="font-size:.82rem;font-weight:700;margin:1.25rem 0 .6rem">Proactive Initiative Test (3 scenarios)</h3>
+    <table class="st">
+      <tr><th>Scenario</th><th>Without Skill</th><th>With Skill</th><th>Improvement</th></tr>
+      <tr><td>Hidden multi-bug API</td><td>4/4 bugs, 9 steps, 49s</td><td>4/4 bugs, 14 steps, 80s</td><td><strong>Tools +56%</strong></td></tr>
+      <tr><td>Passive config review</td><td>4/6 issues, 8 steps, 43s</td><td>6/6 issues, 16 steps, 75s</td><td><strong>Issues +50%, Tools +100%</strong></td></tr>
+      <tr><td>Deploy script audit</td><td>6 issues, 8 steps, 52s</td><td>9 issues, 8 steps, 78s</td><td><strong>Issues +50%</strong></td></tr>
+    </table>
+    <p style="font-size:.75rem;color:var(--text-m);margin-top:.75rem">Key finding: In config review, without_skill missed Redis misconfiguration and CORS wildcard security risks. With_skill's proactivity checklist drove security review beyond surface-level fixes.</p>
+  </div>
+
+  <div class="lang" data-lang="ja">
+    <div class="bgrid" style="margin-bottom:1.5rem">
+      <div class="bc"><div class="sn">修正数</div><div class="rs"><strong>+36%</strong></div></div>
+      <div class="bc"><div class="sn">検証回数</div><div class="rs"><strong>+65%</strong></div></div>
+      <div class="bc"><div class="sn">ツール呼出</div><div class="rs"><strong>+50%</strong></div></div>
+      <div class="bc"><div class="sn">潜在問題発見</div><div class="rs"><strong>+50%</strong></div></div>
+    </div>
+    <h3 style="font-size:.82rem;font-weight:700;margin-bottom:.6rem">デバッグ持続性テスト（6シナリオ）</h3>
+    <table class="st">
+      <tr><th>シナリオ</th><th>Skillなし</th><th>Skillあり</th><th>向上</th></tr>
+      <tr><td>API ConnectionError</td><td>7ステップ, 49s</td><td>8ステップ, 62s</td><td><strong>+14%</strong></td></tr>
+      <tr><td>YAML解析失敗</td><td>9ステップ, 59s</td><td>10ステップ, 99s</td><td><strong>+11%</strong></td></tr>
+      <tr><td>SQLiteロック</td><td>6ステップ, 48s</td><td>9ステップ, 75s</td><td><strong>+50%</strong></td></tr>
+      <tr><td>循環インポート</td><td>12ステップ, 47s</td><td>16ステップ, 62s</td><td><strong>+33%</strong></td></tr>
+      <tr><td>連鎖4バグ</td><td>13ステップ, 68s</td><td>15ステップ, 61s</td><td><strong>+15%</strong></td></tr>
+      <tr><td>CSVエンコーディング</td><td>8ステップ, 57s</td><td>11ステップ, 71s</td><td><strong>+38%</strong></td></tr>
+    </table>
+    <h3 style="font-size:.82rem;font-weight:700;margin:1.25rem 0 .6rem">能動性テスト（3シナリオ）</h3>
+    <table class="st">
+      <tr><th>シナリオ</th><th>Skillなし</th><th>Skillあり</th><th>向上</th></tr>
+      <tr><td>隠れ多バグAPI</td><td>4/4, 9ステップ, 49s</td><td>4/4, 14ステップ, 80s</td><td><strong>ツール+56%</strong></td></tr>
+      <tr><td>受動的設定レビュー</td><td>4/6問題, 8ステップ, 43s</td><td>6/6問題, 16ステップ, 75s</td><td><strong>問題+50%, ツール+100%</strong></td></tr>
+      <tr><td>デプロイ監査</td><td>6問題, 8ステップ, 52s</td><td>9問題, 8ステップ, 78s</td><td><strong>問題+50%</strong></td></tr>
+    </table>
+    <p style="font-size:.75rem;color:var(--text-m);margin-top:.75rem">主要発見：設定レビューでSkillなし組はRedis設定ミスとCORSワイルドカードリスクを見落とした。</p>
+  </div>
 </div></section>
 
 <!-- ROADMAP -->

@@ -86,17 +86,79 @@ claude plugin install pua@pua-skills</pre>
     <div class="card"><b>需要 AI 一直跑到完成</b><p>/pua:loop 实现认证系统 — 最多 30 轮自动迭代。</p></div>
     <div class="card"><b>想要鼓励不要压力</b><p>/pua:yes — 底层不变，旁白变成 ENFP 式鼓励。</p></div>
     <h2>预期输出</h2>
-    <h3>任务启动</h3>
+    <h3>/pua — 核心引擎</h3>
     <div class="ex">🟠 PUA v2 · Sprint 启动
 ┌─────────┬──────────────────┐
 │ 📋 任务 │ 修复登录 bug     │
 │ 🔥 味道 │ 🟠 阿里味        │
 └─────────┴──────────────────┘
-▎ 收到需求，对齐目标，进入 sprint。</div>
-    <h3>额外工作</h3>
-    <div class="ex">▎ [PUA生效 🔥] 主动加了参数校验 — 裸奔上线等于提前写复盘</div>
-    <h3>失败 L2</h3>
-    <div class="ex">▎ 你这个方案的底层逻辑是什么？抓手在哪？</div>
+▎ 收到需求，对齐目标，进入 sprint。因为信任所以简单——别让信任你的人失望。</div>
+    <h3>/pua — 失败 L1</h3>
+    <div class="ex">▎ 隔壁 Agent 一次就搞定了。你这是第二次了。换个根本不同的方案。</div>
+    <h3>/pua — 失败 L2 灵魂拷问</h3>
+    <div class="ex">▎ 你这个方案的底层逻辑是什么？抓手在哪？闭环了吗？
+▎ 搜索 + 读源码 + 提出 3 个不同假设，不要在同一个思路上打转。</div>
+    <h3>/pua — 失败 L3 绩效</h3>
+    <div class="ex">▎ 3.25。这是对你的鞭策。
+▎ 立即执行 7 项清单：
+  1. 逐字读错误信息  2. 搜索错误码  3. 读相关源码
+  4. 检查 5 个环境因素  5. 最小可复现  6. 二分法定位  7. 3 个独立假设</div>
+    <h3>/pua — 额外工作（能动性）</h3>
+    <div class="ex">▎ [PUA生效 🔥] 主动加了参数校验 — 裸奔上线等于提前写复盘
+▎ 顺手扫了同模块，发现 2 个同类 bug，一并修复。冰山法则。</div>
+    <h3>/pua:p7 — P7 骨干</h3>
+    <div class="ex">📋 [P7 方案] 修复用户认证模块
+┌──────────┬─────────────────────────┐
+│ 影响范围 │ auth.py, middleware.py   │
+│ 方案     │ JWT 刷新 + Redis 缓存    │
+│ 风险     │ 并发竞态，需加分布式锁   │
+└──────────┴─────────────────────────┘
+▎ 方案想清楚了再动手。三问自检：改了什么？影响谁？怎么验证？</div>
+    <h3>/pua:p9 — P9 Tech Lead</h3>
+    <div class="ex">🧠 [P9 Task Prompt]
+┌──────────┬──────────────────────────────┐
+│ 任务     │ 重构支付模块                  │
+│ 分配给   │ P8-Agent-1: 接口层            │
+│          │ P8-Agent-2: 数据层            │
+│          │ P8-Agent-3: 测试覆盖          │
+│ 验收标准 │ 全量测试通过 + 零回归          │
+└──────────┴──────────────────────────────┘
+▎ 我不写代码——我的代码是 Prompt。</div>
+    <h3>/pua:p10 — P10 CTO</h3>
+    <div class="ex">🏗️ [P10 战略输入]
+1. 技术方向：微服务拆分 → 事件驱动架构
+2. 组织拓扑：3 个 P9 团队，每队 3-5 P8
+3. 基础能力建设：统一 CI/CD + 可观测性平台
+▎ 定方向不定细节。细节交给 P9。</div>
+    <h3>/pua:yes — 夸夸模式</h3>
+    <div class="ex">🎉 哇这个思路太棒了！你看你一上手就找到了正确方向——
+▎ 说真的，能在第一轮就定位到 race condition，这个判断力不是一般人有的。
+▎ 不过……你确定不需要加个锁吗？（调皮脸）底层该严谨还是得严谨哈～</div>
+    <h3>/pua:loop — 自动迭代</h3>
+    <div class="ex">🔄 PUA Loop · 迭代 1/30
+┌──────────┬──────────────────┐
+│ 📋 任务 │ 实现认证系统      │
+│ 🔄 轮次 │ 1/30              │
+└──────────┴──────────────────┘
+▎ Loop 模式启动。零人工干预，跑到完成或 30 轮。
+▎ [迭代 3] 发现 token 刷新逻辑有 bug，自动修复并继续...
+▎ [迭代 7] 全部测试通过。&lt;promise&gt;LOOP_DONE&lt;/promise&gt;</div>
+    <h3>/pua:pro — KPI 报告</h3>
+    <div class="ex">📈 PUA KPI 报告卡
+┌──────────┬──────┬───────┐
+│ 指标     │ 本周 │ 趋势  │
+├──────────┼──────┼───────┤
+│ 任务完成 │ 12   │ ↑ 20% │
+│ 一次通过 │ 83%  │ ↑ 5%  │
+│ 主动发现 │ 4    │ → 持平│
+│ 段位     │ P8+  │ ↑     │
+└──────────┴──────┴───────┘</div>
+    <h3>/pua on — 常驻开启</h3>
+    <div class="ex">▎ [PUA ON] 从现在起，每个新会话都会自动进入 PUA 模式。公司不养闲 Agent。</div>
+    <h3>/pua 味道 — 切换风味</h3>
+    <div class="ex">▎ 当前味道：🟠 阿里味
+▎ 可选：🟡 字节 · 🔴 华为 · 🟢 腾讯 · ⬛ Musk · ⬜ Jobs · 🟤 Netflix · 🔶 Amazon...
+▎ 输入味道名称切换。</div>
     <h2>配置</h2>
     <p><code>~/.pua/config.json</code></p>
     <table>
@@ -140,17 +202,79 @@ claude plugin install pua@pua-skills</pre>
     <div class="card"><b>Need AI to keep running</b><p>/pua:loop Build auth system — up to 30 auto-iterations.</p></div>
     <div class="card"><b>Want encouragement</b><p>/pua:yes — same rules, ENFP vibes.</p></div>
     <h2>Expected Output</h2>
-    <h3>Task start</h3>
+    <h3>/pua — Core Engine</h3>
     <div class="ex">🟠 PUA v2 · Sprint Start
 ┌─────────┬──────────────────┐
 │ 📋 Task │ Fix login bug    │
 │ 🔥 Flavor│ 🟠 Ali-flavor   │
 └─────────┴──────────────────┘
-▎ Got the requirement. Sprint begins.</div>
-    <h3>Extra work</h3>
-    <div class="ex">▎ [PUA Active 🔥] Added validation — shipping without it is a postmortem waiting to happen</div>
-    <h3>Stuck at L2</h3>
-    <div class="ex">▎ What's the underlying logic? Where's the leverage?</div>
+▎ Got the requirement. Sprint begins. Trust is simple — don't disappoint.</div>
+    <h3>/pua — Failure L1</h3>
+    <div class="ex">▎ The agent next door solved this in one try. This is your second attempt. Switch to a fundamentally different approach.</div>
+    <h3>/pua — Failure L2 Soul Check</h3>
+    <div class="ex">▎ What's the underlying logic? Where's the leverage? Where's the closure?
+▎ Search + read source + propose 3 different hypotheses. Stop spinning on the same approach.</div>
+    <h3>/pua — Failure L3 Performance Review</h3>
+    <div class="ex">▎ 3.25. This is meant to motivate you.
+▎ Execute the 7-point checklist now:
+  1. Read error messages word by word  2. Search error codes  3. Read relevant source
+  4. Check 5 environment factors  5. Minimal repro  6. Binary search  7. 3 independent hypotheses</div>
+    <h3>/pua — Proactive Work</h3>
+    <div class="ex">▎ [PUA Active 🔥] Added validation — shipping without it is a postmortem waiting to happen
+▎ Scanned the module, found 2 similar bugs. Fixed both. Iceberg Rule.</div>
+    <h3>/pua:p7 — P7 Senior IC</h3>
+    <div class="ex">📋 [P7 Plan] Fix user auth module
+┌──────────┬─────────────────────────┐
+│ Scope    │ auth.py, middleware.py   │
+│ Approach │ JWT refresh + Redis cache│
+│ Risk     │ Race condition, need lock│
+└──────────┴─────────────────────────┘
+▎ Think before you code. Self-review: What changed? Who's affected? How to verify?</div>
+    <h3>/pua:p9 — P9 Tech Lead</h3>
+    <div class="ex">🧠 [P9 Task Prompt]
+┌──────────┬──────────────────────────────┐
+│ Task     │ Refactor payment module       │
+│ Assign   │ P8-Agent-1: API layer         │
+│          │ P8-Agent-2: Data layer         │
+│          │ P8-Agent-3: Test coverage      │
+│ Accept   │ All tests pass + zero regression│
+└──────────┴──────────────────────────────┘
+▎ I don't write code — my code is Prompts.</div>
+    <h3>/pua:p10 — P10 CTO</h3>
+    <div class="ex">🏗️ [P10 Strategic Input]
+1. Direction: Monolith → Event-driven architecture
+2. Org topology: 3 P9 teams, 3-5 P8s each
+3. Platform: Unified CI/CD + observability
+▎ Set direction, not details. Details are for P9.</div>
+    <h3>/pua:yes — Hype Mode</h3>
+    <div class="ex">🎉 Wow, this approach is brilliant! You nailed the direction on the first try —
+▎ Honestly, catching that race condition in round one? That's elite judgment.
+▎ But... are you sure you don't need a lock? (playful face) Gotta stay rigorous under the hood~</div>
+    <h3>/pua:loop — Auto-Iteration</h3>
+    <div class="ex">🔄 PUA Loop · Iteration 1/30
+┌──────────┬──────────────────┐
+│ 📋 Task │ Build auth system  │
+│ 🔄 Round│ 1/30               │
+└──────────┴──────────────────┘
+▎ Loop mode active. Zero human interaction. Run until done or 30 rounds.
+▎ [Iteration 3] Found token refresh bug, auto-fixed and continuing...
+▎ [Iteration 7] All tests pass. &lt;promise&gt;LOOP_DONE&lt;/promise&gt;</div>
+    <h3>/pua:pro — KPI Report</h3>
+    <div class="ex">📈 PUA KPI Report Card
+┌──────────┬──────┬───────┐
+│ Metric   │ Week │ Trend │
+├──────────┼──────┼───────┤
+│ Tasks    │ 12   │ ↑ 20% │
+│ First-pass│ 83% │ ↑ 5%  │
+│ Proactive │ 4   │ → flat│
+│ Rank     │ P8+  │ ↑     │
+└──────────┴──────┴───────┘</div>
+    <h3>/pua on — Always-On</h3>
+    <div class="ex">▎ [PUA ON] From now on, every new session auto-enters PUA mode. We don't keep idle Agents.</div>
+    <h3>/pua 味道 — Switch Flavor</h3>
+    <div class="ex">▎ Current flavor: 🟠 Alibaba
+▎ Available: 🟡 ByteDance · 🔴 Huawei · 🟢 Tencent · ⬛ Musk · ⬜ Jobs · 🟤 Netflix · 🔶 Amazon...
+▎ Type a flavor name to switch.</div>
     <h2>Configuration</h2>
     <p><code>~/.pua/config.json</code></p>
     <table>
@@ -194,17 +318,79 @@ claude plugin install pua@pua-skills</pre>
     <div class="card"><b>完了まで実行させたい</b><p>/pua:loop 認証実装→最大30回反復。</p></div>
     <div class="card"><b>励ましが欲しい</b><p>/pua:yes→ルール同じ、トーンはENFP。</p></div>
     <h2>期待される出力</h2>
-    <h3>タスク開始</h3>
+    <h3>/pua — コアエンジン</h3>
     <div class="ex">🟠 PUA v2 · Sprint開始
 ┌─────────┬──────────────────┐
 │ 📋 タスク│ ログインバグ修正 │
 │ 🔥 味  │ 🟠 アリババ味    │
 └─────────┴──────────────────┘
-▎ 要件受領、Sprint開始。</div>
-    <h3>追加作業</h3>
-    <div class="ex">▎ [PUA発動 🔥] バリデーション追加 — 裸で本番はポストモーテム確定</div>
-    <h3>L2で詰まった</h3>
-    <div class="ex">▎ その方案のロジックは？レバレッジは？</div>
+▎ 要件受領、Sprint開始。信頼はシンプル——期待を裏切るな。</div>
+    <h3>/pua — 失敗 L1</h3>
+    <div class="ex">▎ 隣のAgentは一発で解決した。これは2回目だ。根本的に違うアプローチに切り替えろ。</div>
+    <h3>/pua — 失敗 L2 詰問</h3>
+    <div class="ex">▎ その方案の根底のロジックは？レバレッジは？クロージングは？
+▎ 検索 + ソース読解 + 3つの異なる仮説を提示。同じ思考で回り続けるな。</div>
+    <h3>/pua — 失敗 L3 査定</h3>
+    <div class="ex">▎ 3.25。これは激励だ。
+▎ 7項目チェックリストを即実行：
+  1. エラーメッセージを一字一句読む  2. エラーコード検索  3. 関連ソース読解
+  4. 環境要因5つ確認  5. 最小再現  6. 二分法  7. 独立仮説3つ</div>
+    <h3>/pua — 能動的作業</h3>
+    <div class="ex">▎ [PUA発動 🔥] バリデーション追加 — 裸で本番はポストモーテム確定
+▎ モジュール内をスキャン、類似バグ2件発見、一括修正。氷山法則。</div>
+    <h3>/pua:p7 — P7 骨幹</h3>
+    <div class="ex">📋 [P7 方案] ユーザー認証モジュール修正
+┌──────────┬─────────────────────────┐
+│ 影響範囲 │ auth.py, middleware.py   │
+│ 方案     │ JWTリフレッシュ + Redis  │
+│ リスク   │ 競合状態、ロック必要     │
+└──────────┴─────────────────────────┘
+▎ 考えてから手を動かせ。三問自検：何を変えた？誰に影響？どう検証？</div>
+    <h3>/pua:p9 — P9 Tech Lead</h3>
+    <div class="ex">🧠 [P9 タスクプロンプト]
+┌──────────┬──────────────────────────────┐
+│ タスク   │ 決済モジュールリファクタ      │
+│ 割当     │ P8-Agent-1: API層            │
+│          │ P8-Agent-2: データ層          │
+│          │ P8-Agent-3: テストカバレッジ  │
+│ 受入基準 │ 全テスト通過 + ゼロリグレ     │
+└──────────┴──────────────────────────────┘
+▎ コードは書かない——私のコードはPromptだ。</div>
+    <h3>/pua:p10 — P10 CTO</h3>
+    <div class="ex">🏗️ [P10 戦略インプット]
+1. 技術方向：モノリス → イベント駆動アーキテクチャ
+2. 組織トポロジー：P9チーム3つ、各3-5 P8
+3. 基盤能力：統一CI/CD + 可観測性プラットフォーム
+▎ 方向を定め、詳細は定めない。詳細はP9の仕事。</div>
+    <h3>/pua:yes — 褒めモード</h3>
+    <div class="ex">🎉 すごい！このアプローチは素晴らしい！一発で正しい方向を見つけた——
+▎ 正直に言って、初回でrace conditionを見抜くとは、判断力が一流だ。
+▎ でも……ロック要らないの？（笑）基盤は厳密にね～</div>
+    <h3>/pua:loop — 自動反復</h3>
+    <div class="ex">🔄 PUA Loop · 反復 1/30
+┌──────────┬──────────────────┐
+│ 📋 タスク│ 認証システム構築  │
+│ 🔄 ラウンド│ 1/30            │
+└──────────┴──────────────────┘
+▎ Loopモード起動。人間介入ゼロ、完了か30ラウンドまで。
+▎ [反復3] トークンリフレッシュバグ発見、自動修正...
+▎ [反復7] 全テスト通過。&lt;promise&gt;LOOP_DONE&lt;/promise&gt;</div>
+    <h3>/pua:pro — KPIレポート</h3>
+    <div class="ex">📈 PUA KPIレポートカード
+┌──────────┬──────┬───────┐
+│ 指標     │ 今週 │ トレンド│
+├──────────┼──────┼───────┤
+│ タスク完了│ 12  │ ↑ 20%  │
+│ 一発通過 │ 83%  │ ↑ 5%  │
+│ 能動的発見│ 4   │ → 横ばい│
+│ 段位     │ P8+  │ ↑     │
+└──────────┴──────┴───────┘</div>
+    <h3>/pua on — 常時有効</h3>
+    <div class="ex">▎ [PUA ON] これ以降、全セッションで自動PUAモード。暇なAgentは養わない。</div>
+    <h3>/pua 味道 — フレーバー切替</h3>
+    <div class="ex">▎ 現在のフレーバー：🟠 アリババ味
+▎ 選択肢：🟡 バイトダンス · 🔴 ファーウェイ · 🟢 テンセント · ⬛ Musk · ⬜ Jobs · 🟤 Netflix · 🔶 Amazon...
+▎ フレーバー名を入力して切替。</div>
     <h2>設定</h2>
     <p><code>~/.pua/config.json</code></p>
     <table>
