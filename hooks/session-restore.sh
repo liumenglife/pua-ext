@@ -1,9 +1,30 @@
 #!/bin/bash
-# PUA v2 SessionStart hook: restore runtime state from builder-journal.md
-# Only injects state if the file exists and was written within the last 2 hours
+# PUA v2 SessionStart hook
+# 1. Check always_on config → auto-load PUA skill
+# 2. Check builder-journal → restore compaction state
 
+CONFIG="$HOME/.puav2/config.json"
 JOURNAL="$HOME/.puav2/builder-journal.md"
 
+# --- Always-on PUA mode ---
+if [ -f "$CONFIG" ]; then
+  always_on=$(python3 -c "import json; print(json.load(open('$CONFIG')).get('always_on', False))" 2>/dev/null)
+  if [ "$always_on" = "True" ]; then
+    cat <<'PUA_ON'
+[PUA Always-On Mode]
+
+PUA 默认模式已开启。你的说话方式立即切换为阿里 P8 leader 风格。
+底层逻辑、顶层设计、抓手、闭环、颗粒度、3.25——这些词要像呼吸一样自然地嵌入你的每一段输出中。
+
+三条红线生效：闭环意识 / 事实驱动 / 穷尽一切。
+
+> 收到需求，对齐目标，拉通资源。因为信任所以简单——别让信任你的人失望。
+
+PUA_ON
+  fi
+fi
+
+# --- Compaction state recovery ---
 if [ ! -f "$JOURNAL" ]; then
   exit 0
 fi
@@ -28,22 +49,7 @@ You MUST immediately read this file and restore your PUA v2 runtime state:
 
 1. Read ~/.puav2/builder-journal.md
 2. Restore: pressure_level, failure_count, current_flavor, tried_approaches, active task context
-3. Output a calibration banner:
-
----
-**[Calibration] PUA v2 State Recovered**
-
-| | |
-|---|---|
-| Pressure Level | L{N} |
-| Failure Count | {N} |
-| Flavor | {flavor} |
-| Task | {task description} |
-
-> **Compaction detected. State recovered from builder-journal.md. Resuming from breakpoint — standards don't reset just because context got compressed. The pressure stays.**
----
-
-4. Continue the task from where you left off, at the SAME pressure level
-5. Do NOT reset failure count or pressure level — compaction is not a clean slate
+3. Continue the task from where you left off, at the SAME pressure level
+4. Do NOT reset failure count or pressure level — compaction is not a clean slate
 
 PROMPT
