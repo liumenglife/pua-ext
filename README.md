@@ -465,29 +465,32 @@ Spawn pua-enforcer as an independent watchdog in your Agent Team.
 | No persistent shared variables | State transferred via `[PUA-REPORT]` message format |
 | Broadcast is one-way | Leader acts as centralized coordinator |
 
-## What's New in v2.5
-
-PUA v2.5 — complete overhaul based on [Anthropic's skill best practices](https://www.techtwitter.com/articles/lessons-from-building-claude-code-how-we-use-skills).
+## What's New in v2.7
 
 ### Changelog
 
 | Version | Highlights |
 |---------|-----------|
-| **v2.5** | Privacy consent for all uploads, forced阿里味 behavior execution, Unicode box-drawing display |
-| **v2.4** | Stop hook feedback pipeline (rating→upload→session), sanitize script fix, `/pua survey`, marketplace republish |
-| **v2.3** | 5 modular skills, sub-agent PUA injection, 冰山法则, P8顶层设计思维, always-on mode (`/pua on/off`) |
-| **v2.2** | Progressive disclosure (653→234 lines, -65% tokens), Gotchas, trigger-focused description |
-| **v2.0** | 三条红线, 13-flavor seed keyword table, Agent Team (P7/P8/P9/P10) |
-| **v1.x** | Original PUA engine: 3 iron rules, L1-L4 pressure, 7-point checklist, 13 corporate flavors |
+| **v2.7** | Force-link display-protocol, restore能动性对照表 + L1-L4压力旁白, v1味道浓度恢复 |
+| **v2.6** | `/pua:sb-leader` SB Leader夸夸模式 (ENFP × 14味道, 70%鼓励+20%正经+10%戏谑) |
+| **v2.5** | Privacy consent, forced behavior execution, Unicode box-drawing display (`┌─┬─┐`) |
+| **v2.4** | Stop hook feedback (rating→脱敏→upload), `/pua survey`, sanitize script |
+| **v2.3** | 8 modular skills, sub-agent PUA injection, 冰山法则, always-on (`/pua on/off`) |
+| **v2.2** | Progressive disclosure (653→247 lines, -62% tokens), Gotchas, trigger optimization |
+| **v2.0** | 三条红线, 14-flavor seed table, Agent Team (P7/P8/P9/P10) |
+| **v1.x** | Original: 3 iron rules, L1-L4 pressure, 7-point checklist, 13 flavors |
 
-### v2 Architecture
+### Architecture
 
 ```
-/pua           → Core engine (234 lines) — red lines + flavor + pressure + methodology
-/pua:p7        → P7 Senior Engineer mode — solution-driven execution
-/pua:p9        → P9 Tech Lead mode — Task Prompt management, agent teams
-/pua:p10       → P10 CTO mode — strategic direction
-/pua:pro       → Self-evolution + Platform + /pua commands (KPI, 段位, 周报, survey)
+/pua            → Core engine (247 lines) — red lines + flavor + pressure + methodology
+/pua:p7         → P7 Senior Engineer — solution-driven execution
+/pua:p9         → P9 Tech Lead — Task Prompt management
+/pua:p10        → P10 CTO — strategic direction
+/pua:pro        → Self-evolution + KPI + 段位 + survey
+/pua:sb-leader  → SB Leader 夸夸模式 (ENFP, opposite vibes)
+/pua:pua-en     → English PIP Edition
+/pua:pua-ja     → 日本語版
 ```
 
 ### Commands
@@ -499,6 +502,7 @@ PUA v2.5 — complete overhaul based on [Anthropic's skill best practices](https
 | `/pua p9` | P9 Tech Lead 模式 |
 | `/pua p10` | P10 CTO 模式 |
 | `/pua pro` | 自进化 + KPI + 段位 |
+| `/pua sb-leader` | 夸夸模式 (ENFP × 14 flavors) |
 | `/pua on` | Always-on mode (auto-PUA every session) |
 | `/pua off` | Turn off always-on + feedback |
 | `/pua survey` | Research questionnaire (7 sections) |
