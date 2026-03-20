@@ -1,5 +1,5 @@
 {
-  "description": "PUA v2 Compaction State Protection — PreCompact dump + SessionStart restore",
+  "description": "PUA v2 hooks: PreCompact state dump, SessionStart restore + always-on, Stop feedback",
   "hooks": {
     "PreCompact": [
       {
@@ -30,6 +30,18 @@
             "type": "command",
             "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/session-restore.sh",
             "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/stop-feedback.sh",
+            "timeout": 3
           }
         ]
       }
