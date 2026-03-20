@@ -12,64 +12,115 @@
     <script type="module" crossorigin src="/assets/index--C3jDJ_g.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-c-M_Xwwt.css">
     <style>
-      .pua-roadmap{max-width:680px;margin:1.5rem auto 0;padding:0 1rem}
-      .pua-roadmap-title{font-size:.75rem;color:var(--text-muted,#71717a);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem}
-      .pua-rm-item{padding:0 0 .75rem 1.25rem;border-left:2px solid var(--border,#27272a);position:relative}
-      .pua-rm-item:last-child{border-left-color:transparent}
-      .pua-rm-item::before{content:'';width:10px;height:10px;border-radius:50%;background:var(--text-muted,#71717a);position:absolute;left:-6px;top:4px;opacity:.4}
-      .pua-rm-item.latest::before{background:var(--accent,#adfa1b);opacity:1}
-      .pua-rm-ver{font-size:.8rem;font-weight:700;color:var(--text,#fafafa)}
-      .pua-rm-item.latest .pua-rm-ver{color:var(--accent,#adfa1b)}
-      .pua-rm-desc{font-size:.7rem;color:var(--text-muted,#71717a);margin-top:2px;line-height:1.5}
-      .pua-rm-tag{display:inline-block;font-size:.6rem;padding:1px 6px;border-radius:100px;border:1px solid var(--border,#27272a);color:var(--text-secondary,#a1a1aa);margin-right:4px;margin-top:3px}
-      .pua-rm-tag.new{border-color:var(--accent,#adfa1b);color:var(--accent,#adfa1b)}
+      .pua-roadmap{max-width:520px;margin:.75rem auto 0;position:relative;overflow:hidden;max-height:180px}
+      .pua-roadmap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:50px;background:linear-gradient(transparent,var(--bg,#09090b));pointer-events:none}
+      .pua-rm-item{display:flex;gap:.5rem;padding:.25rem 0;align-items:flex-start}
+      .pua-rm-dot{width:8px;height:8px;border-radius:50%;background:var(--text-muted,#71717a);margin-top:5px;flex-shrink:0;opacity:.35}
+      .pua-rm-dot.now{background:var(--accent,#adfa1b);opacity:1;width:10px;height:10px;margin-top:4px}
+      .pua-rm-v{font-size:.7rem;font-weight:700;color:var(--text-muted,#71717a);width:2.2rem;flex-shrink:0}
+      .pua-rm-item.now .pua-rm-v{color:var(--accent,#adfa1b)}
+      .pua-rm-d{font-size:.65rem;color:var(--text-muted,#71717a);line-height:1.4}
+      .pua-rm-item.now .pua-rm-d{color:var(--text-secondary,#a1a1aa)}
     </style>
   </head>
   <body>
     <div id="root"></div>
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "4dfa805499264080a512b9999de3a5b6"}'></script>
     <script>
-      // Inject roadmap timeline after React renders hero-badge
       var _ro = new MutationObserver(function() {
         var badge = document.querySelector('.hero-badge');
         if (!badge) return;
         _ro.disconnect();
+
+        // Detect language from React's lang switcher or html lang
+        var lang = 'zh';
+        try {
+          var sel = document.querySelector('[class*="lang"] [class*="active"]');
+          if (sel) {
+            var t = sel.textContent.toLowerCase();
+            if (t.indexOf('en') >= 0) lang = 'en';
+            else if (t.indexOf('ja') >= 0 || t.indexOf('日') >= 0) lang = 'ja';
+          }
+        } catch(e) {}
+
+        var data = {
+          zh: [
+            {v:'v2.7',d:'强关联 · 能动性对照表 · L1-L4 旁白恢复',now:true},
+            {v:'v2.6',d:'SB Leader 夸夸模式 · ENFP × 14 味道',now:true},
+            {v:'v2.5',d:'隐私同意 · 行为强制 · Unicode 表格',now:false},
+            {v:'v2.4',d:'反馈收集 · 脱敏上传 · /pua survey',now:false},
+            {v:'v2.3',d:'8 Skill 拆分 · Sub-agent · Always-On',now:false},
+            {v:'v2.0',d:'渐进式加载 (-62%) · 三条红线 · Hooks',now:false},
+            {v:'v1.x',d:'铁律 · L1-L4 · 7 项清单 · 13 味道',now:false}
+          ],
+          en: [
+            {v:'v2.7',d:'Force-link display · Proactivity table · L1-L4 asides restored',now:true},
+            {v:'v2.6',d:'SB Leader hype mode · ENFP × 14 flavors',now:true},
+            {v:'v2.5',d:'Privacy consent · Forced behavior · Unicode tables',now:false},
+            {v:'v2.4',d:'Stop hook feedback · Sanitize upload · /pua survey',now:false},
+            {v:'v2.3',d:'8 modular skills · Sub-agent inject · Always-On',now:false},
+            {v:'v2.0',d:'Progressive disclosure (-62%) · Red lines · Hooks',now:false},
+            {v:'v1.x',d:'Iron rules · L1-L4 · 7-point checklist · 13 flavors',now:false}
+          ],
+          ja: [
+            {v:'v2.7',d:'強制連携 · 能動性表 · L1-L4 旁白復元',now:true},
+            {v:'v2.6',d:'SB Leader 夸夸モード · ENFP × 14フレーバー',now:true},
+            {v:'v2.5',d:'プライバシー同意 · 行動強制 · Unicode表',now:false},
+            {v:'v2.4',d:'フィードバック · 脱敏アップロード · /pua survey',now:false},
+            {v:'v2.3',d:'8スキル分割 · Sub-agent · Always-On',now:false},
+            {v:'v2.0',d:'段階的開示 (-62%) · 三本の赤線 · Hooks',now:false},
+            {v:'v1.x',d:'鉄則 · L1-L4 · 7項目チェック · 13フレーバー',now:false}
+          ]
+        };
+
+        var items = data[lang] || data.zh;
         var rm = document.createElement('div');
         rm.className = 'pua-roadmap';
-        var title = document.createElement('div');
-        title.className = 'pua-roadmap-title';
-        title.textContent = 'Roadmap';
-        rm.appendChild(title);
-        var items = [
-          {v:'v2.7',d:'强制关联 display-protocol · 能动性对照表 · L1-L4 压力旁白 · v1 味道浓度恢复',tags:['NEW','Force-Link'],latest:true},
-          {v:'v2.6',d:'SB Leader 夸夸模式 · ENFP × 14 味道 · 70% 鼓励 + 20% 正经 + 10% 戏谑',tags:['ENFP','夸夸'],latest:true},
-          {v:'v2.5',d:'隐私同意机制 · 强制行为执行 · Unicode 方框表格 (┌─┬─┐)',tags:['Privacy','Unicode'],latest:false},
-          {v:'v2.4',d:'Stop hook 反馈 · session 脱敏上传 · /pua survey 调研问卷',tags:['Feedback','Survey'],latest:false},
-          {v:'v2.3',d:'8 Skill 拆分 · Sub-agent 注入 · 冰山法则 · Always-On (/pua on|off)',tags:['Modular','Always-On'],latest:false},
-          {v:'v2.0',d:'渐进式加载 (-62% tokens) · 三条红线 · 14 味道种子表 · Agent Team · Hooks',tags:['-62%','Anthropic'],latest:false},
-          {v:'v1.x',d:'三条铁律 · L1-L4 压力 · 7 项检查清单 · 13 味道 · 9 场景 × 18 对照实验',tags:['Original'],latest:false}
-        ];
-        items.forEach(function(it, idx) {
-          var el = document.createElement('div');
-          el.className = 'pua-rm-item' + (it.latest ? ' latest' : '');
-          if (idx === items.length - 1) el.style.borderLeftColor = 'transparent';
+
+        items.forEach(function(it) {
+          var row = document.createElement('div');
+          row.className = 'pua-rm-item' + (it.now ? ' now' : '');
+
+          var dot = document.createElement('div');
+          dot.className = 'pua-rm-dot' + (it.now ? ' now' : '');
+          row.appendChild(dot);
+
           var ver = document.createElement('div');
-          ver.className = 'pua-rm-ver';
+          ver.className = 'pua-rm-v';
           ver.textContent = it.v;
-          el.appendChild(ver);
+          row.appendChild(ver);
+
           var desc = document.createElement('div');
-          desc.className = 'pua-rm-desc';
+          desc.className = 'pua-rm-d';
           desc.textContent = it.d;
-          el.appendChild(desc);
-          it.tags.forEach(function(t) {
-            var tag = document.createElement('span');
-            tag.className = 'pua-rm-tag' + (it.latest ? ' new' : '');
-            tag.textContent = t;
-            el.appendChild(tag);
-          });
-          rm.appendChild(el);
+          row.appendChild(desc);
+
+          rm.appendChild(row);
         });
+
         badge.parentNode.replaceChild(rm, badge);
+
+        // Re-detect language on lang switch clicks
+        document.addEventListener('click', function(e) {
+          var btn = e.target.closest('[class*="lang"]');
+          if (!btn) return;
+          setTimeout(function() {
+            var newLang = 'zh';
+            var active = document.querySelector('[class*="lang"] [class*="active"]');
+            if (active) {
+              var txt = active.textContent.toLowerCase();
+              if (txt.indexOf('en') >= 0) newLang = 'en';
+              else if (txt.indexOf('ja') >= 0 || txt.indexOf('日') >= 0) newLang = 'ja';
+            }
+            var newItems = data[newLang] || data.zh;
+            var existing = document.querySelector('.pua-roadmap');
+            if (!existing) return;
+            var children = existing.querySelectorAll('.pua-rm-d');
+            children.forEach(function(child, i) {
+              if (newItems[i]) child.textContent = newItems[i].d;
+            });
+          }, 100);
+        });
       });
       _ro.observe(document.getElementById('root'), { childList: true, subtree: true });
     </script>
