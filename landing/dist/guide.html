@@ -3,34 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PUA Skill Guide</title>
+  <title>PUA Skill — 新手教程 / Guide / ガイド</title>
   <link rel="icon" href="/pua-logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#09090b;--bg-card:#16161a;--border:#27272a;--text:#fafafa;--text-s:#a1a1aa;--text-m:#71717a;--accent:#adfa1b;--max-w:720px}
+    :root{--bg:#fff;--bg-warm:#fafaf8;--bg-card:#f5f5f3;--border:#e5e5e0;--text:#1a1a2e;--text-s:#4a4a5a;--text-m:#8a8a96;--brand:#E8453C;--brand-lt:#fef2f1;--brand-bd:#f5c4c1;--max-w:720px;--r:10px}
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--brand);color:#fff}
     .container{max-width:var(--max-w);margin:0 auto;padding:2rem 1.5rem}
-    a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
-    h1{font-size:2rem;font-weight:700;margin-bottom:.5rem}
-    h2{font-size:1.25rem;font-weight:600;margin:2.5rem 0 .75rem;padding-top:1.5rem;border-top:1px solid var(--border)}
-    h3{font-size:1rem;font-weight:600;margin:1.5rem 0 .5rem;color:var(--accent)}
-    p{color:var(--text-s);margin-bottom:.75rem;font-size:.9rem}
-    .subtitle{color:var(--text-m);font-size:.95rem;margin-bottom:1.5rem}
-    .card{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin-bottom:1rem}
-    .card b{font-size:.85rem}
-    .card p{font-size:.8rem;margin-top:.4rem;margin-bottom:0}
-    code{background:#1e1e22;padding:2px 6px;border-radius:4px;font-size:.8rem;font-family:'JetBrains Mono',monospace}
-    pre{background:#1e1e22;border:1px solid var(--border);border-radius:8px;padding:1rem;overflow-x:auto;margin:.75rem 0;font-size:.8rem;line-height:1.5;white-space:pre}
-    table{width:100%;border-collapse:collapse;margin:.75rem 0;font-size:.8rem}
-    th,td{text-align:left;padding:.5rem .75rem;border-bottom:1px solid var(--border)}
-    th{color:var(--accent);font-weight:600;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em}
-    .back{display:inline-block;margin-bottom:1rem;color:var(--text-m);font-size:.85rem}
-    .ex{border-left:3px solid var(--accent);padding-left:1rem;margin:.75rem 0;font-size:.8rem;color:var(--text-s);white-space:pre-line}
-    .sw{display:flex;gap:.5rem;margin-bottom:1.5rem}
-    .sw button{background:none;border:1px solid var(--border);color:var(--text-m);padding:4px 12px;border-radius:6px;cursor:pointer;font-size:.75rem}
-    .sw button.on{border-color:var(--accent);color:var(--accent)}
+    a{color:var(--brand);text-decoration:none}a:hover{opacity:.7}
+    h1{font-size:1.8rem;font-weight:800;letter-spacing:-.02em;margin-bottom:.4rem}
+    h2{font-size:1.15rem;font-weight:700;margin:2.25rem 0 .65rem;padding-top:1.25rem;border-top:1px solid var(--border);color:var(--text)}
+    h3{font-size:.9rem;font-weight:700;margin:1.25rem 0 .4rem;color:var(--brand)}
+    p{color:var(--text-s);margin-bottom:.65rem;font-size:.85rem}
+    .subtitle{color:var(--text-m);font-size:.9rem;margin-bottom:1.25rem}
+    .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;margin-bottom:.75rem}
+    .card b{font-size:.82rem;color:var(--text)}
+    .card p{font-size:.78rem;margin-top:.3rem;margin-bottom:0;color:var(--text-s)}
+    code{background:var(--brand-lt);padding:2px 6px;border-radius:5px;font-size:.78rem;font-family:'JetBrains Mono',monospace;color:var(--brand)}
+    pre{background:var(--text);color:#ccc;border-radius:8px;padding:.85rem;overflow-x:auto;margin:.65rem 0;font-size:.78rem;line-height:1.6;white-space:pre;font-family:'JetBrains Mono',monospace}
+    table{width:100%;border-collapse:collapse;margin:.65rem 0;font-size:.78rem}
+    th,td{text-align:left;padding:.45rem .65rem;border-bottom:1px solid var(--border)}
+    th{color:var(--text-m);font-weight:600;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em}
+    .back{display:inline-flex;align-items:center;gap:.3rem;margin-bottom:1rem;color:var(--text-m);font-size:.82rem;font-weight:500;transition:color .2s}
+    .back:hover{color:var(--brand);opacity:1}
+    .ex{border-left:3px solid var(--brand);padding-left:.85rem;margin:.65rem 0;font-size:.78rem;color:var(--text-s);white-space:pre-line;background:var(--brand-lt);border-radius:0 var(--r) var(--r) 0;padding:.75rem .85rem}
+    .sw{display:flex;gap:.35rem;margin-bottom:1.25rem}
+    .sw button{background:none;border:1px solid var(--border);color:var(--text-m);padding:4px 12px;border-radius:6px;cursor:pointer;font-size:.73rem;font-weight:600;font-family:inherit;transition:all .2s}
+    .sw button.on{background:var(--brand);border-color:var(--brand);color:#fff}
     .lang{display:none}.lang.show{display:block}
-    .ft{margin-top:3rem;color:var(--text-m);font-size:.75rem;text-align:center}
+    .ft{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid var(--border);color:var(--text-m);font-size:.73rem;text-align:center}
+    .ft a{color:var(--text-m);font-weight:500}.ft a:hover{color:var(--brand)}
+    /* Motion */
+    .reveal{opacity:0;transform:translateY(16px);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1)}.reveal.v{opacity:1;transform:translateY(0)}
+    .card{transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s}.card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+    .ex{transition:border-color .3s}.ex:hover{border-color:var(--brand)}
+    h1{opacity:0;transform:translateY(12px);animation:fadeIn .6s .1s cubic-bezier(.22,1,.36,1) forwards}
+    .subtitle{opacity:0;transform:translateY(12px);animation:fadeIn .6s .2s cubic-bezier(.22,1,.36,1) forwards}
+    @keyframes fadeIn{to{opacity:1;transform:translateY(0)}}
   </style>
 </head>
 <body>
@@ -50,7 +64,8 @@
     <h3>Claude Code（推荐）</h3>
     <pre>claude plugin marketplace add tanweai/pua
 claude plugin install pua@pua-skills</pre>
-    <h3>一句话安装</h3>
+    <h3>一句话安装（通用）</h3>
+    <p>把下面这句话发给任何 AI 编程 Agent，它会自动阅读并安装：</p>
     <pre>Fetch and follow https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md</pre>
     <p>其他平台见 <a href="https://github.com/tanweai/pua#installation">GitHub README</a>。</p>
     <h2>全部命令</h2>
@@ -103,7 +118,8 @@ claude plugin install pua@pua-skills</pre>
     <h3>Claude Code (recommended)</h3>
     <pre>claude plugin marketplace add tanweai/pua
 claude plugin install pua@pua-skills</pre>
-    <h3>One-line install</h3>
+    <h3>One-line install (universal)</h3>
+    <p>Send this to any AI coding agent — it will read and install automatically:</p>
     <pre>Fetch and follow https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md</pre>
     <p>Other platforms: see <a href="https://github.com/tanweai/pua#installation">GitHub README</a>.</p>
     <h2>All Commands</h2>
@@ -156,7 +172,8 @@ claude plugin install pua@pua-skills</pre>
     <h3>Claude Code（推奨）</h3>
     <pre>claude plugin marketplace add tanweai/pua
 claude plugin install pua@pua-skills</pre>
-    <h3>ワンライン</h3>
+    <h3>ワンライン（汎用）</h3>
+    <p>以下をAIコーディングAgentに送信すると自動インストール：</p>
     <pre>Fetch and follow https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md</pre>
     <p>他のプラットフォーム: <a href="https://github.com/tanweai/pua#installation">GitHub README</a>参照。</p>
     <h2>コマンド一覧</h2>
@@ -201,7 +218,7 @@ claude plugin install pua@pua-skills</pre>
     <div class="card"><b>データ安全？</b><p>同意必須。自動サニタイズ。</p></div>
   </div>
 
-  <div class="ft"><a href="/">openpua.ai</a> · <a href="https://github.com/tanweai/pua">GitHub</a> · MIT</div>
+  <div class="ft"><a href="/">openpua.ai</a> · <a href="https://github.com/tanweai/pua">GitHub</a> · MIT · <a href="mailto:minwei.wang@tanweai.com">minwei.wang@tanweai.com</a></div>
 </div>
 <script>
 function sw(l){
@@ -210,6 +227,14 @@ function sw(l){
   document.querySelectorAll('.sw button').forEach(function(b){b.className=''});
   document.querySelector('.sw button:nth-child('+(l==='zh'?1:l==='en'?2:3)+')').className='on';
 }
+// Scroll reveal for cards
+var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('v')})},{threshold:.1});
+document.querySelectorAll('.card,.ex').forEach(function(el){el.classList.add('reveal');obs.observe(el)});
+// Auto-switch language from hash (e.g. guide.html#en)
+(function(){
+  var h=location.hash.replace('#','');
+  if(h==='en'||h==='ja') sw(h);
+})();
 </script>
 </body>
 </html>
