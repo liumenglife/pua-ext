@@ -141,6 +141,7 @@
 
       <h3>2.3 NegativePrompt（Wang et al., 2024, IJCAI 2024）</h3>
       <p>核心发现：<strong>正面情感刺激效果不稳定，而负面情感刺激反而更稳定</strong>，能更一致地提升 LLM 表现。原因是负面刺激更有效地将模型注意力集中在原始 prompt 和任务内容上。</p>
+      <div class="quote">注意：这一发现表面上与本文结论（"情感刺激无效"）矛盾，但实际上不矛盾——NegativePrompt 之所以有效，不是因为模型"感受到了压力"，而是因为负面表述充当了<strong>注意力锚定信号</strong>（详见第七章 7.2），将模型注意力集中到任务本身。真正起作用的是注意力机制，不是情感反应。这也解释了为什么<strong>正面鼓励（如 /pua:yes 夸夸模式）对任务表现没有提升</strong>——正面情感表述缺乏负面表述那种"高权重 attention signal"的效果，反而可能分散模型对任务内容的注意力。对于高水平用户，不建议使用 yes 模式来期待任务质量提升；yes 模式的价值在于情绪体验，不在任务效果。</div>
 
       <h3>2.4 批判性评估</h3>
       <p>EmotionPrompt 系列存在几个重要局限性：（1）BIG-Bench 上 115% 的提升主要来自弱模型在低基线上的改善，对 GPT-4 级别模型提升幅度小得多；（2）实验设置主要针对 benchmark 任务而非真实 Agent 工作流；（3）研究本身承认"情感刺激可能不适用于其他任务"。</p>
@@ -161,6 +162,7 @@
 
       <h3>2.3 NegativePrompt (Wang et al., 2024, IJCAI 2024)</h3>
       <p>Core finding: <strong>positive emotional stimuli are unstable, while negative emotional stimuli are more consistent</strong> in improving LLM performance. The reason: negative stimuli more effectively focus model attention on the original prompt and task content.</p>
+      <div class="quote">Note: This finding appears to contradict this article's conclusion ("emotional stimuli are ineffective"), but it actually doesn't — NegativePrompt works not because the model "feels pressure," but because negative phrasing acts as an <strong>attention anchoring signal</strong> (see Section 7.2), focusing model attention on the task itself. What actually works is the attention mechanism, not emotional response. This also explains why <strong>positive encouragement (like /pua:yes hype mode) doesn't improve task performance</strong> — positive emotional expressions lack the "high-weight attention signal" effect of negative ones, and may actually distract the model from task content. For advanced users, the yes mode is not recommended for improving task quality; its value is in emotional experience, not task effectiveness.</div>
 
       <h3>2.4 Critical Assessment</h3>
       <p>Key limitations: (1) The 115% improvement on BIG-Bench mainly comes from weak models improving from low baselines — GPT-4 level models show much smaller gains; (2) experimental settings target benchmarks, not real Agent workflows; (3) the research itself acknowledges "emotional stimuli may not apply to other tasks."</p>
@@ -390,6 +392,7 @@
       <div class="highlight">
         <strong>一句话总结</strong>：告诉 AI "做什么"和"做到什么标准"是有效的；告诉 AI "你是谁"和"你应该害怕什么"是无效的。真正的行为控制发生在激活空间，不在 prompt 的修辞里。
       </div>
+      <p style="font-size:.82rem;color:var(--text-m);margin-top:.75rem"><strong>补充说明</strong>：NegativePrompt 的"负面刺激有效"和上述结论并不矛盾。负面表述之所以有效，是因为它充当了注意力锚定信号（attention anchoring），将模型注意力集中到任务上——这是注意力机制的效果，不是"情感刺激"的效果。正面鼓励（如 /pua:yes）则缺乏这种注意力聚焦作用，因此对任务表现没有可测量的提升。</p>
     </div>
     <div class="lang" data-lang="en">
       <h2>8. Conclusions & Strategic Implications</h2>
@@ -410,6 +413,7 @@
       <div class="highlight">
         <strong>One-sentence summary</strong>: Telling AI "what to do" and "to what standard" is effective; telling AI "who you are" and "what you should fear" is ineffective. Real behavioral control happens in activation space, not in prompt rhetoric.
       </div>
+      <p style="font-size:.82rem;color:var(--text-m);margin-top:.75rem"><strong>Clarification</strong>: NegativePrompt's "negative stimuli are effective" does not contradict the above. Negative phrasing works because it serves as an attention anchoring signal, focusing model attention on the task — this is an attention mechanism effect, not an "emotional stimulation" effect. Positive encouragement (e.g., /pua:yes) lacks this attention-focusing property and shows no measurable improvement in task performance.</p>
     </div>
   </section>
 
