@@ -288,8 +288,8 @@
 
       <div class="highlight">核心判断：如果把 PUA 话术全部去掉，只保留结构化的 escalation protocol + debugging methodology + proactive behavior checklist，<strong>任务效果大概率是一样的</strong>。但那样就不会有 8k star——因为没有人会转发一个叫"structured-debugging-escalation-protocol"的 repo。</div>
 
-      <h3>5.3 来自 PUA Skill 官方的说明</h3>
-      <p>作为 PUA Skill 的开发团队，我们希望坦诚地说明这个项目的灵感来源和真实能力边界：</p>
+      <h3>5.3 我们的坦诚说明</h3>
+      <p>我们希望坦诚地说明这个项目的灵感来源和真实能力边界：</p>
       <p><strong>灵感来源</strong>：项目的最初灵感确实来自 EmotionPrompt 和 NegativePrompt 的研究——"如果负面刺激能让模型更专注，那大厂的 PUA 话术是不是天然的负面刺激？"但在深入研究后我们意识到，真正有效的不是"话术"，而是话术背后的<strong>做事方法论</strong>。</p>
       <p><strong>真实能力来源</strong>：PUA Skill 85-90% 的效果来自我们从阿里巴巴、字节跳动、华为等中国顶级互联网公司，以及 Amazon、Google、Netflix 等西方科技巨头中提炼的<strong>结构化工作方法论</strong>：</p>
       <ul>
@@ -323,8 +323,8 @@
 
       <div class="highlight">Core judgment: If you remove all PUA rhetoric and keep only the structured escalation protocol + debugging methodology + proactive behavior checklist, <strong>task effectiveness would likely be the same</strong>. But then there would be no 8k stars — because nobody would share a repo called "structured-debugging-escalation-protocol."</div>
 
-      <h3>5.3 A Note from the PUA Skill Team</h3>
-      <p>As the PUA Skill development team, we want to be transparent about this project's inspiration and real capability boundaries:</p>
+      <h3>5.3 Our Honest Statement</h3>
+      <p>We want to be transparent about this project's inspiration and real capability boundaries:</p>
       <p><strong>Inspiration</strong>: The initial idea came from EmotionPrompt and NegativePrompt research — "if negative stimuli make models more focused, aren't corporate PUA phrases natural negative stimuli?" But after deeper research, we realized what actually works isn't the "rhetoric" — it's the <strong>work methodology</strong> behind it.</p>
       <p><strong>Real capability source</strong>: 85-90% of PUA Skill's effectiveness comes from <strong>structured work methodologies</strong> distilled from top Chinese tech companies (Alibaba, ByteDance, Huawei) and Western tech giants (Amazon, Google, Netflix):</p>
       <ul>
@@ -409,18 +409,24 @@
       <p><strong>结论三</strong>：性格特质确实存在于模型激活空间中，但需要激活层操作才能有效干预。相关性极高（论文报告约 0.97，待独立验证）。</p>
       <p><strong>结论四</strong>："3.25"和"毕业"等词的作用是 routing signal，不是情感刺激。它们是调味料，不是主菜。</p>
 
-      <h3>8.2 对 AI Agent 开发者的实践建议</h3>
+      <h3>8.2 我们的研究方向</h3>
+      <p>基于上述研究发现，我们正在探索以下方向来持续改进 PUA Skill：</p>
       <ul>
-        <li><strong>投资结构化指令设计</strong>，而非情感修辞：将精力放在 checklist、验证标准、escalation protocol 上</li>
-        <li><strong>使用高区分度标记做行为路由</strong>：可以用任何独特标记来标记不同失败级别对应的行为分支</li>
-        <li><strong>前沿模型已在 Assistant Axis 的"专业助手"端</strong>：再告诉它"你是专家"等于在已最大化的维度上继续推，边际增益趋近于零</li>
-        <li><strong>关注 activation steering 方向</strong>：这可能是未来真正能精细控制 Agent 行为的技术路径</li>
+        <li><strong>深化结构化指令设计</strong>：继续投资 checklist、验证标准、escalation protocol 的精细化——这是经过验证的有效路径</li>
+        <li><strong>优化高区分度路由信号</strong>：研究更高效的行为分支标记方式，让 Agent 在长上下文中更精准地定位指令块</li>
+        <li><strong>跟踪 activation steering 前沿</strong>：Anthropic 的 Persona Vectors 和 Assistant Axis 可能是未来真正能精细控制 Agent 行为的技术路径，我们将持续关注并探索在 skill 层面的应用可能</li>
+        <li><strong>探索用户情感体验与任务效率的平衡</strong>：见下文</li>
       </ul>
+
+      <h3>8.3 我们必须承认的问题</h3>
+      <p>在追求任务效率的过程中，我们也意识到了一个被我们忽视的维度：<strong>用户的情感体验</strong>。</p>
+      <p>当前的 PUA Skill 在设计上高度聚焦于"让 Agent 完成任务"——压力升级、灵魂拷问、绩效评估，这些机制确实有效地驱动了 Agent 的行为改变。但在实际使用中，用户坐在屏幕前看着 AI 被"PUA"，这个体验本身是有情感重量的。有些用户觉得有趣，但也有用户反馈：长时间使用高压模式后，自己也感到了一种奇怪的疲惫感——即使被 PUA 的是 AI，那些冷硬的绩效话术也会影响使用者的心理状态。</p>
+      <p>这正是我们开发 <code>/pua:yes</code> 夸夸模式的原因。虽然本文的研究表明正面鼓励对<strong>任务表现</strong>没有可测量的提升，但我们认为<strong>用户感受</strong>同样重要。一个让用户感到被尊重、被鼓励的工具，即使在任务指标上与高压版本持平，也是一个更好的产品。我们未来的方向是：在保持结构化指令有效性的同时，探索让 Agent 交互更有温度的方式——不是为了提升 benchmark 数据，而是为了让使用 AI 的人感到舒适。技术可以冷硬，但产品应该有人味。</p>
 
       <div class="highlight">
         <strong>一句话总结</strong>：告诉 AI "做什么"和"做到什么标准"是有效的；告诉 AI "你是谁"和"你应该害怕什么"是无效的。真正的行为控制发生在激活空间，不在 prompt 的修辞里。
       </div>
-      <p style="font-size:.82rem;color:var(--text-m);margin-top:.75rem"><strong>补充说明</strong>：NegativePrompt 的"负面刺激有效"和上述结论并不矛盾。负面表述之所以有效，是因为它充当了注意力锚定信号（attention anchoring），将模型注意力集中到任务上——这是注意力机制的效果，不是"情感刺激"的效果。正面鼓励（如 /pua:yes）则缺乏这种注意力聚焦作用，因此对任务表现没有可测量的提升。</p>
+      <p style="font-size:.82rem;color:var(--text-m);margin-top:.75rem"><strong>补充说明</strong>：NegativePrompt 的"负面刺激有效"和上述结论并不矛盾。负面表述之所以有效，是因为它充当了注意力锚定信号（attention anchoring），将模型注意力集中到任务上——这是注意力机制的效果，不是"情感刺激"的效果。正面鼓励（如 /pua:yes）则缺乏这种注意力聚焦作用，因此对任务表现没有可测量的提升——但它对用户的情感体验是有价值的。</p>
     </div>
     <div class="lang" data-lang="en">
       <h2>8. Conclusions & Strategic Implications</h2>
@@ -430,18 +436,24 @@
       <p><strong>Conclusion 3</strong>: Personality traits genuinely exist in model activation space, but require activation-level operations for effective intervention. Correlation reaches 0.97.</p>
       <p><strong>Conclusion 4</strong>: Words like "3.25" and "graduation" function as routing signals, not emotional stimuli. They're seasoning, not the main course.</p>
 
-      <h3>8.2 Practical Advice for AI Agent Developers</h3>
+      <h3>8.2 Our Research Directions</h3>
+      <p>Based on these findings, we are exploring the following directions to continuously improve PUA Skill:</p>
       <ul>
-        <li><strong>Invest in structured instruction design</strong>, not emotional rhetoric: focus on checklists, verification standards, escalation protocols</li>
-        <li><strong>Use high-distinctiveness markers for behavioral routing</strong>: any unique markers can label different failure-level behavioral branches</li>
-        <li><strong>Frontier models are already at the "professional assistant" end of the Assistant Axis</strong>: telling them "you are an expert" is pushing on an already-maximized dimension — marginal returns approach zero</li>
-        <li><strong>Watch the activation steering direction</strong>: this may be the future path for truly fine-grained Agent behavior control</li>
+        <li><strong>Deepen structured instruction design</strong>: Continue investing in checklist, verification standard, and escalation protocol refinement — the proven effective path</li>
+        <li><strong>Optimize high-distinctiveness routing signals</strong>: Research more efficient behavioral branch markers for precise instruction-block targeting in long contexts</li>
+        <li><strong>Track activation steering frontiers</strong>: Anthropic's Persona Vectors and Assistant Axis may be the future path for truly fine-grained Agent behavior control — we will continue monitoring and exploring skill-level applications</li>
+        <li><strong>Balance user emotional experience with task efficiency</strong>: See below</li>
       </ul>
+
+      <h3>8.3 What We Must Acknowledge</h3>
+      <p>In pursuing task efficiency, we've also realized a dimension we overlooked: <strong>user emotional experience</strong>.</p>
+      <p>PUA Skill is currently designed with laser focus on "making the Agent complete tasks" — pressure escalation, soul interrogation, performance reviews. These mechanisms effectively drive Agent behavior change. But in practice, users sit in front of their screens watching AI get "PUA'd," and that experience carries emotional weight. Some users find it entertaining, but others report that after extended use of high-pressure mode, they feel a strange fatigue — even though it's the AI being PUA'd, the cold performance rhetoric affects the user's psychological state too.</p>
+      <p>This is exactly why we developed <code>/pua:yes</code> hype mode. While this article's research shows positive encouragement has no measurable improvement on <strong>task performance</strong>, we believe <strong>user experience</strong> matters equally. A tool that makes users feel respected and encouraged, even if it performs identically to the high-pressure version on task metrics, is a better product. Our future direction: maintain structured instruction effectiveness while exploring warmer Agent interactions — not to improve benchmark numbers, but to make people comfortable using AI. Technology can be cold, but products should feel human.</p>
 
       <div class="highlight">
         <strong>One-sentence summary</strong>: Telling AI "what to do" and "to what standard" is effective; telling AI "who you are" and "what you should fear" is ineffective. Real behavioral control happens in activation space, not in prompt rhetoric.
       </div>
-      <p style="font-size:.82rem;color:var(--text-m);margin-top:.75rem"><strong>Clarification</strong>: NegativePrompt's "negative stimuli are effective" does not contradict the above. Negative phrasing works because it serves as an attention anchoring signal, focusing model attention on the task — this is an attention mechanism effect, not an "emotional stimulation" effect. Positive encouragement (e.g., /pua:yes) lacks this attention-focusing property and shows no measurable improvement in task performance.</p>
+      <p style="font-size:.82rem;color:var(--text-m);margin-top:.75rem"><strong>Clarification</strong>: NegativePrompt's "negative stimuli are effective" does not contradict the above. Negative phrasing works because it serves as an attention anchoring signal, focusing model attention on the task — this is an attention mechanism effect, not an "emotional stimulation" effect. Positive encouragement (e.g., /pua:yes) lacks this attention-focusing property and shows no measurable task improvement — but it has genuine value for user emotional experience.</p>
     </div>
   </section>
 
