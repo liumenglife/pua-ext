@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PUA — Contribute Data</title>
+  <link rel="icon" href="/pua-logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#fff;--bg-warm:#fafaf8;--bg-card:#f5f5f3;--border:#e5e5e0;--text:#1a1a2e;--text-s:#4a4a5a;--text-m:#8a8a96;--brand:#E8453C;--brand-lt:#fef2f1;--brand-bd:#f5c4c1;--max-w:640px;--r:10px}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
+    ::selection{background:var(--brand);color:#fff}
+    a{color:var(--brand);text-decoration:none}a:hover{opacity:.7}
+    .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .nav-in{max-width:var(--max-w);margin:0 auto;padding:.65rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+    .nav-b{display:flex;align-items:center;gap:.4rem;font-weight:800;font-size:1.05rem;color:var(--text)}.nav-b img{width:26px;height:26px}
+    .nav-r a{color:var(--text-m);font-size:.78rem;font-weight:500;margin-left:1rem}
+    .con{max-width:var(--max-w);margin:0 auto;padding:2.5rem 1.5rem}
+    h1{font-size:1.6rem;font-weight:900;margin-bottom:.4rem}
+    .sub{color:var(--text-m);font-size:.85rem;margin-bottom:2rem}
+    .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin-bottom:1.25rem}
+    .card h3{font-size:.88rem;font-weight:700;margin-bottom:.5rem}
+    .card p{font-size:.8rem;color:var(--text-s);margin-bottom:.75rem}
+    .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.2rem;border-radius:var(--r);font-size:.82rem;font-weight:600;cursor:pointer;border:none;font-family:inherit;transition:all .2s}
+    .btn-brand{background:var(--brand);color:#fff}.btn-brand:hover{opacity:.9;transform:translateY(-1px)}
+    .btn-outline{background:var(--bg);color:var(--text);border:1px solid var(--border)}.btn-outline:hover{border-color:var(--brand-bd)}
+    .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+    .user-info{display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem}
+    .user-info img{width:36px;height:36px;border-radius:50%;border:2px solid var(--border)}
+    .user-info .name{font-weight:700;font-size:.88rem}
+    .user-info .meta{font-size:.72rem;color:var(--text-m)}
+    input[type=text],input[type=file]{width:100%;padding:.55rem .75rem;border:1px solid var(--border);border-radius:7px;font-size:.82rem;font-family:inherit;background:var(--bg);transition:border-color .2s}
+    input:focus{outline:none;border-color:var(--brand)}
+    label{display:block;font-size:.75rem;font-weight:600;color:var(--text-m);margin-bottom:.3rem;text-transform:uppercase;letter-spacing:.03em}
+    .form-group{margin-bottom:1rem}
+    .msg{padding:.6rem .85rem;border-radius:7px;font-size:.78rem;margin-top:.75rem;display:none}
+    .msg-ok{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;display:block}
+    .msg-err{background:#fef2f2;color:#dc2626;border:1px solid #fecaca;display:block}
+    .uploads{margin-top:1.25rem}
+    .upload-item{display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid var(--border);font-size:.78rem}
+    .upload-item .fn{font-weight:600}.upload-item .dt{color:var(--text-m);font-size:.7rem}
+    .footer{border-top:1px solid var(--border);padding:1.25rem 0;text-align:center;max-width:var(--max-w);margin:0 auto}
+    .footer p{font-size:.7rem;color:var(--text-m)}.footer a{color:var(--text-m)}
+    #loginSection,#uploadSection{display:none}
+  </style>
+</head>
+<body>
+<nav class="nav"><div class="nav-in">
+  <a href="/" class="nav-b"><img src="/pua-logo.svg" alt="PUA"> PUA</a>
+  <div class="nav-r"><a href="/">Home</a><a href="/guide.html">Guide</a><a href="/leaderboard.html">Leaderboard</a></div>
+</div></nav>
+
+<div class="con">
+  <h1>Contribute Data</h1>
+  <p class="sub">上传你的 PUA session 数据（.jsonl），帮助我们改进 skill。数据会自动脱敏。</p>
+
+  <!-- Not logged in -->
+  <div id="loginSection">
+    <div class="card">
+      <h3>GitHub 登录</h3>
+      <p>使用 GitHub 账号登录后即可上传数据。我们只读取你的用户名和头像，不访问任何仓库。</p>
+      <a href="/api/auth/github" class="btn btn-brand">Login with GitHub</a>
+    </div>
+  </div>
+
+  <!-- Logged in -->
+  <div id="uploadSection">
+    <div class="user-info">
+      <img id="userAvatar" src="" alt="avatar">
+      <div>
+        <div class="name" id="userName"></div>
+        <div class="meta"><span id="uploadCount">0</span> files uploaded · <a href="/api/auth/logout">Logout</a></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Upload Session Data</h3>
+      <p>上传 .jsonl 格式的 session 文件。文件会自动脱敏（去除路径、API key、邮箱等敏感信息）。最大 50MB。</p>
+      <form id="uploadForm">
+        <div class="form-group">
+          <label>WeChat ID（用于联系反馈）</label>
+          <input type="text" id="wechatId" placeholder="你的微信号" required>
+        </div>
+        <div class="form-group">
+          <label>Session File (.jsonl)</label>
+          <input type="file" id="fileInput" accept=".jsonl" required>
+        </div>
+        <button type="submit" class="btn btn-brand" id="submitBtn">Upload</button>
+      </form>
+      <div id="msgBox" class="msg"></div>
+    </div>
+
+    <div class="uploads" id="uploadsList"></div>
+  </div>
+</div>
+
+<div class="footer">
+  <p><a href="/">openpua.ai</a> · <a href="https://github.com/tanweai/pua">GitHub</a> · MIT · <a href="mailto:minwei.wang@tanweai.com">minwei.wang@tanweai.com</a></p>
+</div>
+
+<script>
+// Check login status
+fetch('/api/me',{credentials:'same-origin'}).then(function(r){return r.json()}).then(function(d){
+  if(d.logged_in){
+    document.getElementById('uploadSection').style.display='block';
+    document.getElementById('userAvatar').src=d.avatar;
+    document.getElementById('userName').textContent=d.login;
+    document.getElementById('uploadCount').textContent=d.upload_count||0;
+    loadUploads();
+  } else {
+    document.getElementById('loginSection').style.display='block';
+  }
+}).catch(function(){
+  document.getElementById('loginSection').style.display='block';
+});
+
+// Load previous uploads
+function loadUploads(){
+  fetch('/api/upload',{credentials:'same-origin'}).then(function(r){return r.json()}).then(function(d){
+    if(!d.uploads||d.uploads.length===0) return;
+    var el=document.getElementById('uploadsList');
+    var h=document.createElement('h3');
+    h.style.cssText='font-size:.82rem;font-weight:700;margin-bottom:.5rem';
+    h.textContent='Previous Uploads';
+    el.appendChild(h);
+    d.uploads.forEach(function(u){
+      var item=document.createElement('div');
+      item.className='upload-item';
+      var fn=document.createElement('span');
+      fn.className='fn';
+      fn.textContent=u.file_name;
+      item.appendChild(fn);
+      var dt=document.createElement('span');
+      dt.className='dt';
+      dt.textContent=u.created_at;
+      item.appendChild(dt);
+      el.appendChild(item);
+    });
+  }).catch(function(){});
+}
+
+// Upload form
+document.getElementById('uploadForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  var btn=document.getElementById('submitBtn');
+  var msg=document.getElementById('msgBox');
+  var file=document.getElementById('fileInput').files[0];
+  var wechat=document.getElementById('wechatId').value.trim();
+
+  if(!file||!wechat){msg.className='msg msg-err';msg.textContent='Please fill all fields';return}
+  if(!file.name.endsWith('.jsonl')){msg.className='msg msg-err';msg.textContent='Only .jsonl files accepted';return}
+  if(file.size>50*1024*1024){msg.className='msg msg-err';msg.textContent='File too large (max 50MB)';return}
+
+  btn.disabled=true;btn.textContent='Uploading...';
+  var fd=new FormData();
+  fd.append('file',file);
+  fd.append('wechat_id',wechat);
+
+  fetch('/api/upload',{method:'POST',body:fd,credentials:'same-origin'}).then(function(r){return r.json()}).then(function(d){
+    if(d.ok){
+      msg.className='msg msg-ok';msg.textContent='Upload successful! File: '+d.file_name;
+      document.getElementById('fileInput').value='';
+    } else {
+      msg.className='msg msg-err';msg.textContent='Error: '+(d.error||'Unknown error');
+    }
+    btn.disabled=false;btn.textContent='Upload';
+  }).catch(function(err){
+    msg.className='msg msg-err';msg.textContent='Network error';
+    btn.disabled=false;btn.textContent='Upload';
+  });
+});
+</script>
+</body>
+</html>
