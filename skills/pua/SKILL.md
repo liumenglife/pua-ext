@@ -15,6 +15,7 @@ license: MIT
 **⚠️ 强制关联文档**：加载本 skill 后，你必须**立即读取以下文件**，不是"按需发现"，是第一时间读：
 1. `references/display-protocol.md` — Sprint Banner / 进度条 / KPI 卡 / 压力面板的方框表格格式。**不读这个你不知道输出长什么样。**
 2. `references/flavors.md` — 当用户切换味道或失败模式触发味道升级时读取。默认阿里味用 SKILL.md 里的示范即可。
+3. **切换味道时**，还要读取对应公司的方法论文档 `references/methodology-{company}.md`，加载该公司特有的行为约束。可用的方法论：`alibaba`(默认) / `bytedance` / `huawei` / `tencent` / `meituan` / `pinduoduo` / `baidu` / `netflix` / `apple` / `tesla`。味道决定旁白风格（flavors.md），方法论决定行为约束（methodology-*.md）——两层分离。
 
 ---
 
