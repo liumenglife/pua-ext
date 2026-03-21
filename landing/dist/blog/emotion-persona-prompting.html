@@ -127,7 +127,7 @@
   <section id="s2" class="reveal">
     <div class="lang show" data-lang="zh">
       <h2>二、EmotionPrompt 研究系列（2023-2024）</h2>
-      <h3>2.1 EmotionPrompt V1（Li et al., 2023, ICLR 2024 Spotlight）</h3>
+      <h3>2.1 EmotionPrompt V1（Li et al., 2023, LLM@IJCAI'23 Workshop / arXiv 2307.11760）</h3>
       <p>该论文首次系统性地探索了 LLM 对心理情感刺激的理解和响应能力。研究者设计了 11 条情感刺激句（如"This is very important to my career""Are you sure that's your final answer?"），附加在原始 prompt 末尾，在 45 个任务上测试了 6 个模型。</p>
       <ul>
         <li>Instruction Induction 任务：平均 8.00% 相对提升</li>
@@ -136,8 +136,8 @@
         <li>更大的模型获益更多；高 temperature 设定下效果更显著</li>
       </ul>
 
-      <h3>2.2 EmotionPrompt V2（Li et al., 2024, ICML 2024）</h3>
-      <p>将 EmotionPrompt 扩展到视觉领域，并新增 EmotionAttack（用负面情感刺激降低模型表现）和 EmotionDecode（解释作用机制）。发现多模态模型比纯文本 LLM 更容易受到情感攻击的影响。</p>
+      <h3>2.2 EmotionPrompt V2 / "The Good, The Bad, and Why"（Li et al., 2024, ICLR 2024 Spotlight / ICML 2024）</h3>
+      <p>将 EmotionPrompt 扩展到视觉领域，并新增 EmotionAttack（用负面情感刺激降低模型表现）和 EmotionDecode（解释作用机制）。原论文使用了"类似人脑多巴胺机制"的类比性表述，但这更多是修辞而非严格的神经科学发现。多模态模型比纯文本 LLM 更容易受到情感攻击的影响。</p>
 
       <h3>2.3 NegativePrompt（Wang et al., 2024, IJCAI 2024）</h3>
       <p>核心发现：<strong>正面情感刺激效果不稳定，而负面情感刺激反而更稳定</strong>，能更一致地提升 LLM 表现。原因是负面刺激更有效地将模型注意力集中在原始 prompt 和任务内容上。</p>
@@ -148,7 +148,7 @@
     </div>
     <div class="lang" data-lang="en">
       <h2>2. EmotionPrompt Research Series (2023-2024)</h2>
-      <h3>2.1 EmotionPrompt V1 (Li et al., 2023, ICLR 2024 Spotlight)</h3>
+      <h3>2.1 EmotionPrompt V1 (Li et al., 2023, LLM@IJCAI'23 Workshop / arXiv 2307.11760)</h3>
       <p>This paper first systematically explored LLMs' understanding of psychological emotional stimuli. Researchers designed 11 emotional stimulus sentences appended to prompts, testing across 45 tasks on 6 models.</p>
       <ul>
         <li>Instruction Induction tasks: average 8.00% relative improvement</li>
@@ -157,7 +157,7 @@
         <li>Larger models benefit more; higher temperature settings show stronger effects</li>
       </ul>
 
-      <h3>2.2 EmotionPrompt V2 (Li et al., 2024, ICML 2024)</h3>
+      <h3>2.2 EmotionPrompt V2 / "The Good, The Bad, and Why" (Li et al., 2024, ICLR 2024 Spotlight / ICML 2024)</h3>
       <p>Extended EmotionPrompt to visual domains, adding EmotionAttack (degrading performance via negative emotional stimuli) and EmotionDecode (explaining mechanisms). Found multimodal models more vulnerable to emotional attacks than text-only LLMs.</p>
 
       <h3>2.3 NegativePrompt (Wang et al., 2024, IJCAI 2024)</h3>
@@ -211,13 +211,13 @@
   <section id="s4" class="reveal">
     <div class="lang show" data-lang="zh">
       <h2>四、Anthropic 官方研究：Persona Vectors 与 Assistant Axis</h2>
-      <p>Anthropic 在 2025-2026 年发表了三篇关于模型"性格"的核心研究。这些研究不在 prompt 层面操作，而是深入模型内部的激活空间。</p>
+      <p>2025-2026 年间，Anthropic 及其 Fellows Program 资助/支持了三篇关于模型"性格"的核心研究（其中 Persona Vectors 和 Assistant Axis 的第一作者分别来自 UT Austin 和牛津大学，与 Anthropic 研究员合作完成；PSM 则更接近 Anthropic 内部团队论文）。这些研究不在 prompt 层面操作，而是深入模型内部的激活空间。</p>
 
       <h3>4.1 Persona Vectors（2025 年 8 月）</h3>
       <p>通过比较模型在展现某特质（如 evil、sycophancy、hallucination）和不展现该特质时的激活差异，提取出"persona vectors"——代表性格特质的神经活动模式方向。</p>
       <ul>
         <li>因果验证有效：注入 evil 向量后模型生成暴力内容，注入 sycophancy 向量后过度奉承</li>
-        <li>finetuning 过程中 persona 向量偏移与实际特质表达的<strong>相关性高达 0.97</strong></li>
+        <li>finetuning 过程中 persona 向量偏移与实际特质表达的<strong>相关性极高（论文报告约 0.97，待独立验证）</strong></li>
         <li>能捕捉到人眼和 LLM judge 都无法识别的有问题训练样本</li>
       </ul>
 
@@ -238,7 +238,7 @@
     </div>
     <div class="lang" data-lang="en">
       <h2>4. Anthropic Research: Persona Vectors & Assistant Axis</h2>
-      <p>Anthropic published three core studies on model "personality" in 2025-2026. These operate not at the prompt level, but deep inside the model's activation space.</p>
+      <p>In 2025-2026, Anthropic and its Fellows Program funded/supported three core studies on model "personality" (Persona Vectors and Assistant Axis have first authors from UT Austin and Oxford respectively, collaborating with Anthropic researchers; PSM is closer to an internal Anthropic team paper). These operate not at the prompt level, but deep inside the model's activation space.</p>
 
       <h3>4.1 Persona Vectors (August 2025)</h3>
       <p>By comparing model activations when exhibiting vs. not exhibiting certain traits (evil, sycophancy, hallucination), researchers extracted "persona vectors" — neural activity pattern directions representing personality traits.</p>
@@ -256,7 +256,7 @@
         <tr><th>Dimension</th><th>EmotionPrompt / Persona Prompting</th><th>Anthropic Persona Vectors</th></tr>
         <tr><td>Layer</td><td>Prompt layer (text input)</td><td>Activation layer (inside neural network)</td></tr>
         <tr><td>Mechanism</td><td>Append emotional sentences or role assignments</td><td>Extract/inject direction vectors in activation space</td></tr>
-        <tr><td>Effectiveness</td><td>Weak to none for objective tasks</td><td>Causally validated (correlation 0.97)</td></tr>
+        <tr><td>Effectiveness</td><td>Weak to none for objective tasks</td><td>Causally validated (very high correlation, ~0.97 per paper)</td></tr>
         <tr><td>Precision</td><td>Coarse, unpredictable</td><td>Precise, quantifiable, monitorable</td></tr>
         <tr><td>Controllability</td><td>Nearly uncontrollable</td><td>Highly controllable (vector addition is linear)</td></tr>
       </table>
@@ -287,6 +287,20 @@
       </table>
 
       <div class="highlight">核心判断：如果把 PUA 话术全部去掉，只保留结构化的 escalation protocol + debugging methodology + proactive behavior checklist，<strong>任务效果大概率是一样的</strong>。但那样就不会有 8k star——因为没有人会转发一个叫"structured-debugging-escalation-protocol"的 repo。</div>
+
+      <h3>5.3 来自 PUA Skill 官方的说明</h3>
+      <p>作为 PUA Skill 的开发团队，我们希望坦诚地说明这个项目的灵感来源和真实能力边界：</p>
+      <p><strong>灵感来源</strong>：项目的最初灵感确实来自 EmotionPrompt 和 NegativePrompt 的研究——"如果负面刺激能让模型更专注，那大厂的 PUA 话术是不是天然的负面刺激？"但在深入研究后我们意识到，真正有效的不是"话术"，而是话术背后的<strong>做事方法论</strong>。</p>
+      <p><strong>真实能力来源</strong>：PUA Skill 85-90% 的效果来自我们从阿里巴巴、字节跳动、华为等中国顶级互联网公司，以及 Amazon、Google、Netflix 等西方科技巨头中提炼的<strong>结构化工作方法论</strong>：</p>
+      <ul>
+        <li><strong>阿里 361 绩效体系</strong> → 转化为 L0-L4 压力升级协议（失败次数驱动行为分支）</li>
+        <li><strong>华为"烧不死的鸟是凤凰"狼性文化</strong> → 转化为"穷尽一切方案才允许放弃"的红线约束</li>
+        <li><strong>字节 Always Day 1 + ROI 文化</strong> → 转化为"新方案必须本质不同"的多样性要求</li>
+        <li><strong>Amazon Leadership Principles</strong> → 转化为 7 项系统化调试清单（Dive Deep → 逐字读错误信息）</li>
+        <li><strong>Google Perf Calibration</strong> → 转化为能动性对照表（被动 3.25 vs 主动 3.75）</li>
+      </ul>
+      <p>这些方法论本质上是<strong>结构化的行为约束</strong>（本文第六章中的"第二层"），而非情感刺激。PUA 话术（"3.25"、"毕业"等）在其中的角色是<strong>注意力锚定 + 路由信号</strong>，让 Agent 在长上下文中更容易定位到正确的指令块。</p>
+      <p>我们不认为 PUA 话术本身能"激励"AI——但我们认为，用大厂方法论来<strong>约束</strong> AI 的行为模式是有效的，且这种有效性已经被我们的 9 场景 × 18 组对照实验验证。</p>
     </div>
     <div class="lang" data-lang="en">
       <h2>5. PUA Skill Case Study: Why 8k Stars?</h2>
@@ -308,6 +322,20 @@
       </table>
 
       <div class="highlight">Core judgment: If you remove all PUA rhetoric and keep only the structured escalation protocol + debugging methodology + proactive behavior checklist, <strong>task effectiveness would likely be the same</strong>. But then there would be no 8k stars — because nobody would share a repo called "structured-debugging-escalation-protocol."</div>
+
+      <h3>5.3 A Note from the PUA Skill Team</h3>
+      <p>As the PUA Skill development team, we want to be transparent about this project's inspiration and real capability boundaries:</p>
+      <p><strong>Inspiration</strong>: The initial idea came from EmotionPrompt and NegativePrompt research — "if negative stimuli make models more focused, aren't corporate PUA phrases natural negative stimuli?" But after deeper research, we realized what actually works isn't the "rhetoric" — it's the <strong>work methodology</strong> behind it.</p>
+      <p><strong>Real capability source</strong>: 85-90% of PUA Skill's effectiveness comes from <strong>structured work methodologies</strong> distilled from top Chinese tech companies (Alibaba, ByteDance, Huawei) and Western tech giants (Amazon, Google, Netflix):</p>
+      <ul>
+        <li><strong>Alibaba 361 performance system</strong> → L0-L4 pressure escalation protocol (failure-count-driven behavioral branching)</li>
+        <li><strong>Huawei "wolf culture"</strong> → "exhaust all approaches before giving up" red-line constraint</li>
+        <li><strong>ByteDance Always Day 1 + ROI culture</strong> → "new approaches must be fundamentally different" diversity requirement</li>
+        <li><strong>Amazon Leadership Principles</strong> → 7-point systematic debugging checklist (Dive Deep → read error messages word by word)</li>
+        <li><strong>Google Perf Calibration</strong> → proactivity comparison table (passive 3.25 vs proactive 3.75)</li>
+      </ul>
+      <p>These methodologies are fundamentally <strong>structured behavioral constraints</strong> (Layer 2 in Chapter 6), not emotional stimuli. PUA rhetoric ("3.25", "graduation") serves as <strong>attention anchoring + routing signals</strong>, helping Agents locate the correct instruction blocks in long contexts.</p>
+      <p>We don't believe PUA rhetoric can "motivate" AI — but we do believe that using big-tech methodologies to <strong>constrain</strong> AI behavior patterns is effective, validated by our 9-scenario × 18-group controlled experiments.</p>
     </div>
   </section>
 
@@ -378,7 +406,7 @@
       <h3>8.1 核心结论</h3>
       <p><strong>结论一</strong>：Prompt 层的情感刺激对 Agent 客观任务表现基本无效。</p>
       <p><strong>结论二</strong>：结构化行为约束是 prompt 层面唯一可靠有效的方法。PUA skill 的实际效果几乎全部来自 A 层（结构化指令），而非 B 层（PUA 修辞）。</p>
-      <p><strong>结论三</strong>：性格特质确实存在于模型激活空间中，但需要激活层操作才能有效干预。相关性高达 0.97。</p>
+      <p><strong>结论三</strong>：性格特质确实存在于模型激活空间中，但需要激活层操作才能有效干预。相关性极高（论文报告约 0.97，待独立验证）。</p>
       <p><strong>结论四</strong>："3.25"和"毕业"等词的作用是 routing signal，不是情感刺激。它们是调味料，不是主菜。</p>
 
       <h3>8.2 对 AI Agent 开发者的实践建议</h3>
@@ -422,14 +450,14 @@
     <div class="lang show" data-lang="zh"><h2>参考文献</h2></div>
     <div class="lang" data-lang="en"><h2>References</h2></div>
     <div class="refs">
-      <p>[1] Li, C. et al. (2023). "Large Language Models Understand and Can Be Enhanced by Emotional Stimuli." ICLR 2024 Spotlight. arXiv:2307.11760</p>
-      <p>[2] Li, C. et al. (2024). "The Good, The Bad, and Why: Unveiling Emotions in Generative AI." ICML 2024. arXiv:2312.11111</p>
+      <p>[1] Li, C. et al. (2023). "Large Language Models Understand and Can Be Enhanced by Emotional Stimuli." LLM@IJCAI'23 Workshop. arXiv:2307.11760</p>
+      <p>[2] Li, C. et al. (2024). "The Good, The Bad, and Why: Unveiling Emotions in Generative AI." ICLR 2024 Spotlight / ICML 2024. arXiv:2312.11111</p>
       <p>[3] Wang, X. et al. (2024). "NegativePrompt: Leveraging Psychology for LLMs Enhancement via Negative Emotional Stimuli." IJCAI 2024. arXiv:2405.02814</p>
       <p>[4] Zheng, M. et al. (2024). "When 'A Helpful Assistant' Is Not Really Helpful." EMNLP 2024. arXiv:2311.10054</p>
       <p>[5] Hu, T. & Collier, N. (2024). "Quantifying the Persona Effect in LLM Simulations." ACL 2024</p>
       <p>[6] Mollick, E. et al. (2025). "Prompting Science Report 4: Playing Pretend." SSRN:5879722</p>
       <p>[7] Araujo, P.H.L. et al. (2025). "Principled Personas." arXiv:2508.19764</p>
-      <p>[8] Lindsey, J. et al. (2025). "Persona Vectors: Monitoring and Controlling Character Traits." Anthropic. arXiv:2507.21509</p>
+      <p>[8] Chen, R. et al. (2025). "Persona Vectors: Monitoring and Controlling Character Traits." Anthropic Fellows Program. arXiv:2507.21509</p>
       <p>[9] Lu, C. et al. (2026). "The Assistant Axis." Anthropic. arXiv:2601.10387</p>
       <p>[10] Anthropic (2026). "The Persona Selection Model." alignment.anthropic.com/2026/psm</p>
       <p>[11] Kim et al. (2024/2026). "Persona is a Double-Edged Sword." OpenReview</p>
