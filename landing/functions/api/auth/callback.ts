@@ -1,6 +1,9 @@
+import { createSessionCookie } from "../_session"
+
 interface Env {
   GITHUB_CLIENT_ID: string
   GITHUB_CLIENT_SECRET: string
+  SESSION_SECRET: string
 }
 
 export const onRequestGet: PagesFunction<Env> = async ({ env, request }) => {
@@ -38,17 +41,12 @@ export const onRequestGet: PagesFunction<Env> = async ({ env, request }) => {
   })
   const user = (await userRes.json()) as { id: number; login: string; avatar_url: string }
 
-  // Store session in cookie (base64 encoded JSON)
-  const session = btoa(JSON.stringify({
-    id: String(user.id),
-    login: user.login,
-    avatar: user.avatar_url,
-    token: tokenData.access_token,
-  }))
+  // Create HMAC-signed session cookie (no token stored in cookie)
+  const session = await createSessionCookie(
+    { id: String(user.id), login: user.login, avatar: user.avatar_url },
+    env.SESSION_SECRET
+  )
 
-  // Use HTML+JS redirect instead of HTTP 302 to preserve hash fragment.
-  // Cloudflare CDN may strip #fragment from Location headers in 302 responses,
-  // causing users to land on "/" instead of "/#/contribute" after OAuth.
   const redirectPage = `<!DOCTYPE html><html><head>
 <meta charset="utf-8"><title>Redirecting...</title>
 <script>window.location.replace("https://openpua.ai/#/contribute");</script>

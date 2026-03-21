@@ -1,26 +1,13 @@
+import { getSession } from "./_session"
+
 interface Env {
   DB: D1Database
   UPLOADS: R2Bucket
-}
-
-function getSession(request: Request) {
-  const cookie = request.headers.get("Cookie") || ""
-  const match = cookie.match(/pua_session=([^;]+)/)
-  if (!match) return null
-  try {
-    return JSON.parse(atob(match[1])) as {
-      id: string
-      login: string
-      avatar: string
-      token: string
-    }
-  } catch {
-    return null
-  }
+  SESSION_SECRET: string
 }
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  const session = getSession(request)
+  const session = await getSession(request, env.SESSION_SECRET)
   if (!session) {
     return Response.json({ error: "Unauthorized" }, { status: 401 })
   }
@@ -86,7 +73,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
 // GET: list user's uploads
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
-  const session = getSession(request)
+  const session = await getSession(request, env.SESSION_SECRET)
   if (!session) {
     return Response.json({ error: "Unauthorized" }, { status: 401 })
   }

@@ -1,25 +1,12 @@
+import { getSession } from "./_session"
+
 interface Env {
   DB: D1Database
-}
-
-function getSession(request: Request) {
-  const cookie = request.headers.get("Cookie") || ""
-  const match = cookie.match(/pua_session=([^;]+)/)
-  if (!match) return null
-  try {
-    return JSON.parse(atob(match[1])) as {
-      id: string
-      login: string
-      avatar: string
-      token: string
-    }
-  } catch {
-    return null
-  }
+  SESSION_SECRET: string
 }
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
-  const session = getSession(request)
+  const session = await getSession(request, env.SESSION_SECRET)
   if (!session) {
     return Response.json({ logged_in: false }, { status: 401 })
   }
