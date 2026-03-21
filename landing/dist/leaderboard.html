@@ -15,26 +15,67 @@
     ::selection{background:var(--brand);color:#fff}
     a{color:var(--brand);text-decoration:none}a:hover{opacity:.7}
     .con{max-width:var(--max-w);margin:0 auto;padding:0 1.5rem}
+
     .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
     .nav-in{max-width:var(--max-w);margin:0 auto;padding:.65rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
     .nav-b{display:flex;align-items:center;gap:.4rem;font-weight:800;font-size:1.05rem;color:var(--text)}.nav-b img{width:26px;height:26px}
     .nav-r a{color:var(--text-m);font-size:.78rem;font-weight:500;margin-left:1rem}
+
     .hero{padding:3rem 0 2rem;text-align:center}
     .hero h1{font-size:2rem;font-weight:900;margin-bottom:.4rem}
-    .hero p{color:var(--text-m);font-size:.88rem}
-    .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
-    .stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;text-align:center}
-    .stat-card .num{font-size:2rem;font-weight:900;color:var(--brand)}
-    .stat-card .label{font-size:.72rem;color:var(--text-m);margin-top:.2rem}
-    .rank-table{width:100%;border-collapse:collapse;font-size:.82rem}
-    .rank-table th{text-align:left;padding:.6rem .75rem;border-bottom:2px solid var(--border);color:var(--text-m);font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
-    .rank-table td{padding:.65rem .75rem;border-bottom:1px solid var(--border)}
-    .rank-table tr:hover td{background:var(--bg-warm)}
-    .badge-p{display:inline-flex;padding:2px 8px;border-radius:9999px;font-size:.62rem;font-weight:600;background:var(--brand-lt);color:var(--brand);border:1px solid var(--brand-bd)}
+    .hero .sub{color:var(--text-m);font-size:.85rem;max-width:500px;margin:0 auto}
+    .hero code{background:var(--bg-card);padding:2px 8px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.8rem;color:var(--brand)}
+
+    .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.85rem;margin-bottom:2.5rem}
+    .stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);padding:1.1rem;text-align:center;transition:transform .25s cubic-bezier(.22,1,.36,1)}
+    .stat-card:hover{transform:scale(1.03)}
+    .stat-card .num{font-size:1.8rem;font-weight:900;color:var(--brand);line-height:1.2}
+    .stat-card .label{font-size:.68rem;color:var(--text-m);margin-top:.15rem;font-weight:500}
+
+    /* Rank cards */
+    .rank-list{display:flex;flex-direction:column;gap:.6rem}
+    .rank-card{display:flex;align-items:center;gap:1rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--r);padding:.85rem 1.1rem;transition:all .25s cubic-bezier(.22,1,.36,1);opacity:0;transform:translateY(12px);animation:cardIn .5s forwards}
+    .rank-card:hover{border-color:var(--brand-bd);box-shadow:0 4px 16px rgba(0,0,0,.06);transform:translateY(-2px)}
+    @keyframes cardIn{to{opacity:1;transform:translateY(0)}}
+    .rank-card:nth-child(1){animation-delay:.05s}.rank-card:nth-child(2){animation-delay:.1s}.rank-card:nth-child(3){animation-delay:.15s}
+    .rank-card:nth-child(4){animation-delay:.2s}.rank-card:nth-child(5){animation-delay:.25s}.rank-card:nth-child(6){animation-delay:.3s}
+    .rank-card:nth-child(7){animation-delay:.35s}.rank-card:nth-child(8){animation-delay:.4s}
+
+    /* Top 3 highlight */
+    .rank-card.top1{border-color:#fbbf24;background:linear-gradient(135deg,#fffbeb,#fff)}
+    .rank-card.top2{border-color:#d1d5db;background:linear-gradient(135deg,#f9fafb,#fff)}
+    .rank-card.top3{border-color:#d97706;background:linear-gradient(135deg,#fffbeb,#fff)}
+
+    .rank-pos{font-size:1.1rem;font-weight:900;width:2rem;text-align:center;font-family:'JetBrains Mono',monospace;flex-shrink:0}
+    .top1 .rank-pos{color:#d97706}.top2 .rank-pos{color:#9ca3af}.top3 .rank-pos{color:#b45309}
+    .rank-pos:not(.top1 .rank-pos):not(.top2 .rank-pos):not(.top3 .rank-pos){color:var(--text-m)}
+
+    .rank-avatar{width:36px;height:36px;border-radius:50%;flex-shrink:0;border:2px solid var(--border);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:.82rem;font-weight:700;color:#fff}
+    .rank-info{flex:1;min-width:0}
+    .rank-name{font-size:.82rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .rank-meta{font-size:.68rem;color:var(--text-m);margin-top:.1rem}
+
+    .rank-stats{display:flex;gap:1.25rem;align-items:center;flex-shrink:0}
+    .rank-stat{text-align:right}
+    .rank-stat .val{font-size:.95rem;font-weight:800;color:var(--text);font-family:'JetBrains Mono',monospace}
+    .rank-stat .lbl{font-size:.58rem;color:var(--text-m);text-transform:uppercase;letter-spacing:.03em}
+
+    .badge-p{display:inline-flex;padding:3px 10px;border-radius:9999px;font-size:.62rem;font-weight:700;white-space:nowrap}
+    .bp-p10{background:#fef2f1;color:#E8453C;border:1px solid #f5c4c1}
+    .bp-p9{background:#fef9e7;color:#b45309;border:1px solid #fde68a}
+    .bp-p8{background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
+    .bp-p7{background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0}
+    .bp-p6,.bp-p5{background:var(--bg-card);color:var(--text-m);border:1px solid var(--border)}
+
     .empty{text-align:center;padding:3rem 0;color:var(--text-m)}
-    .footer{border-top:1px solid var(--border);padding:1.5rem 0;text-align:center;margin-top:2rem}
+    .footer{border-top:1px solid var(--border);padding:1.5rem 0;text-align:center;margin-top:2.5rem}
     .footer p{font-size:.72rem;color:var(--text-m)}.footer a{color:var(--text-m)}
-    @media(max-width:600px){.stats-row{grid-template-columns:1fr}}
+
+    /* Rank legend */
+    .legend{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:2rem}
+    .legend-item{display:flex;align-items:center;gap:.3rem;font-size:.65rem;color:var(--text-m)}
+
+    @media(max-width:600px){.stats-row{grid-template-columns:repeat(2,1fr)}.rank-stats{gap:.75rem}.rank-card{padding:.7rem .85rem}}
   </style>
 </head>
 <body>
@@ -45,7 +86,7 @@
 
 <section class="hero"><div class="con">
   <h1>PUA Leaderboard</h1>
-  <p>看看谁 PUA 到了 P10。在 Claude Code 中输入 <code style="background:var(--bg-card);padding:2px 8px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:.82rem">/pua 排行榜</code> 加入。</p>
+  <p class="sub">看看谁 PUA 到了 P10。在 Claude Code 中输入 <code>/pua 排行榜</code> 加入。</p>
 </div></section>
 
 <div class="con">
@@ -53,12 +94,19 @@
     <div class="stat-card"><div class="num" id="sUsers">-</div><div class="label">参与用户</div></div>
     <div class="stat-card"><div class="num" id="sPua">-</div><div class="label">PUA 总次数</div></div>
     <div class="stat-card"><div class="num" id="sAvg">-</div><div class="label">人均 PUA</div></div>
+    <div class="stat-card"><div class="num" id="sTop">-</div><div class="label">最高段位</div></div>
   </div>
 
-  <table class="rank-table">
-    <thead><tr><th>#</th><th>用户</th><th>PUA 次数</th><th>L3+ 率</th><th>段位</th></tr></thead>
-    <tbody id="rb"></tbody>
-  </table>
+  <div class="legend">
+    <div class="legend-item"><span class="badge-p bp-p10">P10</span> 首席PUA官</div>
+    <div class="legend-item"><span class="badge-p bp-p9">P9</span> Tech Lead</div>
+    <div class="legend-item"><span class="badge-p bp-p8">P8</span> 主管</div>
+    <div class="legend-item"><span class="badge-p bp-p7">P7</span> 骨干</div>
+    <div class="legend-item"><span class="badge-p bp-p6">P6</span> 专员</div>
+    <div class="legend-item"><span class="badge-p bp-p5">P5</span> 实习生</div>
+  </div>
+
+  <div class="rank-list" id="rl"></div>
 
   <div id="empty" class="empty" style="display:none">
     <p>排行榜还没有人。</p>
@@ -71,53 +119,108 @@
 </div></footer>
 
 <script>
+var COLORS=['#E8453C','#f97316','#eab308','#22c55e','#06b6d4','#8b5cf6','#ec4899','#6366f1'];
+
+function avatarColor(name){
+  var h=0;for(var i=0;i<name.length;i++) h=name.charCodeAt(i)+((h<<5)-h);
+  return COLORS[Math.abs(h)%COLORS.length];
+}
+function avatarInitial(name){
+  return name.charAt(0).toUpperCase();
+}
+function badgeClass(level){
+  return 'badge-p bp-'+level.toLowerCase();
+}
+function medal(pos){
+  if(pos===1) return '\u{1F3C6}';
+  if(pos===2) return '\u{1F948}';
+  if(pos===3) return '\u{1F949}';
+  return pos;
+}
+
 fetch('https://pua-skill.pages.dev/api/leaderboard').then(function(r){return r.json()}).then(function(d){
   document.getElementById('sUsers').textContent=d.total_users||0;
   document.getElementById('sPua').textContent=(d.total_pua||0).toLocaleString();
   document.getElementById('sAvg').textContent=d.avg_pua||0;
 
-  var tb=document.getElementById('rb');
+  var topLevel='P5';
+  if(d.rankings&&d.rankings.length>0) topLevel=d.rankings[0].level;
+  document.getElementById('sTop').textContent=topLevel;
+
+  var rl=document.getElementById('rl');
   if(!d.rankings||d.rankings.length===0){
     document.getElementById('empty').style.display='block';
     return;
   }
 
   d.rankings.forEach(function(r){
-    var tr=document.createElement('tr');
-    var medal=r.position===1?'🏆 ':r.position===2?'🥈 ':r.position===3?'🥉 ':'';
+    var card=document.createElement('div');
+    card.className='rank-card';
+    if(r.position===1) card.classList.add('top1');
+    if(r.position===2) card.classList.add('top2');
+    if(r.position===3) card.classList.add('top3');
 
-    var td1=document.createElement('td');
-    td1.style.fontWeight='800';td1.style.color='var(--brand)';td1.style.fontFamily="'JetBrains Mono',monospace";
-    td1.textContent=medal+r.position;
-    tr.appendChild(td1);
+    // Position
+    var pos=document.createElement('div');
+    pos.className='rank-pos';
+    pos.textContent=medal(r.position);
+    card.appendChild(pos);
 
-    var td2=document.createElement('td');
-    td2.style.fontWeight='600';td2.textContent=r.display_name;
-    tr.appendChild(td2);
+    // Avatar
+    var av=document.createElement('div');
+    av.className='rank-avatar';
+    av.style.background=avatarColor(r.display_name);
+    av.textContent=avatarInitial(r.display_name);
+    card.appendChild(av);
 
-    var td3=document.createElement('td');
-    td3.textContent=r.pua_count;
-    tr.appendChild(td3);
+    // Info
+    var info=document.createElement('div');
+    info.className='rank-info';
+    var name=document.createElement('div');
+    name.className='rank-name';
+    name.textContent=r.display_name;
+    info.appendChild(name);
+    var meta=document.createElement('div');
+    meta.className='rank-meta';
+    meta.textContent=r.total_sessions+' sessions';
+    info.appendChild(meta);
+    card.appendChild(info);
 
-    var td4=document.createElement('td');
-    td4.textContent=r.l3_plus_rate+'%';
-    tr.appendChild(td4);
+    // Stats
+    var stats=document.createElement('div');
+    stats.className='rank-stats';
 
-    var td5=document.createElement('td');
+    var s1=document.createElement('div');
+    s1.className='rank-stat';
+    var v1=document.createElement('div');v1.className='val';v1.textContent=r.pua_count;
+    var l1=document.createElement('div');l1.className='lbl';l1.textContent='PUA';
+    s1.appendChild(v1);s1.appendChild(l1);
+    stats.appendChild(s1);
+
+    var s2=document.createElement('div');
+    s2.className='rank-stat';
+    var v2=document.createElement('div');v2.className='val';v2.textContent=r.l3_plus_rate+'%';
+    var l2=document.createElement('div');l2.className='lbl';l2.textContent='L3+';
+    s2.appendChild(v2);s2.appendChild(l2);
+    stats.appendChild(s2);
+
+    var s3=document.createElement('div');
+    s3.className='rank-stat';
     var badge=document.createElement('span');
-    badge.className='badge-p';
+    badge.className=badgeClass(r.level);
     badge.textContent=r.level+' '+r.title_zh;
-    td5.appendChild(badge);
-    tr.appendChild(td5);
+    s3.appendChild(badge);
+    stats.appendChild(s3);
 
-    tb.appendChild(tr);
+    card.appendChild(stats);
+    rl.appendChild(card);
   });
 }).catch(function(){
-  var tb=document.getElementById('rb');
-  var tr=document.createElement('tr');
-  var td=document.createElement('td');
-  td.colSpan=5;td.className='empty';td.textContent='无法加载排行榜数据';
-  tr.appendChild(td);tb.appendChild(tr);
+  var rl=document.getElementById('rl');
+  var p=document.createElement('p');
+  p.className='empty';
+  p.textContent='Unable to load leaderboard data';
+  rl.appendChild(p);
 });
 </script>
 </body>
