@@ -176,8 +176,8 @@ export default function Contribute({ lang }: Props) {
           <strong>{L("数据使用声明", "Data Usage Notice")}</strong>
           <br />
           {L(
-            "上传的 .jsonl 文件将用于 PUA Skill 的 Benchmark 测试和消融实验（Ablation Study）分析，帮助量化不同 PUA 策略对 AI 调试行为的影响。上传即表示您同意将文件用于上述研究目的。我们不会公开您的原始文件内容。",
-            "Uploaded .jsonl files will be used for PUA Skill benchmark testing and ablation study analysis, helping quantify how different PUA strategies affect AI debugging behavior. By uploading, you agree to this research use. We will not publicly share your raw file contents."
+            "上传的 .jsonl 文件将用于 PUA Skill 的 Benchmark 测试和消融实验（Ablation Study）分析，帮助量化不同 PUA 策略对 AI 调试行为的影响。上传即表示您同意将文件用于上述研究目的。我们不会公开您的原始文件内容。上传时，您的 GitHub 用户名及微信号将与文件一同记录，项目管理员会收到上传通知（含文件名、文件大小及上述账号信息）。",
+            "Uploaded .jsonl files will be used for PUA Skill benchmark testing and ablation study analysis, helping quantify how different PUA strategies affect AI debugging behavior. By uploading, you agree to this research use. We will not publicly share your raw file contents. Your GitHub username and WeChat ID will be stored alongside your file, and the project admin will receive an upload notification containing your filename, file size, and account identifiers."
           )}
         </div>
 

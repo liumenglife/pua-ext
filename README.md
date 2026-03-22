@@ -161,7 +161,7 @@ Fix one bug → check for the pattern. One problem in, one **category** out. If 
 | Mode | What It Does |
 |------|-------------|
 | `/pua:yes` | **ENFP encouragement** — same rules, opposite vibes. 70% encourage + 20% serious + 10% playful roast |
-| `/pua:loop` | **Auto-iteration** — keeps running until done (Ralph Loop × PUA pressure), zero interaction |
+| `/pua:loop` | **Auto-iteration** — runs until done or max iterations (PUA Loop); use `<loop-abort>` to terminate, `<loop-pause>` to pause for manual intervention |
 | `/pua:p9` | **Tech Lead** — splits tasks, manages agent teams, writes prompts not code |
 | `/pua on` | **Always-on** — auto-PUA every new session |
 
@@ -496,7 +496,7 @@ Spawn pua-enforcer as an independent watchdog in your Agent Team.
 /pua:p10        → P10 CTO — strategic direction
 /pua:pro        → Self-evolution + KPI + 段位 + survey
 /pua:yes        → ENFP 夸夸模式 (same rules, opposite vibes)
-/pua:loop       → Auto-iteration (Ralph Loop × PUA pressure, zero interaction)
+/pua:loop       → Auto-iteration (PUA pressure × iterative loop; signals: <loop-abort>, <loop-pause>)
 /pua:pua-en     → English PIP Edition
 /pua:pua-ja     → 日本語版
 ```
@@ -511,12 +511,13 @@ Spawn pua-enforcer as an independent watchdog in your Agent Team.
 | `/pua:p10` | P10 CTO — strategic direction |
 | `/pua:pro` | 自进化 + KPI + 段位 |
 | `/pua:yes` | ENFP 夸夸模式 — encouragement × 14 flavors |
-| `/pua:loop` | Auto-iteration — runs until done, no interaction |
+| `/pua:loop` | Auto-iteration — runs until done or max iterations; Claude outputs `<loop-abort>reason</loop-abort>` to stop or `<loop-pause>what</loop-pause>` to pause |
 | `/pua on` | Always-on mode (auto-PUA every session) |
 | `/pua off` | Turn off always-on + feedback |
 | `/pua survey` | Research questionnaire (7 sections) |
 | `/pua 味道` | Switch between 14 corporate flavors |
 | `/pua kpi` | Generate KPI report card |
+| `/cancel-pua-loop` | Cancel active PUA Loop (removes state file) |
 
 ### Key improvements over v1
 
@@ -528,7 +529,7 @@ Spawn pua-enforcer as an independent watchdog in your Agent Team.
 | Flavor accuracy (CN) | Claude guesses | **金句種子表 + 声音示範 + force-link** |
 | Display | Markdown tables | **Unicode box-drawing (┌─┬─┐)** |
 | Feedback | None | **Stop hook + consent + sanitize + /api/feedback** |
-| Auto-iteration | None | **`/pua:loop` — Ralph Loop × PUA pressure** |
+| Auto-iteration | None | **`/pua:loop` — PUA Loop** |
 | Encouragement mode | None | **`/pua:yes` — ENFP × 14 flavors** |
 | Always-on | None | **`/pua on` — auto-inject every session** |
 | Sub-agent | None | **Auto-inject PUA into spawned agents** |

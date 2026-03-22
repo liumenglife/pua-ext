@@ -36,16 +36,17 @@
     .sw button{background:none;border:1px solid var(--border);color:var(--text-m);padding:4px 12px;border-radius:6px;cursor:pointer;font-size:.73rem;font-weight:600;font-family:inherit;transition:all .2s}
     .sw button.on{background:var(--brand);border-color:var(--brand);color:#fff}
     .lang{display:none}.lang.show{display:block}
+    .lang-i{display:none}.lang-i.show{display:inline}
     .ft{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid var(--border);color:var(--text-m);font-size:.73rem;text-align:center}
     .ft a{color:var(--text-m);font-weight:500}.ft a:hover{color:var(--brand)}
     /* Motion */
     .reveal{opacity:0;transform:translateY(16px);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1)}.reveal.v{opacity:1;transform:translateY(0)}
     .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-    .nav-in{max-width:var(--max-w);margin:0 auto;padding:.65rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+    .nav-in{max-width:1080px;margin:0 auto;padding:.65rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
     .nav-b{display:flex;align-items:center;gap:.4rem;font-weight:800;font-size:1.05rem;color:var(--text)}.nav-b img{width:26px;height:26px}
     .nav-r{display:flex;align-items:center;gap:1rem}
-    .nav-r a{color:var(--text-m);font-size:.78rem;font-weight:500}
-    @media(max-width:768px){.nav-r a.hm{display:none}}
+    .nav-r a{color:var(--text-m);font-size:.78rem;font-weight:500;transition:color .2s}.nav-r a:hover{color:var(--text);opacity:1}
+    @media(max-width:768px){.nav-r{gap:.5rem}.nav-r a.hm{display:none}}
     .card{transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s}.card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
     .ex{transition:border-color .3s}.ex:hover{border-color:var(--brand)}
     h1{opacity:0;transform:translateY(12px);animation:fadeIn .6s .1s cubic-bezier(.22,1,.36,1) forwards}
@@ -57,12 +58,12 @@
 <nav class="nav"><div class="nav-in">
   <a href="/" class="nav-b"><img src="/pua-logo.svg" alt="PUA"> PUA</a>
   <div class="nav-r">
-    <a href="/guide.html">Guide</a>
+    <a href="/guide.html"><span class="lang-i show" data-lang="zh">新手教程</span><span class="lang-i" data-lang="en">Guide</span><span class="lang-i" data-lang="ja">ガイド</span></a>
     <a href="https://t.me/+wBWh6h-h1RhiZTI1" target="_blank">Telegram</a>
     <a href="https://discord.gg/EcyB3FzJND" target="_blank" class="hm">Discord</a>
     <a href="https://x.com/xsser_w" target="_blank">Twitter/X</a>
     <a href="https://github.com/tanweai/pua" target="_blank">GitHub</a>
-    <a href="/leaderboard.html" style="color:var(--brand);font-weight:600">Leaderboard</a>
+    <a href="/leaderboard.html">Leaderboard</a>
     <a href="/contribute.html">Contribute</a>
     <a href="/blog/">Blog</a>
   </div>
@@ -70,9 +71,9 @@
 <div class="container">
   <a href="/" class="back">← Back</a>
   <div class="sw">
-    <button class="on" onclick="sw('zh')">中文</button>
-    <button onclick="sw('en')">English</button>
-    <button onclick="sw('ja')">日本語</button>
+    <button class="on" onclick="sw('zh')">中</button>
+    <button onclick="sw('en')">EN</button>
+    <button onclick="sw('ja')">日</button>
   </div>
 
   <!-- 中文 -->
@@ -97,6 +98,7 @@ claude plugin install pua@pua-skills</pre>
       <tr><td><code>/pua:pro</code></td><td>自进化</td><td>KPI、段位</td></tr>
       <tr><td><code>/pua:yes</code></td><td>夸夸模式</td><td>情绪价值</td></tr>
       <tr><td><code>/pua:loop</code></td><td>自动迭代</td><td>大任务 overnight</td></tr>
+      <tr><td><code>/cancel-pua-loop</code></td><td>终止 Loop</td><td>立即中止迭代</td></tr>
       <tr><td><code>/pua on/off</code></td><td>常驻开关</td><td>自动 PUA</td></tr>
       <tr><td><code>/pua 味道</code></td><td>切换味道</td><td>14 种风味</td></tr>
     </table>
@@ -159,7 +161,8 @@ claude plugin install pua@pua-skills</pre>
 │ 📋 任务 │ 实现认证系统      │
 │ 🔄 轮次 │ 1/30              │
 └──────────┴──────────────────┘
-▎ Loop 模式启动。零人工干预，跑到完成或 30 轮。
+▎ Loop 模式启动。跑到完成或 30 轮上限。
+▎ 退出信号：&lt;loop-abort&gt;原因&lt;/loop-abort&gt; 立即终止；&lt;loop-pause&gt;需要什么&lt;/loop-pause&gt; 暂停等待人工。
 ▎ [迭代 3] 发现 token 刷新逻辑有 bug，自动修复并继续...
 ▎ [迭代 7] 全部测试通过。&lt;promise&gt;LOOP_DONE&lt;/promise&gt;</div>
     <h3>/pua:pro — KPI 报告</h3>
@@ -213,6 +216,7 @@ claude plugin install pua@pua-skills</pre>
       <tr><td><code>/pua:pro</code></td><td>Self-evolution</td><td>KPI, ranking</td></tr>
       <tr><td><code>/pua:yes</code></td><td>ENFP hype mode</td><td>Encouragement</td></tr>
       <tr><td><code>/pua:loop</code></td><td>Auto-iteration</td><td>Big tasks, overnight</td></tr>
+      <tr><td><code>/cancel-pua-loop</code></td><td>Stop Loop</td><td>Abort iterations immediately</td></tr>
       <tr><td><code>/pua on/off</code></td><td>Always-on toggle</td><td>Auto-PUA</td></tr>
       <tr><td><code>/pua 味道</code></td><td>Switch flavor</td><td>14 corporate flavors</td></tr>
     </table>
@@ -275,7 +279,8 @@ claude plugin install pua@pua-skills</pre>
 │ 📋 Task │ Build auth system  │
 │ 🔄 Round│ 1/30               │
 └──────────┴──────────────────┘
-▎ Loop mode active. Zero human interaction. Run until done or 30 rounds.
+▎ Loop mode active. Runs until done or 30-iteration limit.
+▎ Stop signals: &lt;loop-abort&gt;reason&lt;/loop-abort&gt; to terminate; &lt;loop-pause&gt;what needed&lt;/loop-pause&gt; to pause for manual intervention.
 ▎ [Iteration 3] Found token refresh bug, auto-fixed and continuing...
 ▎ [Iteration 7] All tests pass. &lt;promise&gt;LOOP_DONE&lt;/promise&gt;</div>
     <h3>/pua:pro — KPI Report</h3>
@@ -329,6 +334,7 @@ claude plugin install pua@pua-skills</pre>
       <tr><td><code>/pua:pro</code></td><td>自己進化</td><td>KPI、段位</td></tr>
       <tr><td><code>/pua:yes</code></td><td>褒めモード</td><td>励まし</td></tr>
       <tr><td><code>/pua:loop</code></td><td>自動反復</td><td>大タスク</td></tr>
+      <tr><td><code>/cancel-pua-loop</code></td><td>Loop停止</td><td>即時中断</td></tr>
       <tr><td><code>/pua on/off</code></td><td>常時切替</td><td>自動PUA</td></tr>
       <tr><td><code>/pua 味道</code></td><td>フレーバー</td><td>14種</td></tr>
     </table>
@@ -391,7 +397,8 @@ claude plugin install pua@pua-skills</pre>
 │ 📋 タスク│ 認証システム構築  │
 │ 🔄 ラウンド│ 1/30            │
 └──────────┴──────────────────┘
-▎ Loopモード起動。人間介入ゼロ、完了か30ラウンドまで。
+▎ Loopモード起動。完了か30ラウンド上限まで実行。
+▎ 停止シグナル：&lt;loop-abort&gt;理由&lt;/loop-abort&gt; で即終了；&lt;loop-pause&gt;必要なこと&lt;/loop-pause&gt; で一時停止。
 ▎ [反復3] トークンリフレッシュバグ発見、自動修正...
 ▎ [反復7] 全テスト通過。&lt;promise&gt;LOOP_DONE&lt;/promise&gt;</div>
     <h3>/pua:pro — KPIレポート</h3>
@@ -431,6 +438,7 @@ function sw(l){
   document.getElementById(l).className='lang show';
   document.querySelectorAll('.sw button').forEach(function(b){b.className=''});
   document.querySelector('.sw button:nth-child('+(l==='zh'?1:l==='en'?2:3)+')').className='on';
+  document.querySelectorAll('.lang-i').forEach(function(el){el.classList.toggle('show',el.dataset.lang===l)});
 }
 // Scroll reveal for cards
 var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('v')})},{threshold:.1});

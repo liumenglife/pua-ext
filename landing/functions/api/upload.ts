@@ -1,4 +1,5 @@
 import { getSession } from "./_session"
+import { sanitize } from "./_sanitize"
 
 interface Env {
   DB: D1Database
@@ -29,9 +30,18 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return Response.json({ error: "File too large (max 50MB)" }, { status: 400 })
   }
 
-  // Upload to R2
+  // Sanitize before storing (3-layer: blacklist + K=V + entropy)
+  const raw = await file.text()
+  let sanitized: string
+  try {
+    sanitized = sanitize(raw)
+  } catch {
+    return Response.json({ error: "Sanitization failed — file may be too large or malformed" }, { status: 422 })
+  }
+
+  // Upload sanitized content to R2
   const key = `${session.login}/${Date.now()}-${file.name}`
-  await env.UPLOADS.put(key, file.stream(), {
+  await env.UPLOADS.put(key, sanitized, {
     httpMetadata: { contentType: "application/jsonl" },
     customMetadata: {
       github_id: session.id,
@@ -40,10 +50,11 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     },
   })
 
-  // Record in D1
+  // Record sanitized byte length (post-sanitization size, not original)
+  const sanitizedSize = new TextEncoder().encode(sanitized).byteLength
   await env.DB.prepare(
     "INSERT INTO uploads (github_id, github_login, wechat_id, file_key, file_name, file_size) VALUES (?, ?, ?, ?, ?, ?)"
-  ).bind(session.id, session.login, wechatId.trim(), key, file.name, file.size).run()
+  ).bind(session.id, session.login, wechatId.trim(), key, file.name, sanitizedSize).run()
 
   // Send email notification (fire-and-forget)
   const sizeMB = (file.size / 1024 / 1024).toFixed(2)

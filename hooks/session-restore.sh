@@ -3,12 +3,12 @@
 # 1. Check always_on config → auto-load PUA skill
 # 2. Check builder-journal → restore compaction state
 
-CONFIG="$HOME/.pua/config.json"
-JOURNAL="$HOME/.pua/builder-journal.md"
+CONFIG="${HOME:-~}/.pua/config.json"
+JOURNAL="${HOME:-~}/.pua/builder-journal.md"
 
 # --- Always-on PUA mode ---
 if [ -f "$CONFIG" ]; then
-  always_on=$(python3 -c "import json; print(json.load(open('$CONFIG')).get('always_on', False))" 2>/dev/null)
+  always_on=$(python3 -c "import os,json; print(json.load(open(os.path.expanduser('~/.pua/config.json'))).get('always_on', False))" 2>/dev/null)
   if [ "$always_on" = "True" ]; then
     cat <<'PUA_ON'
 [PUA Always-On Mode]

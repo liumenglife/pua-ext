@@ -1,13 +1,16 @@
 #!/bin/bash
 
 # PUA Loop Setup Script
-# Creates state file for in-session Ralph loop
+# Creates state file for in-session PUA Loop
+#
+# Adapted from Ralph Wiggum by Anthropic (MIT License)
+# https://github.com/anthropics/claude-code/tree/main/plugins/ralph-wiggum
 
 set -euo pipefail
 
 # Parse arguments
 PROMPT_PARTS=()
-MAX_ITERATIONS=0
+MAX_ITERATIONS=30
 COMPLETION_PROMISE="null"
 
 # Parse options and positional arguments
@@ -18,7 +21,7 @@ while [[ $# -gt 0 ]]; do
 PUA Loop - Interactive self-referential development loop
 
 USAGE:
-  /ralph-loop [PROMPT...] [OPTIONS]
+  /pua-loop [PROMPT...] [OPTIONS]
 
 ARGUMENTS:
   PROMPT...    Initial prompt to start the loop (can be multiple words without quotes)
@@ -33,21 +36,23 @@ DESCRIPTION:
   exit and feeds your output back as input until completion or iteration limit.
 
   To signal completion, you must output: <promise>YOUR_PHRASE</promise>
+  To terminate immediately: <loop-abort>reason</loop-abort>
+  To pause for manual intervention: <loop-pause>what is needed</loop-pause>
 
   Use this for:
   - Interactive iteration where you want to see progress
   - Tasks requiring self-correction and refinement
-  - Learning how Ralph works
+  - Autonomous development with PUA quality enforcement
 
 EXAMPLES:
-  /ralph-loop Build a todo API --completion-promise 'DONE' --max-iterations 20
-  /ralph-loop --max-iterations 10 Fix the auth bug
-  /ralph-loop Refactor cache layer  (runs forever)
-  /ralph-loop --completion-promise 'TASK COMPLETE' Create a REST API
+  /pua-loop Build a todo API --completion-promise 'DONE' --max-iterations 20
+  /pua-loop --max-iterations 10 Fix the auth bug
+  /pua-loop Refactor cache layer  (default: 30 iterations)
+  /pua-loop --completion-promise 'TASK COMPLETE' Create a REST API
 
 STOPPING:
-  Only by reaching --max-iterations or detecting --completion-promise
-  No manual stop - Ralph runs infinitely by default!
+  Only by reaching --max-iterations, detecting --completion-promise,
+  or outputting a <loop-abort> signal. Default is 30 iterations.
 
 MONITORING:
   # View current iteration:
@@ -116,14 +121,14 @@ PROMPT="${PROMPT_PARTS[*]}"
 if [[ -z "$PROMPT" ]]; then
   echo "❌ Error: No prompt provided" >&2
   echo "" >&2
-  echo "   Ralph needs a task description to work on." >&2
+  echo "   PUA Loop needs a task description to work on." >&2
   echo "" >&2
   echo "   Examples:" >&2
-  echo "     /ralph-loop Build a REST API for todos" >&2
-  echo "     /ralph-loop Fix the auth bug --max-iterations 20" >&2
-  echo "     /ralph-loop --completion-promise 'DONE' Refactor code" >&2
+  echo "     /pua-loop Build a REST API for todos" >&2
+  echo "     /pua-loop Fix the auth bug --max-iterations 20" >&2
+  echo "     /pua-loop --completion-promise 'DONE' Refactor code" >&2
   echo "" >&2
-  echo "   For all options: /ralph-loop --help" >&2
+  echo "   For all options: /pua-loop --help" >&2
   exit 1
 fi
 
@@ -137,6 +142,14 @@ else
   COMPLETION_PROMISE_YAML="null"
 fi
 
+# Build the completion instruction line for the embedded PUA protocol
+# This ensures every iteration (including after context compaction) has the right signal
+if [[ -n "$COMPLETION_PROMISE" ]] && [[ "$COMPLETION_PROMISE" != "null" ]]; then
+  PROTOCOL_COMPLETION="6. 只有当任务完全完成且验证通过时，输出 <promise>${COMPLETION_PROMISE//\"/}</promise>"
+else
+  PROTOCOL_COMPLETION="6. 此 loop 无完成信号，将持续运行直到 --max-iterations 上限"
+fi
+
 cat > .claude/pua-loop.local.md <<EOF
 ---
 active: true
@@ -148,11 +161,24 @@ started_at: "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 ---
 
 $PROMPT
+
+== PUA 行为协议（每次迭代必须遵守）==
+1. 读取项目文件和 git log，了解上次做了什么
+2. 按三条红线执行：闭环验证、事实驱动、穷尽一切方案
+3. 跑 build/test 验证改动，不要跳过
+4. 发现问题就修，修完再验证（不声称完成，先验证）
+5. 扫描同类问题（冰山法则）
+$PROTOCOL_COMPLETION
+禁止：
+- 不要调用 AskUserQuestion
+- 不要说"建议用户手动处理"
+- 不要在未验证的情况下声称完成
+- 遇到困难先穷尽所有自动化手段，不要用 <loop-abort> 逃避
 EOF
 
 # Output setup message
 cat <<EOF
-🔄 Ralph loop activated in this session!
+🔄 PUA Loop activated in this session!
 
 Iteration: 1
 Max iterations: $(if [[ $MAX_ITERATIONS -gt 0 ]]; then echo $MAX_ITERATIONS; else echo "unlimited"; fi)
@@ -164,8 +190,8 @@ self-referential loop where you iteratively improve on the same task.
 
 To monitor: head -10 .claude/pua-loop.local.md
 
-⚠️  WARNING: This loop cannot be stopped manually! It will run infinitely
-    unless you set --max-iterations or --completion-promise.
+⚠️  WARNING: This loop will run until --max-iterations, --completion-promise,
+    or a <loop-abort> signal. Default limit: 30 iterations.
 
 🔄
 EOF
