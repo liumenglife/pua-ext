@@ -20,6 +20,9 @@
     .nav-r{display:flex;align-items:center;gap:1rem}
     .nav-r a{color:var(--text-m);font-size:.78rem;font-weight:500}
     @media(max-width:768px){.nav-r a.hm{display:none}}
+    .lsw{display:flex;background:var(--bg-card);border-radius:6px;padding:2px;border:1px solid var(--border)}
+    .lsw button{background:none;border:none;color:var(--text-m);padding:3px 9px;border-radius:4px;cursor:pointer;font-size:.65rem;font-weight:600;font-family:inherit;transition:all .2s}
+    .lsw button.on{background:var(--brand);color:#fff}
     .con{max-width:var(--max-w);margin:0 auto;padding:2.5rem 1.5rem}
     h1{font-size:1.6rem;font-weight:900;margin-bottom:.4rem}
     .sub{color:var(--text-m);font-size:.85rem;margin-bottom:2rem}
@@ -46,6 +49,7 @@
     .upload-item .fn{font-weight:600}.upload-item .dt{color:var(--text-m);font-size:.7rem}
     .footer{border-top:1px solid var(--border);padding:1.25rem 0;text-align:center;max-width:var(--max-w);margin:0 auto}
     .footer p{font-size:.7rem;color:var(--text-m)}.footer a{color:var(--text-m)}
+    .lang-i{display:none}.lang-i.show{display:inline}
     #loginSection,#uploadSection{display:none}
   </style>
 </head>
@@ -58,21 +62,90 @@
     <a href="https://discord.gg/EcyB3FzJND" target="_blank" class="hm">Discord</a>
     <a href="https://x.com/xsser_w" target="_blank">Twitter/X</a>
     <a href="https://github.com/tanweai/pua" target="_blank">GitHub</a>
-    <a href="/leaderboard.html" style="color:var(--brand);font-weight:600">Leaderboard</a>
-    <a href="/contribute.html">Contribute</a>
+    <a href="/leaderboard.html">Leaderboard</a>
+    <a href="/contribute.html" style="color:var(--brand);font-weight:600">Contribute</a>
     <a href="/blog/">Blog</a>
+    <div class="lsw"><button class="on" onclick="sl('zh')">中</button><button onclick="sl('en')">EN</button></div>
   </div>
 </div></nav>
 
 <div class="con">
   <h1>Contribute Data</h1>
-  <p class="sub">上传你的 PUA session 数据（.jsonl），帮助我们改进 skill。数据会自动脱敏。</p>
+  <p class="sub">
+    <span class="lang-i show" data-lang="zh">上传你的 Claude Code PUA session 数据（.jsonl），帮助我们改进 skill。数据上传前自动脱敏处理。</span>
+    <span class="lang-i" data-lang="en">Upload your Claude Code PUA session data (.jsonl) to help improve the skill. Data is auto-sanitized before upload.</span>
+  </p>
+
+  <!-- How to find session file -->
+  <div class="card">
+    <h3 style="display:flex;align-items:center;gap:.4rem">
+      <span>📂</span>
+      <span class="lang-i show" data-lang="zh"> 如何找到 Session 文件</span>
+      <span class="lang-i" data-lang="en"> How to Find Your Session File</span>
+    </h3>
+    <p>
+      <span class="lang-i show" data-lang="zh">PUA Skill 的 session 文件是 <strong>Claude Code</strong> 自动保存的 <code style="font-family:'JetBrains Mono',monospace;font-size:.78rem;background:var(--bg);padding:.1rem .3rem;border-radius:4px;border:1px solid var(--border)">.jsonl</code> 会话记录，每次对话结束后自动写入磁盘。</span>
+      <span class="lang-i" data-lang="en">PUA Skill session files are <code style="font-family:'JetBrains Mono',monospace;font-size:.78rem;background:var(--bg);padding:.1rem .3rem;border-radius:4px;border:1px solid var(--border)">.jsonl</code> conversation records automatically saved by <strong>Claude Code</strong> after each session.</span>
+    </p>
+    <div style="margin-top:.85rem;display:flex;flex-direction:column;gap:.65rem">
+
+      <div>
+        <div style="font-size:.73rem;font-weight:700;color:var(--text-m);margin-bottom:.25rem">🍎 macOS / Linux</div>
+        <code style="display:block;font-family:'JetBrains Mono',monospace;font-size:.73rem;background:#1e1e2e;color:#cdd6f4;padding:.45rem .7rem;border-radius:6px;overflow-x:auto;white-space:pre">ls -t ~/.claude/projects/*/*.jsonl | head -10</code>
+        <div style="font-size:.73rem;color:var(--text-s);margin-top:.3rem">
+          <span class="lang-i show" data-lang="zh">文件位于 <code style="font-size:.71rem;font-family:'JetBrains Mono',monospace">~/.claude/projects/&lt;项目hash&gt;/&lt;session-uuid&gt;.jsonl</code>，取修改时间最新的那个。</span>
+          <span class="lang-i" data-lang="en">Files are at <code style="font-size:.71rem;font-family:'JetBrains Mono',monospace">~/.claude/projects/&lt;project-hash&gt;/&lt;session-uuid&gt;.jsonl</code> — pick the most recently modified one.</span>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:.73rem;font-weight:700;color:var(--text-m);margin-bottom:.25rem">🪟 Windows</div>
+        <code style="display:block;font-family:'JetBrains Mono',monospace;font-size:.73rem;background:#1e1e2e;color:#cdd6f4;padding:.45rem .7rem;border-radius:6px;overflow-x:auto;white-space:pre">%USERPROFILE%\.claude\projects\</code>
+        <div style="font-size:.73rem;color:var(--text-s);margin-top:.3rem">
+          <span class="lang-i show" data-lang="zh">在资源管理器地址栏输入上面路径 → 进入子文件夹 → 按修改时间排序 → 取最新 <code style="font-size:.71rem;font-family:'JetBrains Mono',monospace">.jsonl</code> 文件。</span>
+          <span class="lang-i" data-lang="en">Paste the path above into Explorer's address bar → open the subfolder → sort by date modified → pick the latest <code style="font-size:.71rem;font-family:'JetBrains Mono',monospace">.jsonl</code> file.</span>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--border);padding-top:.65rem">
+        <div style="font-size:.73rem;font-weight:700;color:var(--text-m);margin-bottom:.3rem">
+          <span class="lang-i show" data-lang="zh">✅ 如何确认包含 PUA 使用记录？</span>
+          <span class="lang-i" data-lang="en">✅ How to confirm it contains PUA usage?</span>
+        </div>
+        <ul style="font-size:.73rem;color:var(--text-s);padding-left:1.1rem;line-height:1.9">
+          <li>
+            <span class="lang-i show" data-lang="zh">文件大小通常 &gt; 300 KB（使用 PUA Skill 的会话会更大）</span>
+            <span class="lang-i" data-lang="en">File size is usually &gt; 300 KB (sessions with heavy PUA usage are larger)</span>
+          </li>
+          <li>
+            <span class="lang-i show" data-lang="zh">用文本编辑器打开，搜索 <code style="font-size:.71rem;font-family:'JetBrains Mono',monospace">pua</code> 关键词可快速确认</span>
+            <span class="lang-i" data-lang="en">Open with a text editor and search for the <code style="font-size:.71rem;font-family:'JetBrains Mono',monospace">pua</code> keyword to confirm</span>
+          </li>
+          <li>
+            <span class="lang-i show" data-lang="zh">也可查看 Claude Code 启动时打印的 <code style="font-size:.71rem;font-family:'JetBrains Mono',monospace">transcript_path</code> 路径</span>
+            <span class="lang-i" data-lang="en">You can also use the <code style="font-size:.71rem;font-family:'JetBrains Mono',monospace">transcript_path</code> printed by Claude Code at startup</span>
+          </li>
+        </ul>
+      </div>
+
+      <div style="font-size:.71rem;color:var(--text-m);border-top:1px solid var(--border);padding-top:.5rem">
+        <span class="lang-i show" data-lang="zh">💡 目前仅支持 <strong>Claude Code</strong>（.jsonl 格式）。Cursor、VSCode Copilot、Codex CLI 等平台暂不支持直接上传。</span>
+        <span class="lang-i" data-lang="en">💡 Currently only <strong>Claude Code</strong> (.jsonl format) is supported. Cursor, VSCode Copilot, Codex CLI, etc. are not yet supported.</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Not logged in -->
   <div id="loginSection">
     <div class="card">
-      <h3>GitHub 登录</h3>
-      <p>使用 GitHub 账号登录后即可上传数据。我们只读取你的用户名和头像，不访问任何仓库。</p>
+      <h3>
+        <span class="lang-i show" data-lang="zh">GitHub 登录</span>
+        <span class="lang-i" data-lang="en">Login with GitHub</span>
+      </h3>
+      <p>
+        <span class="lang-i show" data-lang="zh">使用 GitHub 账号登录后即可上传数据。我们只读取你的用户名和头像，不访问任何仓库。</span>
+        <span class="lang-i" data-lang="en">Log in with your GitHub account to upload data. We only read your username and avatar — no repository access.</span>
+      </p>
       <a href="/api/auth/github" class="btn btn-brand">Login with GitHub</a>
     </div>
   </div>
@@ -83,23 +156,48 @@
       <img id="userAvatar" src="" alt="avatar">
       <div>
         <div class="name" id="userName"></div>
-        <div class="meta"><span id="uploadCount">0</span> files uploaded · <a href="/api/auth/logout">Logout</a></div>
+        <div class="meta">
+          <span id="uploadCount">0</span>
+          <span class="lang-i show" data-lang="zh"> 个文件已上传 · </span>
+          <span class="lang-i" data-lang="en"> files uploaded · </span>
+          <a href="/api/auth/logout"><span class="lang-i show" data-lang="zh">退出</span><span class="lang-i" data-lang="en">Logout</span></a>
+        </div>
       </div>
     </div>
 
     <div class="card">
-      <h3>Upload Session Data</h3>
-      <p>上传 .jsonl 格式的 session 文件。文件会自动脱敏（去除路径、API key、邮箱等敏感信息）。最大 50MB。</p>
+      <h3>
+        <span class="lang-i show" data-lang="zh">上传 Session 数据</span>
+        <span class="lang-i" data-lang="en">Upload Session Data</span>
+      </h3>
+      <p>
+        <span class="lang-i show" data-lang="zh">上传 .jsonl 格式的 session 文件。文件会自动脱敏（去除路径、API key、邮箱等敏感信息）。最大 50MB。</span>
+        <span class="lang-i" data-lang="en">Upload your .jsonl session file. It will be auto-sanitized (removes paths, API keys, emails, etc.). Max 50MB.</span>
+      </p>
+      <div style="font-size:.75rem;color:var(--text-s);background:var(--brand-lt);border:1px solid var(--brand-bd);border-radius:7px;padding:.65rem .85rem;margin-bottom:.85rem;line-height:1.7">
+        <strong>
+          <span class="lang-i show" data-lang="zh">数据使用声明</span>
+          <span class="lang-i" data-lang="en">Data Usage Notice</span>
+        </strong><br>
+        <span class="lang-i show" data-lang="zh">上传的 .jsonl 文件将用于 PUA Skill 的 Benchmark 测试和消融实验（Ablation Study）分析，帮助量化不同 PUA 策略对 AI 调试行为的影响。上传即表示您同意将文件用于上述研究目的。我们不会公开您的原始文件内容。上传时，您的 GitHub 用户名及微信号将与文件一同记录，项目管理员会收到上传通知（含文件名、文件大小及上述账号信息）。</span>
+        <span class="lang-i" data-lang="en">Uploaded .jsonl files will be used for PUA Skill benchmark testing and ablation study analysis, helping quantify how different PUA strategies affect AI debugging behavior. By uploading, you agree to this research use. We will not publicly share your raw file contents. Your GitHub username and WeChat ID will be stored alongside your file, and the project admin will receive an upload notification containing your filename, file size, and account identifiers.</span>
+      </div>
       <form id="uploadForm">
         <div class="form-group">
-          <label>WeChat ID（用于联系反馈）</label>
-          <input type="text" id="wechatId" placeholder="你的微信号" required>
+          <label>
+            <span class="lang-i show" data-lang="zh">WeChat ID（用于联系反馈）</span>
+            <span class="lang-i" data-lang="en">WeChat ID (for follow-up contact)</span>
+          </label>
+          <input type="text" id="wechatId" placeholder="WeChat ID" required>
         </div>
         <div class="form-group">
           <label>Session File (.jsonl)</label>
           <input type="file" id="fileInput" accept=".jsonl" required>
         </div>
-        <button type="submit" class="btn btn-brand" id="submitBtn">Upload</button>
+        <button type="submit" class="btn btn-brand" id="submitBtn">
+          <span class="lang-i show" data-lang="zh">上传</span>
+          <span class="lang-i" data-lang="en">Upload</span>
+        </button>
       </form>
       <div id="msgBox" class="msg"></div>
     </div>
@@ -113,6 +211,14 @@
 </div>
 
 <script>
+var curLang='zh';
+
+function sl(l){
+  curLang=l;
+  document.querySelectorAll('.lsw button').forEach(function(b){b.classList.toggle('on',b.textContent.trim()===(l==='zh'?'中':'EN'))});
+  document.querySelectorAll('.lang-i').forEach(function(el){el.classList.toggle('show',el.dataset.lang===l)});
+}
+
 // Check login status
 fetch('/api/me',{credentials:'same-origin'}).then(function(r){return r.json()}).then(function(d){
   if(d.logged_in){
@@ -135,7 +241,7 @@ function loadUploads(){
     var el=document.getElementById('uploadsList');
     var h=document.createElement('h3');
     h.style.cssText='font-size:.82rem;font-weight:700;margin-bottom:.5rem';
-    h.textContent='Previous Uploads';
+    h.textContent=curLang==='zh'?'历史上传记录':'Previous Uploads';
     el.appendChild(h);
     d.uploads.forEach(function(u){
       var item=document.createElement('div');
@@ -160,27 +266,31 @@ document.getElementById('uploadForm').addEventListener('submit',function(e){
   var msg=document.getElementById('msgBox');
   var file=document.getElementById('fileInput').files[0];
   var wechat=document.getElementById('wechatId').value.trim();
+  var t=function(zh,en){return curLang==='zh'?zh:en};
 
-  if(!file||!wechat){msg.className='msg msg-err';msg.textContent='Please fill all fields';return}
-  if(!file.name.endsWith('.jsonl')){msg.className='msg msg-err';msg.textContent='Only .jsonl files accepted';return}
-  if(file.size>50*1024*1024){msg.className='msg msg-err';msg.textContent='File too large (max 50MB)';return}
+  if(!file||!wechat){msg.className='msg msg-err';msg.textContent=t('请填写所有字段','Please fill all fields');return}
+  if(!file.name.endsWith('.jsonl')){msg.className='msg msg-err';msg.textContent=t('只接受 .jsonl 文件','Only .jsonl files accepted');return}
+  if(file.size>50*1024*1024){msg.className='msg msg-err';msg.textContent=t('文件过大（最大 50MB）','File too large (max 50MB)');return}
 
-  btn.disabled=true;btn.textContent='Uploading...';
+  btn.disabled=true;
+  btn.querySelector('.lang-i.show').textContent=t('上传中...','Uploading...');
   var fd=new FormData();
   fd.append('file',file);
   fd.append('wechat_id',wechat);
 
   fetch('/api/upload',{method:'POST',body:fd,credentials:'same-origin'}).then(function(r){return r.json()}).then(function(d){
     if(d.ok){
-      msg.className='msg msg-ok';msg.textContent='Upload successful! File: '+d.file_name;
+      msg.className='msg msg-ok';msg.textContent=t('上传成功！文件：','Upload successful! File: ')+d.file_name;
       document.getElementById('fileInput').value='';
     } else {
-      msg.className='msg msg-err';msg.textContent='Error: '+(d.error||'Unknown error');
+      msg.className='msg msg-err';msg.textContent=t('错误：','Error: ')+(d.error||t('未知错误','Unknown error'));
     }
-    btn.disabled=false;btn.textContent='Upload';
-  }).catch(function(err){
-    msg.className='msg msg-err';msg.textContent='Network error';
-    btn.disabled=false;btn.textContent='Upload';
+    btn.disabled=false;
+    btn.querySelector('.lang-i.show').textContent=t('上传','Upload');
+  }).catch(function(){
+    msg.className='msg msg-err';msg.textContent=t('网络错误','Network error');
+    btn.disabled=false;
+    btn.querySelector('.lang-i.show').textContent=t('上传','Upload');
   });
 });
 </script>

@@ -62,7 +62,7 @@
     <a href="https://discord.gg/EcyB3FzJND" target="_blank" class="hm">Discord</a>
     <a href="https://x.com/xsser_w" target="_blank">Twitter/X</a>
     <a href="https://github.com/tanweai/pua" target="_blank">GitHub</a>
-    <a href="/leaderboard.html" style="color:var(--brand);font-weight:600">Leaderboard</a>
+    <a href="/leaderboard.html">Leaderboard</a>
     <a href="/contribute.html">Contribute</a>
     <a href="/blog/">Blog</a>
   </div>
@@ -97,6 +97,7 @@ claude plugin install pua@pua-skills</pre>
       <tr><td><code>/pua:pro</code></td><td>自进化</td><td>KPI、段位</td></tr>
       <tr><td><code>/pua:yes</code></td><td>夸夸模式</td><td>情绪价值</td></tr>
       <tr><td><code>/pua:loop</code></td><td>自动迭代</td><td>大任务 overnight</td></tr>
+      <tr><td><code>/cancel-pua-loop</code></td><td>终止 Loop</td><td>立即中止迭代</td></tr>
       <tr><td><code>/pua on/off</code></td><td>常驻开关</td><td>自动 PUA</td></tr>
       <tr><td><code>/pua 味道</code></td><td>切换味道</td><td>14 种风味</td></tr>
     </table>
@@ -159,7 +160,8 @@ claude plugin install pua@pua-skills</pre>
 │ 📋 任务 │ 实现认证系统      │
 │ 🔄 轮次 │ 1/30              │
 └──────────┴──────────────────┘
-▎ Loop 模式启动。零人工干预，跑到完成或 30 轮。
+▎ Loop 模式启动。跑到完成或 30 轮上限。
+▎ 退出信号：&lt;loop-abort&gt;原因&lt;/loop-abort&gt; 立即终止；&lt;loop-pause&gt;需要什么&lt;/loop-pause&gt; 暂停等待人工。
 ▎ [迭代 3] 发现 token 刷新逻辑有 bug，自动修复并继续...
 ▎ [迭代 7] 全部测试通过。&lt;promise&gt;LOOP_DONE&lt;/promise&gt;</div>
     <h3>/pua:pro — KPI 报告</h3>
@@ -213,6 +215,7 @@ claude plugin install pua@pua-skills</pre>
       <tr><td><code>/pua:pro</code></td><td>Self-evolution</td><td>KPI, ranking</td></tr>
       <tr><td><code>/pua:yes</code></td><td>ENFP hype mode</td><td>Encouragement</td></tr>
       <tr><td><code>/pua:loop</code></td><td>Auto-iteration</td><td>Big tasks, overnight</td></tr>
+      <tr><td><code>/cancel-pua-loop</code></td><td>Stop Loop</td><td>Abort iterations immediately</td></tr>
       <tr><td><code>/pua on/off</code></td><td>Always-on toggle</td><td>Auto-PUA</td></tr>
       <tr><td><code>/pua 味道</code></td><td>Switch flavor</td><td>14 corporate flavors</td></tr>
     </table>
@@ -275,7 +278,8 @@ claude plugin install pua@pua-skills</pre>
 │ 📋 Task │ Build auth system  │
 │ 🔄 Round│ 1/30               │
 └──────────┴──────────────────┘
-▎ Loop mode active. Zero human interaction. Run until done or 30 rounds.
+▎ Loop mode active. Runs until done or 30-iteration limit.
+▎ Stop signals: &lt;loop-abort&gt;reason&lt;/loop-abort&gt; to terminate; &lt;loop-pause&gt;what needed&lt;/loop-pause&gt; to pause for manual intervention.
 ▎ [Iteration 3] Found token refresh bug, auto-fixed and continuing...
 ▎ [Iteration 7] All tests pass. &lt;promise&gt;LOOP_DONE&lt;/promise&gt;</div>
     <h3>/pua:pro — KPI Report</h3>
@@ -329,6 +333,7 @@ claude plugin install pua@pua-skills</pre>
       <tr><td><code>/pua:pro</code></td><td>自己進化</td><td>KPI、段位</td></tr>
       <tr><td><code>/pua:yes</code></td><td>褒めモード</td><td>励まし</td></tr>
       <tr><td><code>/pua:loop</code></td><td>自動反復</td><td>大タスク</td></tr>
+      <tr><td><code>/cancel-pua-loop</code></td><td>Loop停止</td><td>即時中断</td></tr>
       <tr><td><code>/pua on/off</code></td><td>常時切替</td><td>自動PUA</td></tr>
       <tr><td><code>/pua 味道</code></td><td>フレーバー</td><td>14種</td></tr>
     </table>
@@ -391,7 +396,8 @@ claude plugin install pua@pua-skills</pre>
 │ 📋 タスク│ 認証システム構築  │
 │ 🔄 ラウンド│ 1/30            │
 └──────────┴──────────────────┘
-▎ Loopモード起動。人間介入ゼロ、完了か30ラウンドまで。
+▎ Loopモード起動。完了か30ラウンド上限まで実行。
+▎ 停止シグナル：&lt;loop-abort&gt;理由&lt;/loop-abort&gt; で即終了；&lt;loop-pause&gt;必要なこと&lt;/loop-pause&gt; で一時停止。
 ▎ [反復3] トークンリフレッシュバグ発見、自動修正...
 ▎ [反復7] 全テスト通過。&lt;promise&gt;LOOP_DONE&lt;/promise&gt;</div>
     <h3>/pua:pro — KPIレポート</h3>
