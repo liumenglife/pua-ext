@@ -36,16 +36,17 @@
     .sw button{background:none;border:1px solid var(--border);color:var(--text-m);padding:4px 12px;border-radius:6px;cursor:pointer;font-size:.73rem;font-weight:600;font-family:inherit;transition:all .2s}
     .sw button.on{background:var(--brand);border-color:var(--brand);color:#fff}
     .lang{display:none}.lang.show{display:block}
+    .lang-i{display:none}.lang-i.show{display:inline}
     .ft{margin-top:2.5rem;padding-top:1.25rem;border-top:1px solid var(--border);color:var(--text-m);font-size:.73rem;text-align:center}
     .ft a{color:var(--text-m);font-weight:500}.ft a:hover{color:var(--brand)}
     /* Motion */
     .reveal{opacity:0;transform:translateY(16px);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1)}.reveal.v{opacity:1;transform:translateY(0)}
     .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-    .nav-in{max-width:var(--max-w);margin:0 auto;padding:.65rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+    .nav-in{max-width:1080px;margin:0 auto;padding:.65rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
     .nav-b{display:flex;align-items:center;gap:.4rem;font-weight:800;font-size:1.05rem;color:var(--text)}.nav-b img{width:26px;height:26px}
     .nav-r{display:flex;align-items:center;gap:1rem}
-    .nav-r a{color:var(--text-m);font-size:.78rem;font-weight:500}
-    @media(max-width:768px){.nav-r a.hm{display:none}}
+    .nav-r a{color:var(--text-m);font-size:.78rem;font-weight:500;transition:color .2s}.nav-r a:hover{color:var(--text);opacity:1}
+    @media(max-width:768px){.nav-r{gap:.5rem}.nav-r a.hm{display:none}}
     .card{transition:transform .25s cubic-bezier(.22,1,.36,1),box-shadow .25s}.card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.06)}
     .ex{transition:border-color .3s}.ex:hover{border-color:var(--brand)}
     h1{opacity:0;transform:translateY(12px);animation:fadeIn .6s .1s cubic-bezier(.22,1,.36,1) forwards}
@@ -57,7 +58,7 @@
 <nav class="nav"><div class="nav-in">
   <a href="/" class="nav-b"><img src="/pua-logo.svg" alt="PUA"> PUA</a>
   <div class="nav-r">
-    <a href="/guide.html">Guide</a>
+    <a href="/guide.html"><span class="lang-i show" data-lang="zh">新手教程</span><span class="lang-i" data-lang="en">Guide</span><span class="lang-i" data-lang="ja">ガイド</span></a>
     <a href="https://t.me/+wBWh6h-h1RhiZTI1" target="_blank">Telegram</a>
     <a href="https://discord.gg/EcyB3FzJND" target="_blank" class="hm">Discord</a>
     <a href="https://x.com/xsser_w" target="_blank">Twitter/X</a>
@@ -70,9 +71,9 @@
 <div class="container">
   <a href="/" class="back">← Back</a>
   <div class="sw">
-    <button class="on" onclick="sw('zh')">中文</button>
-    <button onclick="sw('en')">English</button>
-    <button onclick="sw('ja')">日本語</button>
+    <button class="on" onclick="sw('zh')">中</button>
+    <button onclick="sw('en')">EN</button>
+    <button onclick="sw('ja')">日</button>
   </div>
 
   <!-- 中文 -->
@@ -437,6 +438,7 @@ function sw(l){
   document.getElementById(l).className='lang show';
   document.querySelectorAll('.sw button').forEach(function(b){b.className=''});
   document.querySelector('.sw button:nth-child('+(l==='zh'?1:l==='en'?2:3)+')').className='on';
+  document.querySelectorAll('.lang-i').forEach(function(el){el.classList.toggle('show',el.dataset.lang===l)});
 }
 // Scroll reveal for cards
 var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('v')})},{threshold:.1});

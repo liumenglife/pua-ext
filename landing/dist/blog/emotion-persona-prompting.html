@@ -16,11 +16,11 @@
     a{color:var(--brand);text-decoration:none}a:hover{opacity:.7}
 
     .nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-    .nav-in{max-width:var(--max-w);margin:0 auto;padding:.65rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+    .nav-in{max-width:1080px;margin:0 auto;padding:.65rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
     .nav-b{display:flex;align-items:center;gap:.4rem;font-weight:800;font-size:1.05rem;color:var(--text)}.nav-b img{width:26px;height:26px}
     .nav-r{display:flex;align-items:center;gap:1rem}
-    .nav-r a{color:var(--text-m);font-size:.78rem;font-weight:500}
-    @media(max-width:768px){.nav-r a.hm{display:none}}
+    .nav-r a{color:var(--text-m);font-size:.78rem;font-weight:500;transition:color .2s}.nav-r a:hover{color:var(--text);opacity:1}
+    @media(max-width:768px){.nav-r{gap:.5rem}.nav-r a.hm{display:none}}
     .lsw{display:flex;background:var(--bg-card);border-radius:6px;padding:2px;border:1px solid var(--border)}
     .lsw button{background:none;border:none;color:var(--text-m);padding:3px 9px;border-radius:4px;cursor:pointer;font-size:.65rem;font-weight:600;font-family:inherit;transition:all .2s}
     .lsw button.on{background:var(--brand);color:#fff}
@@ -73,7 +73,7 @@
 <nav class="nav"><div class="nav-in">
   <a href="/" class="nav-b"><img src="/pua-logo.svg" alt="PUA"> PUA</a>
   <div class="nav-r">
-    <a href="/guide.html">Guide</a>
+    <a href="/guide.html"><span class="lang-i show" data-lang="zh">新手教程</span><span class="lang-i" data-lang="en">Guide</span></a>
     <a href="https://t.me/+wBWh6h-h1RhiZTI1" target="_blank">Telegram</a>
     <a href="https://discord.gg/EcyB3FzJND" target="_blank" class="hm">Discord</a>
     <a href="https://x.com/xsser_w" target="_blank">Twitter/X</a>
