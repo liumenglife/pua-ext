@@ -47,10 +47,75 @@ PUA Skill 的理论基础已在我们的研究博客中系统阐述：
 
 ## PR 提交规范
 
+### 基本要求
+
 - 每个 PR 解决一个问题，不要混合多个无关改动
 - PR 标题使用 conventional commit 格式：`fix:` / `feat:` / `chore:` / `docs:`
 - 如果改了核心 SKILL.md，请说明改动的理由和预期效果
 - 如果改了多个平台的文件（cursor/kiro/vscode/codex），请确保内容同步
+- PR body 必须包含：Summary（改了什么）+ Test plan（怎么验证的）
+
+### AI Agent 提交的 PR
+
+我们欢迎 AI agent（Claude Code、Codex CLI、Cursor 等）提交的 PR。但**纯代码不够——必须附带测试证据**：
+
+**必须提供：**
+- [ ] **测试记录**：截图、命令输出、或日志，证明改动在本地跑通了
+- [ ] **改动前后对比**：如果是 bug fix，展示修复前的报错和修复后的正常输出
+- [ ] **影响分析**：改了 A 文件，B 和 C 有没有受影响？如果涉及多个平台，是否全部同步？
+- [ ] **Agent 身份声明**：在 PR body 中注明使用了哪个 AI agent（如 "Generated with Claude Code"），这不是歧视——是为了让 reviewer 知道需要额外检查哪些 AI 常见问题（如幻觉、过度重构、引入未使用的依赖）
+
+**不接受的 AI PR：**
+- 只有代码改动，没有任何测试证据
+- AI 自动生成的"改进建议"类 PR（如自动 refactor、自动加注释），除非有明确的 issue 指向
+- 改了核心 SKILL.md 但没有 A/B 效果对比数据
+
+**优秀范例：** [PR #82](https://github.com/tanweai/pua/pull/82)（SM skill）和 [PR #102](https://github.com/tanweai/pua/pull/102)（hooks + security）都附带了完整的测试清单。
+
+### 代码质量要求
+
+- **不引入新的安全漏洞**：OWASP Top 10、命令注入、XSS、明文密钥等。我们有自动化安全 hook 检查
+- **不破坏现有功能**：修了 A 不能坏 B。PR 中如果涉及 hooks/shell 脚本，请用 `bash -n` 验证语法
+- **保持向后兼容**：如果改了 config.json 的字段结构，需要兼容旧版本 config
+- **文件域隔离**：不同 PR 不应该改同一个文件。如果发现冲突，先沟通再提交
+- **TypeScript 编译通过**：如果改了 `landing/functions/` 下的 API，确保 `npx wrangler pages deploy` 能编译成功
+
+### Commit Message 规范
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+| type | 用途 |
+|------|------|
+| `fix` | Bug 修复 |
+| `feat` | 新功能 |
+| `chore` | 构建/工具/版本/配置 |
+| `docs` | 文档 |
+| `refactor` | 重构（不改行为） |
+| `test` | 测试 |
+| `style` | 格式调整 |
+
+scope 可选：`skill`、`hooks`、`landing`、`agents`、`commands`、`security`
+
+### Review 流程
+
+1. 提交 PR → 自动化检查（语法、安全）
+2. 维护者 review → 可能要求补充测试证据或修改
+3. 通过 review → 合并到 main
+4. 涉及 landing page 的改动会在合并后自动部署到 openpua.ai
+
+### 首次贡献者
+
+如果这是你第一次向 PUA Skill 贡献代码，欢迎！建议从以下入手：
+- 标记了 `good first issue` 的 Issue
+- 文档翻译（中/英/日三语同步）
+- 新的味道包（参考 `references/flavors.md` 的格式）
+- 新平台支持（参考现有的 cursor/kiro/vscode 目录结构）
 
 ## 联系方式
 
