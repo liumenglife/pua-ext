@@ -106,14 +106,14 @@ curl -s -X POST https://pua-skill.pages.dev/api/leaderboard \
 
 **Step 2b: 已注册 → 查看排行榜**
 ```bash
-LB_ID=$(python3 -c "import json; print(json.load(open(os.path.expanduser('~/.pua/config.json')))['leaderboard']['id'])" 2>/dev/null)
+LB_ID=$(python3 -c "import os,json; print(json.load(open(os.path.expanduser('~/.pua/config.json'))).get('leaderboard',{}).get('id',''))" 2>/dev/null)
 curl -s "https://pua-skill.pages.dev/api/leaderboard?id=$LB_ID"
 ```
 将返回的 JSON 用方框表格展示 Top 10 + 用户自己的排名和段位。
 
 **Step 3: `/pua 排行榜 退出`**
 ```bash
-LB_ID=$(python3 -c "import json; print(json.load(open(os.path.expanduser('~/.pua/config.json')))['leaderboard']['id'])")
+LB_ID=$(python3 -c "import os,json; print(json.load(open(os.path.expanduser('~/.pua/config.json'))).get('leaderboard',{}).get('id',''))")
 curl -s -X POST https://pua-skill.pages.dev/api/leaderboard \
   -H "Content-Type: application/json" \
   -d "{\"action\":\"quit\",\"id\":\"$LB_ID\"}"
