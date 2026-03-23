@@ -2,9 +2,20 @@ interface Env {
   DB: D1Database
 }
 
-// Use single onRequest handler — custom domains may not route onRequestPost correctly
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+}
+
 export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
-  if (request.method === "POST") {
+  // Handle CORS preflight
+  if (request.method === "OPTIONS") {
+    return new Response(null, { status: 204, headers: corsHeaders })
+  }
+
+  // POST: save feedback
+  if (request.method === "POST" || request.method === "post") {
     try {
       const body = (await request.json()) as {
         rating?: string
@@ -17,7 +28,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
       }
 
       if (!body.rating) {
-        return Response.json({ error: "rating is required" }, { status: 400 })
+        return Response.json({ error: "rating is required" }, { status: 400, headers: corsHeaders })
       }
 
       await env.DB.prepare(
@@ -36,11 +47,11 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
         )
         .run()
 
-      return Response.json({ ok: true })
+      return Response.json({ ok: true }, { headers: corsHeaders })
     } catch (e) {
       return Response.json(
         { error: "Failed to save feedback", detail: String(e) },
-        { status: 500 }
+        { status: 500, headers: corsHeaders }
       )
     }
   }
@@ -58,5 +69,6 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
   return Response.json({
     total_feedback: total?.total || 0,
     by_rating: stats.results,
-  })
+    debug_method: request.method,
+  }, { headers: corsHeaders })
 }
