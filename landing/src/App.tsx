@@ -436,7 +436,7 @@ export default function App() {
             </motion.div>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, delay: 0.6 }}>
               <div style={{ display: "flex", gap: "0.625rem", marginTop: "1.5rem", flexWrap: "wrap" }}>
-                {["Claude Code", "OpenAI Codex CLI", "Cursor", "Kiro"].map((name) => (
+                {["Claude Code", "OpenAI Codex CLI", "Cursor", "Kiro", "CodeBuddy", "OpenClaw", "Google Antigravity", "OpenCode", "VSCode Copilot"].map((name) => (
                   <div key={name} className="platform-pill">{name}</div>
                 ))}
               </div>

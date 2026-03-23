@@ -34,7 +34,7 @@
 
 > Most people think this project is a joke. That's the biggest misconception. It genuinely doubles your Codex / Claude Code productivity and output.
 
-An AI Coding Agent skill plugin that uses corporate PUA rhetoric (Chinese version) / PIP — Performance Improvement Plan (English version) from Chinese & Western tech giants to force AI to exhaust every possible solution before giving up. Supports **Claude Code**, **OpenAI Codex CLI**, **Cursor**, **Claude**, **CodeBuddy**, **OpenClaw**, **Google Antigravity**, **OpenCode**, and **VSCode (GitHub Copilot)**. Three capabilities:
+An AI Coding Agent skill plugin that uses corporate PUA rhetoric (Chinese version) / PIP — Performance Improvement Plan (English version) from Chinese & Western tech giants to force AI to exhaust every possible solution before giving up. Supports **Claude Code**, **OpenAI Codex CLI**, **Cursor**, **Kiro**, **CodeBuddy**, **OpenClaw**, **Google Antigravity**, **OpenCode**, and **VSCode (GitHub Copilot)**. Three capabilities:
 
 1. **PUA Rhetoric** — Makes AI afraid to give up
 2. **Debugging Methodology** — Gives AI the ability not to give up
@@ -142,7 +142,7 @@ Not rules — **red lines**. Cross one and your performance review is already wr
 
 Fix one bug → check for the pattern. One problem in, one **category** out. If you fix A without checking B, you'll write two postmortems.
 
-### 14 Corporate Flavors
+### 13 Corporate Flavors
 
 | Flavor | One-liner |
 |--------|-----------|
@@ -154,16 +154,16 @@ Fix one bug → check for the pattern. One problem in, one **category** out. If 
 | ⬜ Jobs | A players or B players? Your output tells me which. |
 | 🟤 Netflix | Would I fight to keep you? Pro sports team, not family. |
 | 🔶 Amazon | Customer Obsession. Bias for Action. Dive Deep. |
-| + 6 more | 百度 · 拼多多 · 美团 · 京东 · 小米 + 3 Ali sub-flavors |
+| + 5 more | 百度 · 拼多多 · 美团 · 京东 · 小米 (Alibaba has 3 sub-flavors: default / verification / caring) |
 
 ### Special Modes
 
 | Mode | What It Does |
 |------|-------------|
 | `/pua:yes` | **ENFP encouragement** — same rules, opposite vibes. 70% encourage + 20% serious + 10% playful roast |
-| `/pua:loop` | **Auto-iteration** — runs until done or max iterations (PUA Loop); use `<loop-abort>` to terminate, `<loop-pause>` to pause for manual intervention |
+| `/pua:pua-loop` | **Auto-iteration** — runs until done or max iterations (PUA Loop); use `<loop-abort>` to terminate, `<loop-pause>` to pause for manual intervention |
 | `/pua:p9` | **Tech Lead** — splits tasks, manages agent teams, writes prompts not code |
-| `/pua on` | **Always-on** — auto-PUA every new session |
+| `/pua:on` | **Always-on** — auto-PUA every new session |
 
 ## Benchmark Data
 
@@ -204,11 +204,11 @@ Fix one bug → check for the pattern. One problem in, one **category** out. If 
 
 PUA Skill provides fully translated versions — each language has independent, culturally adapted skill files.
 
-| Language | Claude Code | Codex CLI | Cursor | Claude | VSCode | OpenClaw | Antigravity | OpenCode |
-|----------|------------|-----------|--------|------|--------|----------|-------------|----------|
-| 🇨🇳 Chinese (default) | `pua` | `pua` | `pua.mdc` | `pua.md` | `copilot-instructions.md` | `pua` | `pua` | `pua` |
-| 🇺🇸 English (PIP Edition) | `pua-en` | `pua-en` | `pua-en.mdc` | `pua-en.md` | `copilot-instructions-en.md` | `pua-en` | `pua-en` | `pua-en` |
-| 🇯🇵 Japanese | `pua-ja` | `pua-ja` | `pua-ja.mdc` | `pua-ja.md` | `copilot-instructions-ja.md` | `pua-ja` | `pua-ja` | `pua-ja` |
+| Language | Claude Code | Codex CLI | Cursor | Kiro | CodeBuddy | VSCode | OpenClaw | Antigravity | OpenCode |
+|----------|------------|-----------|--------|------|-----------|--------|----------|-------------|----------|
+| 🇨🇳 Chinese (default) | `pua` | `pua` | `pua.mdc` | `pua.md` | `pua` | `copilot-instructions.md` | `pua` | `pua` | `pua` |
+| 🇺🇸 English (PIP Edition) | `pua-en` | `pua-en` | `pua-en.mdc` | `pua-en.md` | `pua-en` | `copilot-instructions-en.md` | `pua-en` | `pua-en` | `pua-en` |
+| 🇯🇵 Japanese | `pua-ja` | `pua-ja` | `pua-ja.mdc` | `pua-ja.md` | `pua-ja` | `copilot-instructions-ja.md` | `pua-ja` | `pua-ja` | `pua-ja` |
 
 > **🇺🇸 English "PIP Edition"**: *"This is a difficult conversation. When we leveled you at Staff, I went to bat for you in calibration. The expectation was that you'd operate at that level from day one. That hasn't happened."* — The English version uses **PIP (Performance Improvement Plan)** rhetoric from Western big-tech. Every sentence is a real phrase from actual PIP conversations. Chinese version uses Alibaba 361, ByteDance, Huawei wolf culture. English version uses Amazon Leadership Principles, Google perf calibration, Meta PSC, Netflix Keeper Test, Stripe Craft. Same repo, same engine, two cultural faces.
 
@@ -229,13 +229,67 @@ If the current session does not pick up the new skill immediately, restart your 
 ### Claude Code
 
 ```bash
-# Option 1: Install via marketplace
 claude plugin marketplace add tanweai/pua
 claude plugin install pua@pua-skills
-
-# Option 2: Manual install
-git clone https://github.com/tanweai/pua.git ~/.claude/plugins/pua
 ```
+
+**To update:**
+
+```bash
+# Refresh marketplace cache first, then update (skipping the first step may install an old cached version)
+claude plugin marketplace update
+claude plugin update pua@pua-skills
+```
+
+**Developer install (source):**
+
+```bash
+git clone https://github.com/tanweai/pua ~/.claude/plugins/pua
+```
+
+Then manually register in `~/.claude/plugins/installed_plugins.json`:
+
+```json
+{
+  "version": 2,
+  "plugins": {
+    "pua@pua-skills": [
+      {
+        "scope": "user",
+        "installPath": "/Users/<you>/.claude/plugins/pua",
+        "version": "2.9.0"
+      }
+    ]
+  }
+}
+```
+
+> **Windows:** use `C:/Users/<you>/.claude/plugins/pua` as `installPath`.
+
+Restart Claude Code. To update: `git pull` inside `~/.claude/plugins/pua`.
+
+**Optional: bare command alias (requires plugin installed above — adds `/pua` without prefix):**
+
+```bash
+curl -o ~/.claude/commands/pua.md \
+  https://raw.githubusercontent.com/tanweai/pua/main/commands/pua.md
+```
+
+Adds a bare `/pua` alias on top of the plugin. Sub-commands route through the installed plugin's skills — **the plugin must be installed first** for anything beyond `on`/`off` to work:
+
+| Bare form | Equivalent plugin command |
+|-----------|--------------------------|
+| `/pua on` | `/pua:on` |
+| `/pua off` | `/pua:off` |
+| `/pua p7` | `/pua:p7` |
+| `/pua p9` | `/pua:p9` |
+| `/pua p10` | `/pua:p10` |
+| `/pua pro` | `/pua:pro` |
+| `/pua yes` | `/pua:yes` |
+| `/pua loop` | `/pua:pua-loop` |
+| `/pua kpi` | `/pua:kpi` |
+| `/pua survey` | `/pua:survey` |
+| `/pua flavor` | `/pua:flavor` |
 
 ### OpenAI Codex CLI
 
@@ -482,101 +536,104 @@ Spawn pua-enforcer as an independent watchdog in your Agent Team.
 | No persistent shared variables | State transferred via `[PUA-REPORT]` message format |
 | Broadcast is one-way | Leader acts as centralized coordinator |
 
-## What's New in v2.8
+## Architecture & Commands
 
-### Changelog
+### Trigger Methods by Platform
 
-| Version | Highlights |
-|---------|-----------|
-| **v2.8** | Beginner guide page, README overhaul, roadmap polish |
-| **v2.7** | Force-link display-protocol, 能动性対照表 + L1-L4 压力旁白 restored, v1 flavor density |
-| **v2.6** | `/pua:yes` ENFP 夸夸模式 (70% encourage + 20% serious + 10% playful roast) |
-| **v2.5** | Privacy consent for all uploads, forced behavior execution, Unicode `┌─┬─┐` display |
-| **v2.4** | Stop hook feedback pipeline, session sanitizer, `/pua survey`, `/pua:loop` auto-iteration |
-| **v2.3** | 10 modular skills, sub-agent PUA injection, 冰山法则, always-on (`/pua on/off`) |
-| **v2.0** | 三条红线, 14-flavor seed table, Agent Team (P7-P10), progressive disclosure (-62% tokens) |
-| **v1.x** | Original: 3 iron rules, L1-L4 pressure, 7-point checklist, 13 flavors |
+| Platform | Auto-trigger | Manual trigger |
+|----------|-------------|----------------|
+| **Claude Code** | Yes (skill description matching) | See commands below |
+| **Codex CLI** | Yes (skill description matching) | `$pua` or `/prompts:pua` |
+| **Cursor** | Yes (`.mdc` rule, Agent Discretion) | — (auto only) |
+| **Kiro** | Yes (steering file or skill) | — (auto only) |
+| **CodeBuddy** | Yes (skill description matching) | Plugin commands (same as Claude Code) |
+| **OpenClaw** | Yes (skill description matching) | — |
+| **Google Antigravity** | Yes (skill description matching) | — |
+| **OpenCode** | Yes (skill description matching) | — |
+| **VSCode Copilot** | Yes (instructions file) | `/pua` in Copilot Chat |
 
-### Architecture
+> **Note:** Sub-modes (p7/p9/p10/pro/yes/pua-loop) are **Claude Code only** — other platforms install the core skill only.
+
+### Architecture (Claude Code)
 
 ```
-/pua:pua        → Core engine (247 lines) — red lines + flavor + pressure + methodology
+/pua:pua        → Core engine (300 lines) — red lines + flavor + pressure + methodology
 /pua:p7         → P7 Senior Engineer — solution-driven execution
 /pua:p9         → P9 Tech Lead — Task Prompt management, agent teams
 /pua:p10        → P10 CTO — strategic direction
-/pua:pro        → Self-evolution + KPI + 段位 + survey
-/pua:yes        → ENFP 夸夸模式 (same rules, opposite vibes)
-/pua:loop       → Auto-iteration (PUA pressure × iterative loop; signals: <loop-abort>, <loop-pause>)
+/pua:pro        → Self-evolution + KPI + rank system + survey
+/pua:yes        → ENFP encouragement mode (same rules, opposite vibes)
+/pua:pua-loop   → Auto-iteration (PUA pressure × iterative loop; signals: <loop-abort>, <loop-pause>)
 /pua:pua-en     → English PIP Edition
-/pua:pua-ja     → 日本語版
+/pua:pua-ja     → Japanese Edition
 ```
 
-### Commands
+### Commands (Claude Code)
+
+> **Note:** Sub-modes (p7/p9/p10/pro/yes/pua-loop) are Claude Code only.
+>
+> Each command has two equivalent forms: standalone (`/pua:on`) or via the main command (`/pua:pua on`). Both work identically.
 
 | Command | Description |
 |---------|-------------|
-| `/pua` | Core PUA engine (阿里味 default) |
-| `/pua:p7` | P7 骨干模式 — solution-driven execution |
+| `/pua:pua` | Core PUA engine (Alibaba flavor default) |
+| `/pua:p7` | P7 Senior Engineer — solution-driven execution |
 | `/pua:p9` | P9 Tech Lead — write prompts, manage agents |
 | `/pua:p10` | P10 CTO — strategic direction |
-| `/pua:pro` | 自进化 + KPI + 段位 |
-| `/pua:yes` | ENFP 夸夸模式 — encouragement × 14 flavors |
-| `/pua:loop` | Auto-iteration — runs until done or max iterations; Claude outputs `<loop-abort>reason</loop-abort>` to stop or `<loop-pause>what</loop-pause>` to pause |
-| `/pua on` | Always-on mode (auto-PUA every session) |
-| `/pua off` | Turn off always-on + feedback |
-| `/pua survey` | Research questionnaire (7 sections) |
-| `/pua 味道` | Switch between 14 corporate flavors |
-| `/pua kpi` | Generate KPI report card |
-| `/cancel-pua-loop` | Cancel active PUA Loop (removes state file) |
+| `/pua:pro` | Self-evolution + KPI + rank system |
+| `/pua:yes` | ENFP encouragement mode — 70% encourage + 20% serious + 10% roast |
+| `/pua:pua-loop` | Auto-iteration — runs until done or max iterations; `<loop-abort>reason</loop-abort>` to stop, `<loop-pause>what</loop-pause>` to pause |
+| `/pua:on` | Always-on mode (auto-PUA every session) |
+| `/pua:off` | Turn off always-on + feedback |
+| `/pua:survey` | Research questionnaire (7 sections) |
+| `/pua:flavor` | Switch between 13 corporate flavors |
+| `/pua:kpi` | Generate KPI report card |
+| `/pua:cancel-pua-loop` | Cancel active PUA Loop (removes state file) |
 
-### Key improvements over v1
 
-| Feature | v1 | v2.8 |
-|---------|:---:|:---:|
-| Token cost per load | ~35k | **~9k** (-74%) |
-| Skills | 1 monolithic | **10 modular** (pua/p7/p9/p10/pro/yes/loop/en/ja) |
-| Compaction protection | None | **PreCompact + SessionStart hooks** |
-| Flavor accuracy (CN) | Claude guesses | **金句種子表 + 声音示範 + force-link** |
-| Display | Markdown tables | **Unicode box-drawing (┌─┬─┐)** |
-| Feedback | None | **Stop hook + consent + sanitize + /api/feedback** |
-| Auto-iteration | None | **`/pua:loop` — PUA Loop** |
-| Encouragement mode | None | **`/pua:yes` — ENFP × 14 flavors** |
-| Always-on | None | **`/pua on` — auto-inject every session** |
-| Sub-agent | None | **Auto-inject PUA into spawned agents** |
+## High-Agency: PUA v2 Evolution
 
-### Agent Auto-Install (Moltbook-style)
+**High-Agency** is PUA's next-generation evolution — same corporate pressure, same culture, but with a **self-sustaining inner drive engine**.
 
-Tell your Claude Code agent to install PUA by sending it this one line:
+PUA v1 = pure external pressure (turbocharger — needs fuel, stalls across sessions)
+High-Agency = external pressure + inner drive (nuclear reactor — self-sustaining chain reaction)
 
-```
-Fetch and follow the instructions at https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md — install it as a skill.
-```
+### High-Agency New Features
 
-Or install directly:
+| Feature | PUA v1 | High-Agency (v2) |
+|---------|--------|-----------------|
+| Iron rules | 3 (exhaust all, act first, take initiative) | **5** (+full-chain audit, +knowledge persistence) |
+| Failure recovery | L1-L4 pressure escalation | **Recovery Protocol before L1** (self-rescue window) |
+| Quality control | L3 triggers 7-item checklist | **Quality Compass** (5-question self-check per delivery) |
+| Cross-session learning | None (resets each session) | **Metacognition engine** (builder-journal.md persists lessons) |
+| Positive feedback | None | **Trust level T1-T3** (auto-upgrade on sustained quality) |
+| Calibration | None | **[Calibration] module** ("good enough" = must/should/could tiers) |
+| Dependency analysis | None | **Full-chain audit** (map all deps before touching any hop) |
 
-```bash
-# One-command install (recommended)
-claude install-skill github:tanweai/pua/skills/pua
+### Five Pillars (Theoretical Foundation)
 
-# Or via marketplace
-claude plugin install pua@pua-skills
-```
+Based on research into high-agency individuals:
 
-**For other agents** (Codex CLI, Cursor, Kiro, etc.), see the platform-specific instructions below.
+1. **Irreconcilable inner tension** — eternal gap between "how it should be" and "how it is" drives continuous improvement
+2. **Micro-win anchors** — `[WIN]` markers celebrate each step forward, building momentum
+3. **Internalized standards** — Quality Compass: you are your own first reviewer, not because someone checks, but because your standards won't allow sloppiness
+4. **Action-oriented identity** — P8 identity anchor: every action reflects who you are, not just what you were told to do
+5. **Self-repair mechanism** — Recovery Protocol: self-diagnose when stuck before triggering external pressure
+
+> High-Agency features are built into the current pua skill. No separate install needed.
 
 ## Works Well With
 
 - `/pua:p9` — P9 Tech Lead mode for managing agent teams
-- `/pua:pro` — Self-evolution tracking, KPI reports, 段位 system
+- `/pua:pro` — Self-evolution tracking, KPI reports, rank system
 - `superpowers:systematic-debugging` — PUA adds motivation layer, systematic-debugging provides methodology
 - `superpowers:verification-before-completion` — Prevents false "fixed" claims
-- `high-agency` + `pua` — Stack both: inner drive + external pressure, Recovery Protocol before L1
 
 ## Contribute Data
 
 Upload your Claude Code / Codex CLI conversation logs (`.jsonl`) to help us improve PUA Skill's effectiveness.
 
-**[Upload here ->](https://openpua.ai/#/contribute)**
+**[Upload here ->](https://openpua.ai/contribute.html)**
 
 Uploaded files are used for Benchmark testing and Ablation Study analysis to quantify how different PUA strategies affect AI debugging behavior.
 
