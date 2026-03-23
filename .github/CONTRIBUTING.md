@@ -78,7 +78,7 @@ PUA Skill 的理论基础已在我们的研究博客中系统阐述：
 - **不破坏现有功能**：修了 A 不能坏 B。PR 中如果涉及 hooks/shell 脚本，请用 `bash -n` 验证语法
 - **保持向后兼容**：如果改了 config.json 的字段结构，需要兼容旧版本 config
 - **文件域隔离**：不同 PR 不应该改同一个文件。如果发现冲突，先沟通再提交
-- **TypeScript 编译通过**：如果改了 `landing/functions/` 下的 API，确保 `npx wrangler pages deploy` 能编译成功
+- **API 改动需编译验证**：仅当改了 `landing/functions/` 下的 TypeScript API 时，需确保编译通过。Skill 文件（Markdown/Shell）不需要编译
 
 ### Commit Message 规范
 
