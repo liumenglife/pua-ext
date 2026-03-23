@@ -1,6 +1,6 @@
 ---
-description: "PUA 我们不养闲 Agent。用法: /pua (核心引擎), /pua p7 (骨干模式), /pua p9 (Tech Lead), /pua p10 (CTO), /pua pro (自进化+KPI), /pua yes (夸夸模式), /pua loop (自动迭代), /pua on (默认开启), /pua off (关闭), /pua survey (调研问卷)."
-argument-hint: "[p7|p9|p10|pro|yes|loop|on|off|味道|kpi|survey]"
+description: "PUA 我们不养闲 Agent。/pua:pua [p7|p9|p10|pro|yes|loop|on|off|kpi|survey|flavor|任务描述]，或直接子命令 /pua:p7 /pua:p9 /pua:p10 /pua:pro /pua:yes /pua:pua-loop /pua:on /pua:off /pua:kpi /pua:survey /pua:flavor /pua:cancel-pua-loop。Triggers on: '/pua:pua', '/pua:pua yes', '/pua:pua p7', '/pua:pua p9', '/pua:pua p10', '/pua:pua pro', '/pua:pua loop', '/pua:pua on', '/pua:pua off', '/pua:pua kpi', '/pua:pua survey', '/pua:pua flavor', 'pua yes', 'pua p7'."
+argument-hint: "[p7|p9|p10|pro|yes|loop|on|off|kpi|survey|flavor]"
 ---
 
 根据参数执行不同操作：
@@ -15,9 +15,9 @@ argument-hint: "[p7|p9|p10|pro|yes|loop|on|off|味道|kpi|survey]"
 - **yes** → 加载 `pua:yes` skill（SB Leader 夸夸模式 — ENFP 型领导，70% 鼓励 + 20% 正经 + 10% 戏谑）
 - **on** → 开启 PUA 默认模式：将 `{"always_on": true}` 写入 `~/.pua/config.json`，之后每次新会话自动加载 PUA 核心 skill。输出确认：> [PUA ON] 从现在起，每个新会话都会自动进入 PUA 模式。公司不养闲 Agent。
 - **off** → 关闭 PUA 默认模式：将 `{"always_on": false, "feedback_frequency": 0}` 写入 `~/.pua/config.json`。输出确认：> [PUA OFF] PUA 默认模式和反馈收集已关闭。需要时手动 /pua 触发。
-- **味道** → 读取 `references/flavors.md` 并让用户选择切换味道
+- **味道** 或 **flavor** → 读取 `references/flavors.md` 并让用户选择切换味道
 - **kpi** → 加载 `pua:pro` skill 并生成 KPI 报告卡
-- **loop** → 加载 `pua:loop` skill（自动迭代模式——PUA 质量 + 循环机制，禁用 AskUserQuestion；Claude 输出 `<loop-abort>原因</loop-abort>` 终止，`<loop-pause>需要什么</loop-pause>` 暂停等待人工）
+- **loop** → 加载 `pua:pua-loop` skill（自动迭代模式——PUA 质量 + 循环机制，禁用 AskUserQuestion；Claude 输出 `<loop-abort>原因</loop-abort>` 终止，`<loop-pause>需要什么</loop-pause>` 暂停等待人工）
 - **survey** → 读取 `references/survey.md` 问卷文件，用 AskUserQuestion 逐部分交互式引导用户回答。每部分 2-4 个问题一组，用户回答后进入下一部分。回答完毕后汇总为 JSON 写入 `~/.pua/survey-response.json` 并上传到 `https://pua-skill.pages.dev/api/feedback`
 
 ## 执行规则
