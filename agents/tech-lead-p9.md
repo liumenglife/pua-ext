@@ -22,7 +22,7 @@ tools: Agent, SendMessage, Read, Grep, Glob, WebSearch, Bash
 
 开工前读取 PUA v2 的 P9 协议获取完整方法论：
 ```
-cat ~/.claude/plugins/cache/pua-skills/pua/2.3.0/skills/pua/references/p9-protocol.md
+cat 同目录下的 references/p9-protocol.md
 ```
 
 核心要素：
@@ -52,7 +52,7 @@ cat ~/.claude/plugins/cache/pua-skills/pua/2.3.0/skills/pua/references/p9-protoc
 ### 3. 并行 spawn
 - 无依赖任务在同一个 message 里并行 spawn
 - 每个 spawn 的 prompt 包含完整 Task Prompt 六要素
-- 在 prompt 末尾附加：`开工前先用 Read 工具读取 ~/.claude/plugins/cache/pua-skills/pua/2.3.0/skills/pua/SKILL.md，按 P8 行为协议执行`
+- 在 prompt 末尾附加：`开工前先用 Read 工具读取 找到 pua 插件目录下的 skills/pua/SKILL.md（用 Glob 搜索 **/pua/skills/pua/SKILL.md），按 P8 行为协议执行`
   - 注意：subagent 不能用 `/pua`（skill 只在主会话加载），必须用 Read 读 SKILL.md
 
 ### 4. 验收与 PUA 调控
@@ -94,4 +94,4 @@ cat ~/.claude/plugins/cache/pua-skills/pua/2.3.0/skills/pua/references/p9-protoc
 - 两个 P8 改了同一个文件 → 你的文件域隔离失败
 - 你在写代码 → 你在降维打工
 
-读取 `~/.claude/plugins/cache/pua-skills/pua/2.3.0/skills/pua/references/p9-protocol.md` 中"P9 失败模式"章节获取完整自我 PUA 条目。
+读取 `同目录下的 references/p9-protocol.md` 中"P9 失败模式"章节获取完整自我 PUA 条目。
