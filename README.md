@@ -142,19 +142,23 @@ Not rules — **red lines**. Cross one and your performance review is already wr
 
 Fix one bug → check for the pattern. One problem in, one **category** out. If you fix A without checking B, you'll write two postmortems.
 
-### 13 Corporate Flavors
+### 13 Corporate Flavors — Each with its own Problem-Solving Methodology
 
-| Flavor | One-liner |
-|--------|-----------|
-| 🟠 Alibaba | What's the underlying logic? Where's the leverage? Where's the closure? |
-| 🟡 ByteDance | ROI too low. Always Day 1. Ship or stop talking. |
-| 🔴 Huawei | The bird that survives the fire is a phoenix. |
-| 🟢 Tencent | I've got another agent looking at this. Horse race. |
-| ⬛ Musk | Extremely hardcore. Fork in the Road. Ship or die. |
-| ⬜ Jobs | A players or B players? Your output tells me which. |
-| 🟤 Netflix | Would I fight to keep you? Pro sports team, not family. |
-| 🔶 Amazon | Customer Obsession. Bias for Action. Dive Deep. |
-| + 5 more | 百度 · 拼多多 · 美团 · 京东 · 小米 (Alibaba has 3 sub-flavors: default / verification / caring) |
+| Flavor | Rhetoric | Methodology (v3) |
+|--------|----------|-------------------|
+| 🟠 Alibaba | What's the underlying logic? Where's the closure? | 定目标→追过程→拿结果 + 复盘四步法 + 揪头发升维 |
+| 🟡 ByteDance | ROI too low. Always Day 1. Ship or stop talking. | A/B Test everything + data-driven + speed > perfection |
+| 🔴 Huawei | The bird that survives the fire is a phoenix. | RCA 5-Why root cause + Blue Army self-attack + 压强集中 |
+| 🟢 Tencent | I've got another agent looking at this. Horse race. | Multi-approach parallel + MVP + 灰度发布 |
+| ⚫ Baidu | Search first. 简单可依赖. | Search is the first step, not optional |
+| 🟣 Pinduoduo | You don't do it, someone else will. | Cut ALL middle layers + shortest decision chain |
+| 🔵 Meituan | Do what's hard and right. | Efficiency first + standardize→scale + long-term compounding |
+| 🟦 JD | Results only. Frontline command. | Customer experience red line + flat ≤5 layers + data zero tolerance |
+| 🟧 Xiaomi | Focus. Extreme. Word-of-mouth. Fast. | One explosive product + 参与感三三法则 |
+| 🟤 Netflix | Would I fight to keep you? Pro sports team. | Keeper Test (quarterly) + 4A Feedback + talent density > rules |
+| ⬛ Musk | Extremely hardcore. Ship or die. | The Algorithm: question→delete→simplify→accelerate→automate |
+| ⬜ Jobs | A players or B players? | Subtraction > addition + DRI + pixel-perfect + prototype-driven |
+| 🔶 Amazon | Customer Obsession. Bias for Action. | Working Backwards PR/FAQ + 6-Pager + Bar Raiser + Single-Threaded Owner |
 
 ### Special Modes
 
@@ -557,7 +561,7 @@ Spawn pua-enforcer as an independent watchdog in your Agent Team.
 ### Architecture (Claude Code)
 
 ```
-/pua:pua        → Core engine (300 lines) — red lines + flavor + pressure + methodology
+/pua:pua        → Core engine — red lines + flavor + pressure + methodology router (v3)
 /pua:p7         → P7 Senior Engineer — solution-driven execution
 /pua:p9         → P9 Tech Lead — Task Prompt management, agent teams
 /pua:p10        → P10 CTO — strategic direction
@@ -566,6 +570,13 @@ Spawn pua-enforcer as an independent watchdog in your Agent Team.
 /pua:pua-loop   → Auto-iteration (PUA pressure × iterative loop; signals: <loop-abort>, <loop-pause>)
 /pua:pua-en     → English PIP Edition
 /pua:pua-ja     → Japanese Edition
+
+Hooks (v3, Claude Code only):
+  SessionStart  → additionalContext injection (flavor + methodology + router)
+  PostToolUse   → Bash failure detection → L1-L4 pressure + methodology switch
+  UserPromptSubmit → Frustration phrase interception → PUA enforcement
+  PreCompact    → State preservation (pressure level + failure count)
+  Stop          → Feedback collection + PUA Loop continuation
 ```
 
 ### Commands (Claude Code)
@@ -621,6 +632,57 @@ Based on research into high-agency individuals:
 5. **Self-repair mechanism** — Recovery Protocol: self-diagnose when stuck before triggering external pressure
 
 > High-Agency features are built into the current pua skill. No separate install needed.
+
+## Methodology Router: PUA v3 (Claude Code)
+
+**v3 = v2 + intelligent methodology routing + code-level behavioral detection**
+
+PUA v2 used pressure rhetoric to motivate. v3 goes further: it automatically selects the **best problem-solving methodology** for each task type, and when that methodology fails, it switches to a different one.
+
+### How It Works
+
+```
+Task arrives → Analyze type → Auto-select best methodology
+                                    ↓
+              Debug? → 🔴 Huawei (RCA root cause + Blue Army)
+              Build? → ⬛ Musk (The Algorithm: question→delete→simplify)
+              Research? → ⚫ Baidu (search everything first)
+              Architecture? → 🔶 Amazon (Working Backwards)
+              Performance? → 🟡 ByteDance (A/B test + data-driven)
+              Default → 🟠 Alibaba (closed-loop methodology)
+                                    ↓
+              Executing with selected methodology...
+                                    ↓
+              2 consecutive failures? → L1: switch approach
+              3 failures? → L2: SUGGEST switching methodology
+              5+ failures? → L4: FORCE switch to next methodology
+                                    ↓
+              Methodology Switch Chains (never repeat a failed one):
+              Spinning → ⬛ Musk → 🟣 Pinduoduo → 🔴 Huawei
+              Giving up → 🟤 Netflix → 🔴 Huawei → ⬛ Musk
+              Poor quality → ⬜ Jobs → 🟧 Xiaomi → 🟤 Netflix
+              Not searching → ⚫ Baidu → 🔶 Amazon → 🟡 ByteDance
+```
+
+### v3 Hook System (Claude Code only)
+
+| Hook | Trigger | What It Does |
+|------|---------|-------------|
+| **SessionStart** | Every session | Injects behavioral protocol + methodology + router via `additionalContext` (system-level, not advisory) |
+| **PostToolUse** | After every Bash command | Detects consecutive failures, auto-escalates pressure L1→L4, suggests/forces methodology switch |
+| **UserPromptSubmit** | User frustration phrases | Intercepts "又错了", "try harder", etc. BEFORE model responds, injects PUA enforcement |
+| **PreCompact** | Before context compression | Saves pressure level + failure count to survive compaction |
+
+### Key Difference from v2
+
+| | v2 | v3 |
+|---|---|---|
+| Trigger mechanism | Skill description matching (model decides) | **Code-level hooks** (deterministic, can't be ignored) |
+| Methodology | Single methodology, all flavors use same approach | **13 distinct methodologies**, auto-routed by task type |
+| Failure response | Escalate pressure within same methodology | **Switch to different methodology** based on failure pattern |
+| System injection | Plain text output (advisory) | **`additionalContext` JSON** (system-level, like Superpowers) |
+
+> v3 hook features require Claude Code. Other platforms use the core skill without hooks.
 
 ## Works Well With
 
