@@ -14,9 +14,11 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
     return Response.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  // Detect POST: check Content-Type for multipart (custom domain may rewrite method to GET)
+  // Detect upload: JSON with file_data (base64) or multipart form
   const contentType = request.headers.get("content-type") || ""
-  const isUpload = contentType.includes("multipart/form-data") || request.method === "POST"
+  const isJsonUpload = contentType.includes("application/json")
+  const isMultipartUpload = contentType.includes("multipart/form-data")
+  const isUpload = isJsonUpload || isMultipartUpload || request.method === "POST"
 
   if (!isUpload) {
     // GET: list user's uploads
@@ -28,25 +30,55 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
 
   // POST: upload file
   try {
-    const formData = await request.formData()
-    const file = formData.get("file") as File | null
-    const wechatId = formData.get("wechat_id") as string | null
+    let raw: string
+    let fileName: string
+    let wechatId: string
+    let originalSize: number
 
-    if (!file) {
-      return Response.json({ error: "No file provided" }, { status: 400 })
+    if (isJsonUpload) {
+      // JSON body with base64 file_data (workaround for Cloudflare custom domain stripping multipart body)
+      const body = await request.json() as { file_name?: string; file_data?: string; wechat_id?: string }
+      if (!body.file_data || !body.file_name) {
+        return Response.json({ error: "file_name and file_data are required" }, { status: 400 })
+      }
+      if (!body.wechat_id?.trim()) {
+        return Response.json({ error: "WeChat ID is required" }, { status: 400 })
+      }
+      if (!body.file_name.endsWith(".jsonl")) {
+        return Response.json({ error: "Only .jsonl files are accepted" }, { status: 400 })
+      }
+      // Decode base64
+      const binaryStr = atob(body.file_data)
+      raw = new TextDecoder().decode(Uint8Array.from(binaryStr, c => c.charCodeAt(0)))
+      fileName = body.file_name
+      wechatId = body.wechat_id.trim()
+      originalSize = raw.length
+    } else {
+      // Multipart form data (original path)
+      const formData = await request.formData()
+      const file = formData.get("file") as File | null
+      const wid = formData.get("wechat_id") as string | null
+      if (!file) {
+        return Response.json({ error: "No file provided" }, { status: 400 })
+      }
+      if (!wid?.trim()) {
+        return Response.json({ error: "WeChat ID is required" }, { status: 400 })
+      }
+      if (!file.name.endsWith(".jsonl")) {
+        return Response.json({ error: "Only .jsonl files are accepted" }, { status: 400 })
+      }
+      if (file.size > 50 * 1024 * 1024) {
+        return Response.json({ error: "File too large (max 50MB)" }, { status: 400 })
+      }
+      raw = await file.text()
+      fileName = file.name
+      wechatId = wid.trim()
+      originalSize = file.size
     }
-    if (!wechatId?.trim()) {
-      return Response.json({ error: "WeChat ID is required" }, { status: 400 })
-    }
-    if (!file.name.endsWith(".jsonl")) {
-      return Response.json({ error: "Only .jsonl files are accepted" }, { status: 400 })
-    }
-    if (file.size > 50 * 1024 * 1024) {
+
+    if (originalSize > 50 * 1024 * 1024) {
       return Response.json({ error: "File too large (max 50MB)" }, { status: 400 })
     }
-
-    // Sanitize before storing (3-layer: blacklist + K=V + entropy)
-    const raw = await file.text()
     let sanitized: string
     try {
       sanitized = sanitize(raw)
@@ -55,7 +87,7 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
     }
 
     // Upload sanitized content to R2
-    const key = `${session.login}/${Date.now()}-${file.name}`
+    const key = `${session.login}/${Date.now()}-${fileName}`
     await env.UPLOADS.put(key, sanitized, {
       httpMetadata: { contentType: "application/jsonl" },
       customMetadata: {
@@ -69,16 +101,16 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
     const sanitizedSize = new TextEncoder().encode(sanitized).byteLength
     await env.DB.prepare(
       "INSERT INTO uploads (github_id, github_login, wechat_id, file_key, file_name, file_size) VALUES (?, ?, ?, ?, ?, ?)"
-    ).bind(session.id, session.login, wechatId.trim(), key, file.name, sanitizedSize).run()
+    ).bind(session.id, session.login, wechatId, key, fileName, sanitizedSize).run()
 
     // Send email notification (fire-and-forget)
-    const sizeMB = (file.size / 1024 / 1024).toFixed(2)
+    const sizeMB = (originalSize / 1024 / 1024).toFixed(2)
     const emailBody = [
       `New PUA Skill data upload:`,
       ``,
       `GitHub: ${session.login} (${session.id})`,
-      `WeChat: ${wechatId.trim()}`,
-      `File: ${file.name} (${sizeMB} MB)`,
+      `WeChat: ${wechatId}`,
+      `File: ${fileName} (${sizeMB} MB)`,
       `R2 Key: ${key}`,
       `Time: ${new Date().toISOString()}`,
     ].join("\n")
@@ -89,12 +121,12 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
       body: JSON.stringify({
         personalizations: [{ to: [{ email: "xsser.w@gmail.com", name: "PUA Admin" }] }],
         from: { email: "noreply@pua-skill.pages.dev", name: "PUA Skill Upload" },
-        subject: `[PUA Upload] ${session.login} uploaded ${file.name}`,
+        subject: `[PUA Upload] ${session.login} uploaded ${fileName}`,
         content: [{ type: "text/plain", value: emailBody }],
       }),
     }).catch(() => {})
 
-    return Response.json({ ok: true, key, file_name: file.name, file_size: file.size })
+    return Response.json({ ok: true, key, file_name: fileName, file_size: originalSize })
   } catch (e) {
     return Response.json({ error: "Upload failed: " + String(e) }, { status: 500 })
   }

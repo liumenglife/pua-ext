@@ -282,7 +282,12 @@ document.getElementById('uploadForm').addEventListener('submit',function(e){
   fd.append('file',file);
   fd.append('wechat_id',wechat);
 
-  fetch('/api/upload',{method:'POST',body:fd,credentials:'same-origin'}).then(function(r){return r.json()}).then(function(d){
+  // Read file as base64 and send as JSON (avoids Cloudflare custom domain stripping POST body)
+  var reader=new FileReader();
+  reader.onload=function(){
+    var base64=reader.result.toString().split(',')[1];
+    var payload=JSON.stringify({file_name:file.name,file_data:base64,wechat_id:wechat});
+    fetch('/api/upload',{method:'POST',body:payload,headers:{'Content-Type':'application/json'},credentials:'same-origin'}).then(function(r){return r.json()}).then(function(d){
     if(d.ok){
       msg.className='msg msg-ok';msg.textContent=t('上传成功！文件：','Upload successful! File: ')+d.file_name;
       document.getElementById('fileInput').value='';
@@ -296,6 +301,8 @@ document.getElementById('uploadForm').addEventListener('submit',function(e){
     btn.disabled=false;
     btn.querySelector('.lang-i.show').textContent=t('上传','Upload');
   });
+  };
+  reader.readAsDataURL(file);
 });
 </script>
 </body>
