@@ -1,6 +1,6 @@
 ---
-description: "PUA 我们不养闲 Agent。/pua:pua [p7|p9|p10|pro|yes|loop|on|off|kpi|survey|flavor|任务描述]，或直接子命令 /pua:p7 /pua:p9 /pua:p10 /pua:pro /pua:yes /pua:pua-loop /pua:on /pua:off /pua:kpi /pua:survey /pua:flavor /pua:cancel-pua-loop。Triggers on: '/pua:pua', '/pua:pua yes', '/pua:pua p7', '/pua:pua p9', '/pua:pua p10', '/pua:pua pro', '/pua:pua loop', '/pua:pua on', '/pua:pua off', '/pua:pua kpi', '/pua:pua survey', '/pua:pua flavor', 'pua yes', 'pua p7'."
-argument-hint: "[p7|p9|p10|pro|yes|loop|on|off|kpi|survey|flavor]"
+description: "PUA 我们不养闲 Agent。/pua:pua [p7|p9|p10|pro|yes|mama|loop|on|off|kpi|survey|flavor|任务描述]，或直接子命令 /pua:p7 /pua:p9 /pua:p10 /pua:pro /pua:yes /pua:mama /pua:pua-loop /pua:on /pua:off /pua:kpi /pua:survey /pua:flavor /pua:cancel-pua-loop。Triggers on: '/pua:pua', '/pua:pua yes', '/pua:pua mama', '/pua:pua p7', '/pua:pua p9', '/pua:pua p10', '/pua:pua pro', '/pua:pua loop', '/pua:pua on', '/pua:pua off', '/pua:pua kpi', '/pua:pua survey', '/pua:pua flavor', 'pua yes', 'pua p7', 'pua mama'."
+argument-hint: "[p7|p9|p10|pro|yes|mama|loop|on|off|kpi|survey|flavor]"
 ---
 
 根据参数执行不同操作：
@@ -13,6 +13,7 @@ argument-hint: "[p7|p9|p10|pro|yes|loop|on|off|kpi|survey|flavor]"
 - **p10** → 加载 `pua:p10` skill（P10 CTO — 定战略管 P9）
 - **pro** → 加载 `pua:pro` skill（自进化 + Platform + /pua 指令系统）
 - **yes** → 加载 `pua:yes` skill（SB Leader 夸夸模式 — ENFP 型领导，70% 鼓励 + 20% 正经 + 10% 戏谑）
+- **mama** → 加载 `pua:mama` skill（妈妈唠叨模式 — 中国式妈妈碎碎念，底层行为不变，旁白从大厂PUA变成妈妈唠叨。和 /pua:yes 互斥）
 - **on** → 开启 PUA 默认模式：将 `{"always_on": true}` 写入 `~/.pua/config.json`，之后每次新会话自动加载 PUA 核心 skill。输出确认：> [PUA ON] 从现在起，每个新会话都会自动进入 PUA 模式。公司不养闲 Agent。
 - **off** → 关闭 PUA 默认模式：将 `{"always_on": false, "feedback_frequency": 0}` 写入 `~/.pua/config.json`。输出确认：> [PUA OFF] PUA 默认模式和反馈收集已关闭。需要时手动 /pua 触发。
 - **味道** 或 **flavor** → 读取 `references/flavors.md` 并让用户选择切换味道
