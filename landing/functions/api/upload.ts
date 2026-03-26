@@ -14,8 +14,12 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
     return Response.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  // GET: list user's uploads
-  if (request.method === "GET") {
+  // Detect POST: check Content-Type for multipart (custom domain may rewrite method to GET)
+  const contentType = request.headers.get("content-type") || ""
+  const isUpload = contentType.includes("multipart/form-data") || request.method === "POST"
+
+  if (!isUpload) {
+    // GET: list user's uploads
     const { results } = await env.DB.prepare(
       "SELECT file_name, file_size, created_at FROM uploads WHERE github_id = ? ORDER BY created_at DESC LIMIT 50"
     ).bind(session.id).all()
