@@ -37,7 +37,19 @@ export const onRequest: PagesFunction<Env> = async ({ request, env }) => {
 
     if (isJsonUpload) {
       // JSON body with base64 file_data (workaround for Cloudflare custom domain stripping multipart body)
-      const body = await request.json() as { file_name?: string; file_data?: string; wechat_id?: string }
+      // Guard: read as text first — if body is empty (POST→GET rewrite strips body), return 400 instead of crashing
+      const rawText = await request.text()
+      if (!rawText || !rawText.trim()) {
+        return Response.json({
+          error: "Empty request body — the upload was likely intercepted by a proxy that stripped the POST body. Try refreshing and uploading again, or report this to the admin."
+        }, { status: 400 })
+      }
+      let body: { file_name?: string; file_data?: string; wechat_id?: string }
+      try {
+        body = JSON.parse(rawText)
+      } catch (parseErr) {
+        return Response.json({ error: "Invalid JSON body: " + String(parseErr) }, { status: 400 })
+      }
       if (!body.file_data || !body.file_name) {
         return Response.json({ error: "file_name and file_data are required" }, { status: 400 })
       }
