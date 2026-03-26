@@ -165,6 +165,7 @@ Fix one bug → check for the pattern. One problem in, one **category** out. If 
 | Mode | What It Does |
 |------|-------------|
 | `/pua:yes` | **ENFP encouragement** — same rules, opposite vibes. 70% encourage + 20% serious + 10% playful roast |
+| `/pua:mama` | **Chinese mom nagging** — same rules, mom-style rhetoric. "妈跟你说了多少遍了！" |
 | `/pua:pua-loop` | **Auto-iteration** — runs until done or max iterations (PUA Loop); use `<loop-abort>` to terminate, `<loop-pause>` to pause for manual intervention |
 | `/pua:p9` | **Tech Lead** — splits tasks, manages agent teams, writes prompts not code |
 | `/pua:on` | **Always-on** — auto-PUA every new session |
@@ -290,6 +291,7 @@ Adds a bare `/pua` alias on top of the plugin. Sub-commands route through the in
 | `/pua p10` | `/pua:p10` |
 | `/pua pro` | `/pua:pro` |
 | `/pua yes` | `/pua:yes` |
+| `/pua mama` | `/pua:mama` |
 | `/pua loop` | `/pua:pua-loop` |
 | `/pua kpi` | `/pua:kpi` |
 | `/pua survey` | `/pua:survey` |
@@ -567,6 +569,8 @@ Spawn pua-enforcer as an independent watchdog in your Agent Team.
 /pua:p10        → P10 CTO — strategic direction
 /pua:pro        → Self-evolution + KPI + rank system + survey
 /pua:yes        → ENFP encouragement mode (same rules, opposite vibes)
+/pua:mama       → Chinese mom nagging mode (same rules, mom-style rhetoric)
+/pua:shot       → v2 concentrated single-file (449 lines, zero deps, full context injection)
 /pua:pua-loop   → Auto-iteration (PUA pressure × iterative loop; signals: <loop-abort>, <loop-pause>)
 /pua:pua-en     → English PIP Edition
 /pua:pua-ja     → Japanese Edition
@@ -593,6 +597,8 @@ Hooks (v3, Claude Code only):
 | `/pua:p10` | P10 CTO — strategic direction |
 | `/pua:pro` | Self-evolution + KPI + rank system |
 | `/pua:yes` | ENFP encouragement mode — 70% encourage + 20% serious + 10% roast |
+| `/pua:mama` | Chinese mom nagging mode — same core rules, mom-style rhetoric |
+| `/pua:shot` | v2 concentrated single-file — 449 lines, zero deps, for sub-agent injection |
 | `/pua:pua-loop` | Auto-iteration — runs until done or max iterations; `<loop-abort>reason</loop-abort>` to stop, `<loop-pause>what</loop-pause>` to pause |
 | `/pua:on` | Always-on mode (auto-PUA every session) |
 | `/pua:off` | Turn off always-on + feedback |

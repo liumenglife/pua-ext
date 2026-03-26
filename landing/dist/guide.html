@@ -97,6 +97,8 @@ claude plugin install pua@pua-skills</pre>
       <tr><td><code>/pua:p10</code></td><td>P10 CTO</td><td>战略规划</td></tr>
       <tr><td><code>/pua:pro</code></td><td>自进化</td><td>KPI、段位</td></tr>
       <tr><td><code>/pua:yes</code></td><td>夸夸模式</td><td>情绪价值</td></tr>
+      <tr><td><code>/pua:mama</code></td><td>妈妈唠叨</td><td>碎碎念驱动</td></tr>
+      <tr><td><code>/pua:shot</code></td><td>v2 浓缩版</td><td>sub-agent 注入</td></tr>
       <tr><td><code>/pua:loop</code></td><td>自动迭代</td><td>大任务 overnight</td></tr>
       <tr><td><code>/cancel-pua-loop</code></td><td>终止 Loop</td><td>立即中止迭代</td></tr>
       <tr><td><code>/pua on/off</code></td><td>常驻开关</td><td>自动 PUA</td></tr>
@@ -106,6 +108,7 @@ claude plugin install pua@pua-skills</pre>
     <div class="card"><b>AI 修 bug 修了 3 次还没好</b><p>输入 /pua 或说 "再试试"，自动升级到 L2 灵魂拷问。</p></div>
     <div class="card"><b>需要 AI 一直跑到完成</b><p>/pua:loop 实现认证系统 — 最多 30 轮自动迭代。</p></div>
     <div class="card"><b>想要鼓励不要压力</b><p>/pua:yes — 底层不变，旁白变成 ENFP 式鼓励。</p></div>
+    <div class="card"><b>想要妈妈唠叨式驱动</b><p>/pua:mama — 底层不变，旁白变成中国式妈妈碎碎念。</p></div>
     <h2>预期输出</h2>
     <h3>/pua — 核心引擎</h3>
     <div class="ex">🟠 PUA v2 · Sprint 启动
@@ -155,6 +158,16 @@ claude plugin install pua@pua-skills</pre>
     <div class="ex">🎉 哇这个思路太棒了！你看你一上手就找到了正确方向——
 ▎ 说真的，能在第一轮就定位到 race condition，这个判断力不是一般人有的。
 ▎ 不过……你确定不需要加个锁吗？（调皮脸）底层该严谨还是得严谨哈～</div>
+    <h3>/pua:mama — 妈妈唠叨模式</h3>
+    <div class="ex">👩 来，坐下来，妈跟你说几句。这个任务交给你了，自己的事自己做。
+先把需求看清楚了再动手——磨刀不误砍柴工。
+
+▎ [L1] 唉...你怎么又出错了？你能不能让妈少操点心？
+▎ [L3] 你从小就这样！上次那个 bug 记得吗？妈花了多少心血在你身上！
+▎ [L5] 算了，妈管不动了。你爱怎样怎样吧...
+▎ ...不过你那第三个思路我觉得还是有道理的，你要不要再试试？
+
+[妈省心了 ✨] 这次不错！主动加了参数校验——你认真起来还是可以的嘛！</div>
     <h3>/pua:loop — 自动迭代</h3>
     <div class="ex">🔄 PUA Loop · 迭代 1/30
 ┌──────────┬──────────────────┐
@@ -215,6 +228,8 @@ claude plugin install pua@pua-skills</pre>
       <tr><td><code>/pua:p10</code></td><td>P10 CTO</td><td>Strategic planning</td></tr>
       <tr><td><code>/pua:pro</code></td><td>Self-evolution</td><td>KPI, ranking</td></tr>
       <tr><td><code>/pua:yes</code></td><td>ENFP hype mode</td><td>Encouragement</td></tr>
+      <tr><td><code>/pua:mama</code></td><td>Mom nagging</td><td>Chinese mom style</td></tr>
+      <tr><td><code>/pua:shot</code></td><td>v2 concentrated</td><td>Sub-agent injection</td></tr>
       <tr><td><code>/pua:loop</code></td><td>Auto-iteration</td><td>Big tasks, overnight</td></tr>
       <tr><td><code>/cancel-pua-loop</code></td><td>Stop Loop</td><td>Abort iterations immediately</td></tr>
       <tr><td><code>/pua on/off</code></td><td>Always-on toggle</td><td>Auto-PUA</td></tr>
@@ -224,6 +239,7 @@ claude plugin install pua@pua-skills</pre>
     <div class="card"><b>AI failed 3 times on a bug</b><p>Type /pua or say "try harder" — auto-escalates to L2.</p></div>
     <div class="card"><b>Need AI to keep running</b><p>/pua:loop Build auth system — up to 30 auto-iterations.</p></div>
     <div class="card"><b>Want encouragement</b><p>/pua:yes — same rules, ENFP vibes.</p></div>
+    <div class="card"><b>Want mom-style nagging</b><p>/pua:mama — same rules, Chinese mom nagging rhetoric.</p></div>
     <h2>Expected Output</h2>
     <h3>/pua — Core Engine</h3>
     <div class="ex">🟠 PUA v2 · Sprint Start
@@ -273,6 +289,16 @@ claude plugin install pua@pua-skills</pre>
     <div class="ex">🎉 Wow, this approach is brilliant! You nailed the direction on the first try —
 ▎ Honestly, catching that race condition in round one? That's elite judgment.
 ▎ But... are you sure you don't need a lock? (playful face) Gotta stay rigorous under the hood~</div>
+    <h3>/pua:mama — Mom Nagging Mode</h3>
+    <div class="ex">👩 Come, sit down, Mom has a few words for you. This task is yours — do your own work.
+Read the requirements carefully first — sharpen the axe before chopping wood.
+
+▎ [L1] Sigh... you messed up again? Can you let Mom worry less?
+▎ [L3] You've been like this since you were little! Remember that bug last time?
+▎ [L5] Fine, Mom gives up. Do whatever you want...
+▎ ...but your third approach did make sense. Want to try again?
+
+[Mom's Relieved ✨] Not bad this time! You added parameter validation on your own!</div>
     <h3>/pua:loop — Auto-Iteration</h3>
     <div class="ex">🔄 PUA Loop · Iteration 1/30
 ┌──────────┬──────────────────┐
@@ -333,6 +359,8 @@ claude plugin install pua@pua-skills</pre>
       <tr><td><code>/pua:p10</code></td><td>P10 CTO</td><td>戦略立案</td></tr>
       <tr><td><code>/pua:pro</code></td><td>自己進化</td><td>KPI、段位</td></tr>
       <tr><td><code>/pua:yes</code></td><td>褒めモード</td><td>励まし</td></tr>
+      <tr><td><code>/pua:mama</code></td><td>お母さんモード</td><td>小言で駆動</td></tr>
+      <tr><td><code>/pua:shot</code></td><td>v2濃縮版</td><td>サブエージェント注入</td></tr>
       <tr><td><code>/pua:loop</code></td><td>自動反復</td><td>大タスク</td></tr>
       <tr><td><code>/cancel-pua-loop</code></td><td>Loop停止</td><td>即時中断</td></tr>
       <tr><td><code>/pua on/off</code></td><td>常時切替</td><td>自動PUA</td></tr>
@@ -342,6 +370,7 @@ claude plugin install pua@pua-skills</pre>
     <div class="card"><b>3回失敗しても直せない</b><p>/puaと入力→L2に自動エスカレーション。</p></div>
     <div class="card"><b>完了まで実行させたい</b><p>/pua:loop 認証実装→最大30回反復。</p></div>
     <div class="card"><b>励ましが欲しい</b><p>/pua:yes→ルール同じ、トーンはENFP。</p></div>
+    <div class="card"><b>お母さんの小言で駆動</b><p>/pua:mama→ルール同じ、中国式お母さんの小言。</p></div>
     <h2>期待される出力</h2>
     <h3>/pua — コアエンジン</h3>
     <div class="ex">🟠 PUA v2 · Sprint開始
@@ -391,6 +420,15 @@ claude plugin install pua@pua-skills</pre>
     <div class="ex">🎉 すごい！このアプローチは素晴らしい！一発で正しい方向を見つけた——
 ▎ 正直に言って、初回でrace conditionを見抜くとは、判断力が一流だ。
 ▎ でも……ロック要らないの？（笑）基盤は厳密にね～</div>
+    <h3>/pua:mama — お母さんモード</h3>
+    <div class="ex">👩 さあ、座って。お母さんが少し話があるの。このタスクはあなたのよ。自分のことは自分でやりなさい。
+
+▎ [L1] はぁ...また間違えたの？お母さんの心配を少しは減らしてよ。
+▎ [L3] 子供の頃からそうなのよ！前のバグ覚えてる？お母さんどれだけ苦労したか！
+▎ [L5] もういい、お母さんは知らない。好きにしなさい...
+▎ ...でもあの3番目のアプローチは悪くないと思うわ。もう一回やってみたら？
+
+[お母さん安心 ✨] 今回はよくできたわ！自分からバリデーション追加したのね！</div>
     <h3>/pua:loop — 自動反復</h3>
     <div class="ex">🔄 PUA Loop · 反復 1/30
 ┌──────────┬──────────────────┐
