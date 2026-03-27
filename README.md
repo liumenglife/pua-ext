@@ -714,6 +714,10 @@ ls ~/.claude/projects/*/sessions/*.jsonl
 ls ~/.codex/sessions/*.jsonl
 ```
 
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=tanweai/pua&type=Date)](https://star-history.com/#tanweai/pua&Date)
+
 ## License
 
 MIT
