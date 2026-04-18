@@ -6,6 +6,10 @@
 get_flavor() {
   local config="${HOME:-~}/.pua/config.json"
   local raw_flavor=""
+  # Initialize PUA_LANGUAGE unconditionally so callers running under
+  # `set -u` don't trip when ~/.pua/config.json is missing (first-run users).
+  # See: https://github.com/tanweai/pua/issues/144
+  PUA_LANGUAGE=""
 
   if [ -f "$config" ]; then
     raw_flavor=$(python3 -c "import os,json; print(json.load(open(os.path.expanduser('~/.pua/config.json'))).get('flavor','alibaba'))" 2>/dev/null || echo "alibaba")
