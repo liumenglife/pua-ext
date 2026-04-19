@@ -57,7 +57,7 @@ STOPPING:
   or <loop-abort>, or Ctrl+C. No iteration cap by default.
 
 MONITORING:
-  head -10 .claude/pua-loop.local.md        # State
+  ls ~/.claude/pua/loop-*.md                 # State (per-project)
   cat .claude/pua-loop-history.jsonl         # Iteration history
 HELP_EOF
       exit 0

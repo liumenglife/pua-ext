@@ -34,11 +34,10 @@ if [[ "$HOOK_EVENT" == "SubagentStop" ]] || [[ -n "$PARENT_SESSION" ]]; then
 fi
 
 # ═══════════════════════════════════════════════════════════════
-# State file resolution (v3.1)
-# 优先 $HOME/.claude/pua/loop-active.md（绝对路径，跨 cwd 可找）
-# 兼容 .claude/pua-loop.local.md（旧 loop state 仍能完成）
-# 注意：CLAUDE_CODE_SESSION_ID 环境变量在 Claude Code 中不注入，
-# 所以无法按 session_id 命名文件——改用单实例固定名 loop-active.md
+# State file resolution (v3.2)
+# 用 cwd 哈希命名：$HOME/.claude/pua/loop-<hash>.md（每个项目目录独立）
+# 兼容 v3.1 单文件 loop-active.md（检查 started_cwd 匹配）
+# 兼容 legacy .claude/pua-loop.local.md
 # ═══════════════════════════════════════════════════════════════
 HOOK_SESSION_ID=$(echo "$HOOK_INPUT" | jq -r '.session_id // ""' 2>/dev/null || echo "")
 PUA_DIR="${HOME}/.claude/pua"
