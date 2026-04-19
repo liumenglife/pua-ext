@@ -114,13 +114,14 @@ if [[ -z "$PROMPT" ]]; then
 fi
 
 # Create state file
-# v3.1: 写绝对路径为主（$HOME/.claude/pua/loop-active.md），跨 cwd 可找
-# 兼容：同时写 legacy 相对路径，老 hook 或用户工具链仍能访问
+# v3.2: 用 cwd 哈希命名状态文件，解决多目录 loop 实例互相覆盖的 bug
+# 每个项目目录有独立的 loop-<hash>.md，不再共享单一 loop-active.md
 PUA_HOME_DIR="${HOME}/.claude/pua"
 mkdir -p "$PUA_HOME_DIR"
 mkdir -p .claude
 
-ABS_STATE="${PUA_HOME_DIR}/loop-active.md"
+CWD_HASH=$(printf '%s' "$(pwd)" | md5sum 2>/dev/null | cut -c1-8 || printf '%s' "$(pwd)" | md5 2>/dev/null | cut -c1-8 || echo "default")
+ABS_STATE="${PUA_HOME_DIR}/loop-${CWD_HASH}.md"
 LEGACY_STATE=".claude/pua-loop.local.md"
 
 # YAML quoting

@@ -42,11 +42,23 @@ fi
 # ═══════════════════════════════════════════════════════════════
 HOOK_SESSION_ID=$(echo "$HOOK_INPUT" | jq -r '.session_id // ""' 2>/dev/null || echo "")
 PUA_DIR="${HOME}/.claude/pua"
-ABS_STATE_FILE="${PUA_DIR}/loop-active.md"
+CWD_HASH=$(printf '%s' "$(pwd)" | md5sum 2>/dev/null | cut -c1-8 || printf '%s' "$(pwd)" | md5 2>/dev/null | cut -c1-8 || echo "default")
+ABS_STATE_FILE="${PUA_DIR}/loop-${CWD_HASH}.md"
+LEGACY_ABS_STATE_FILE="${PUA_DIR}/loop-active.md"
 LEGACY_STATE_FILE=".claude/pua-loop.local.md"
 
 if [[ -f "$ABS_STATE_FILE" ]]; then
   RALPH_STATE_FILE="$ABS_STATE_FILE"
+elif [[ -f "$LEGACY_ABS_STATE_FILE" ]]; then
+  # v3.1 兼容：旧版单文件，检查 started_cwd 是否匹配当前目录
+  LEGACY_CWD=$(sed -n '/^---$/,/^---$/{ /^---$/d; p; }' "$LEGACY_ABS_STATE_FILE" | grep '^started_cwd:' | sed 's/started_cwd: *//' | sed 's/^"\(.*\)"$/\1/' || true)
+  if [[ "$LEGACY_CWD" == "$(pwd)" ]] || [[ -z "$LEGACY_CWD" ]]; then
+    RALPH_STATE_FILE="$LEGACY_ABS_STATE_FILE"
+  elif [[ -f "$LEGACY_STATE_FILE" ]]; then
+    RALPH_STATE_FILE="$LEGACY_STATE_FILE"
+  else
+    exit 0
+  fi
 elif [[ -f "$LEGACY_STATE_FILE" ]]; then
   RALPH_STATE_FILE="$LEGACY_STATE_FILE"
 else
