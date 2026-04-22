@@ -437,22 +437,38 @@ curl -o .agent/skills/pua/SKILL.md \
 
 ### OpenCode
 
-OpenCode uses the same AgentSkills open standard (SKILL.md). Zero modifications needed:
+OpenCode supports native Plugin system (TypeScript/Bun). Installation provides 6 Hook capabilities + command router.
+
+**Install:**
 
 ```bash
-# Global install (all projects)
-mkdir -p ~/.config/opencode/skills/pua
-curl -o ~/.config/opencode/skills/pua/SKILL.md \
-  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md
+# Option 1: Clone and install dependencies
+git clone https://github.com/tanweai/pua.git ~/.config/opencode/plugins/pua
+cd ~/.config/opencode/plugins/pua
+bun install
+
+# Option 2: Run install script (recommended)
+bash .opencode/install.sh
 ```
 
-Project-level install (current project only):
+**Restart OpenCode** to activate the plugin.
 
-```bash
-mkdir -p .opencode/skills/pua
-curl -o .opencode/skills/pua/SKILL.md \
-  https://raw.githubusercontent.com/tanweai/pua/main/skills/pua/SKILL.md
-```
+**Features:**
+- Hook system: `session.created`, `tool.execute.after`, `message.updated`, `session.idle`, `session.compacting` (6 types)
+- Commands: `/pua on`, `/pua off`, `/pua status`, `/pua p7`, `/pua p9`, `/pua flavor`, `/pua pua-loop`
+- State directory: `~/.config/opencode/pua/`
+
+**Commands:**
+
+| OpenCode command | Description |
+|------------------|-------------|
+| `/pua on` | Enable PUA main skill |
+| `/pua off` | Disable PUA |
+| `/pua status` | Show current status |
+| `/pua p7` | P7 backbone mode |
+| `/pua p9` | P9 Tech Lead mode |
+| `/pua flavor` | Switch flavor |
+| `/pua pua-loop` | Auto-iteration loop |
 
 ### VSCode (GitHub Copilot)
 
