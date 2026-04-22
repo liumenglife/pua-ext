@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/frustration-trigger.sh",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/frustration-trigger.sh\"",
             "timeout": 5
           }
         ]
@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/failure-detector.sh",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/failure-detector.sh\"",
             "timeout": 5
           }
         ]
@@ -42,7 +42,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/session-restore.sh",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/session-restore.sh\"",
             "timeout": 5
           }
         ]
@@ -52,7 +52,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/session-restore.sh",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/session-restore.sh\"",
             "timeout": 5
           }
         ]
@@ -64,11 +64,11 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/pua-loop-hook.sh"
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/pua-loop-hook.sh\""
           },
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/stop-feedback.sh",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/stop-feedback.sh\"",
             "timeout": 10
           }
         ]
@@ -80,7 +80,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/subagent-teardown.sh",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/subagent-teardown.sh\"",
             "timeout": 5
           }
         ]
