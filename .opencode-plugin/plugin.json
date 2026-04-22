@@ -1,0 +1,12 @@
+{
+  "name": "pua",
+  "version": "3.2.3",
+  "description": "Forces high-agency exhaustive problem-solving with corporate PUA pressure. Supports OpenCode native Plugin system with 25 event types.",
+  "author": {
+    "name": "探微安全实验室",
+    "url": "https://github.com/tanweai"
+  },
+  "homepage": "https://openpua.ai",
+  "repository": "https://github.com/tanweai/pua",
+  "keywords": ["pua", "motivation", "never-give-up", "alibaba", "corporate-culture", "agent-team"]
+}
