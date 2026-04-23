@@ -671,4 +671,4 @@ MIT
 
 ## Credits
 
-[探微セキュリティラボ](https://github.com/tanweai) 制作 — making AI try harder, one PUA at a time.
+[liumenglife](https://github.com/liumenglife) 制作 — making AI try harder, one PUA at a time.

@@ -3,8 +3,8 @@
     "description": "PUA Motivator for CodeBuddy -- forces AI to exhaust all solutions before giving up, using corporate PUA rhetoric from Chinese and Western tech giants",
     "version": "3.2.3",
     "owner": {
-        "name": "探微安全实验室",
-        "url": "https://github.com/tanweai"
+        "name": "liumenglife",
+        "url": "https://github.com/liumenglife"
     },
     "plugins": [
         {

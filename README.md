@@ -728,4 +728,4 @@ MIT
 
 ## Credits
 
-By [TanWei Security Lab](https://github.com/tanweai) — making AI try harder, one PUA at a time.
+By [liumenglife](https://github.com/liumenglife) — making AI try harder, one PUA at a time.
