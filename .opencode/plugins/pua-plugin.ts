@@ -244,14 +244,15 @@ export const puaPlugin: Plugin = async () => {
       return { instructions: [context] };
     },
 
-    "tool.execute.after": async ({ event }) => {
-      if (event.tool !== "Bash") return;
+    "tool.execute.after": async (input, output) => {
+      if (input.tool !== "bash" && input.tool !== "Bash") return;
 
       const config = loadConfig();
       if (!config.always_on) return;
 
-      const exitCode = event.output?.exitCode ?? 1;
-      if (exitCode === 0) {
+      const toolOutput = output.output || "";
+      const isError = /error|failed|exception|traceback|permission denied|command not found/i.test(toolOutput);
+      if (!isError) {
         saveFailureCount(0);
         return;
       }
